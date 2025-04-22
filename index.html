@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
-    <title>My Gallery 4U | Home</title>
+    <title>FRAME！ CONTEST</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,22 +18,230 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 英雄区块样式 - 用于创建全屏的黑色背景展示区
+         * - 设置黑色背景
+         * - 最小高度100vh确保占满整个视口高度
+         * - 相对定位用于内部元素的绝对定位
+         * - 隐藏溢出内容
+         * - 去除内边距
+         * - 使用flex布局使内容居中
+         * - 添加3D视角效果
+         */
+        .hero-section {
+            background-color: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+        }
+        
+        /* contest-triangle 是一个用于创建比赛标题三角形效果的样式类
+         * - 定义左移变量用于整体位移
+         * - 设置大字号和粗体字重
+         * - 使用Arial Black字体和白色文字
+         * - 使用3D变换创建透视效果
+         * - 使用flex布局排列子元素
+         */
+        .contest-triangle {
+            --shift-left: -3rem;
+            font-size: 7rem;
+            font-weight: 900;
+            font-family: 'Arial Black', sans-serif;
+            color: white;
+            text-align: left;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1200px) rotateY(-30deg) translateX(var(--shift-left));
+            display: flex;
+            gap: 2rem;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            font-size: 0.67em;
+            letter-spacing: -0.6em;
+            margin-top: 0.5rem;
+            text-shadow: 4px 4px 12px rgba(255, 255, 255, 0.2);
+            line-height: 0.6;
+            transform-origin: center;
+            opacity: 0;
+            animation: frameAnimation 0.6s ease-out forwards;
+            animation-delay: 1.2s;
+        }
+
+        .exclamation {
+            font-size: 1.9em;
+            color: white;
+            margin: 0 -1.5rem;
+            text-shadow: 4px 4px 12px rgba(255, 255, 255, 0.2);
+            align-self: flex-end;
+            transform: scaleY(1.5) translateY(1.9rem) translateX(var(--shift-left));
+        }
+
+        .slant-line {
+            position: absolute;
+            width: 35rem;
+            height: 3.5rem;
+            background: repeating-linear-gradient(
+                -45deg,
+                #000 0,
+                #000 2rem,
+                #fff 2rem,
+                #fff 4rem
+            );
+            left: calc(4.5rem + var(--shift-left));
+            top: 2rem;
+            z-index: -1;
+            transform-origin: left center;
+            animation: slantRotate 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            box-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(255, 255, 255, 0.1);
+        }
+
+
+        .main-text {
+            display: flex;
+            flex-direction: column;
+            margin-left: calc(-1.5rem + var(--shift-left));
+            transform: skewY(-5deg);
+            text-align: left;
+            align-self: flex-end;
+            margin-bottom: 0.5rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInSlide 0.6s ease-out forwards;
+            animation-delay: 1.2s;
+        }
+
+        .word {
+            display: block;
+            position: relative;
+            white-space: nowrap;
+            line-height: 0.85;
+            margin: 0;
+            transform-style: preserve-3d;
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.15);
+        }
+
+        .word-photo {
+            font-size: 1em;
+            transform: translateX(0) translateY(0);
+            text-shadow: 3px 3px 10px rgba(255, 255, 255, 0.15);
+        }
+
+        .word-film {
+            font-size: 0.9em;
+            transform: translateX(0) translateY(0);
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.12);
+        }
+
+        .word-contest {
+            font-size: 0.8em;
+            transform: translateX(0) translateY(0);
+            text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        .word-year {
+            font-size: 0.7em;
+            transform: translateX(0) translateY(0);
+            color: #FF4D00;
+            text-shadow: 0 0 15px rgba(255, 77, 0, 0.4),
+                         0 0 25px rgba(255, 77, 0, 0.2);
+        }
+
+        /* 整体发光效果 */
+        .contest-triangle::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            right: -20%;
+            bottom: -20%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* .vertical-line {
+            position: absolute;
+            width: 0.5rem;
+            height: 4rem;
+            background-color: white;
+            left: 1.5rem;
+            top: 0;
+            z-index: -1;
+        } */
+
+        @media (max-width: 768px) {
+            .contest-triangle {
+                font-size: 4rem;
+            }
+            .hero-section {
+                perspective: 800px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: skewY(-5deg) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: skewY(-5deg) translateY(0);
+            }
+        }
+
+        @keyframes slantRotate {
+            from {
+                transform: rotate(-30deg);
+            }
+            to {
+                transform: rotate(-3deg);
+            }
+        }
+
+        @keyframes frameAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) translateX(var(--shift-left)+10);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) translateX(var(--shift-left));
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    
-
-
     <div class="top-search-area">
         <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-
                         <button type="button" class="btn close-btn" data-dismiss="modal" style="font-size: 18px;"><i
                                 class="fas fa-times-circle"></i></button>
-
                         <form action="https://preview.colorlib.com/theme/alime/index.html" method="post">
                             <input type="search" name="top-search-bar" class="form-control"
                                 placeholder="Search and hit enter...">
@@ -49,15 +254,15 @@
     </div>
 
     <header class="header-area">
-
         <div class="main-header-area">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
-
                     <nav class="classy-navbar justify-content-between" id="alimeNav">
-
                         <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
-                            <h1 class="home-logo">My Gallery 4U</h1>
+                            <div class="home-logo">
+                                <div class="logo-frame">FRAME!</div>
+                                <div class="logo-contest">Photo Contest</div>
+                            </div>
                         </a>
 
                         <div class="classy-navbar-toggler">
@@ -65,497 +270,56 @@
                         </div>
 
                         <div class="classy-menu">
-
                             <div class="classycloseIcon">
                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                             </div>
 
                             <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
                                 <ul id="nav">
-                                    <li class="active"><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="gallery.html">Gallery</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li class="active"><a href="index.html">首页</a></li>
+                                    <li><a href="about.html">关于比赛</a></li>
+                                    <li><a href="current-contest.html">当前比赛</a></li>
                                 </ul>
 
                                 <div class="search-icon" data-toggle="modal" data-target="#searchModal"> <i
                                         class="fa fa-search" aria-hidden="true"></i></div>
                             </div>
-
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
     </header>
-    <ul id="social-sidebar" data-aos="fade-right" data-aos-duration="3000" style="z-index: 200">
-        <li>
-            <a class="entypo-facebook" href="#" target="_blank"><span>Facebook</span></a>
-        </li>
-        <li>
-            <a class="entypo-github" href="https://github.com/avinash201199" target="_blank"><span>Github</span></a>
-        </li>
-        <li>
-            <a class="entypo-gplus" href="https://www.quora.com/profile/Avinash-Singh-4809"
-                target="_blank"><span>Google+</span></a>
-        </li>
-        <li>
-            <a class="entypo-instagrem" href="https://www.instagram.com/my_gallery_4u"
-                target="_blank"><span>Instagram</span></a>
-        </li>
-        <li>
-            <a class="entypo-linkedin" href="https://www.linkedin.com/in/avinash-singh-071b79175/"
-                target="_blank"><span>LinkedIn</span></a>
-        </li>
-        <li>
-            <a class="entypo-twitter" href="#" target="_blank"><span>Twitter</span></a>
-        </li>
-    </ul>
 
-
-    <section class="welcome-area" data-aos="fade-right-up" data-aos-duration="3000">
-        <div class="welcome-slides owl-carousel">
-
-            <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url(img/bg-img/1.jpg);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-
-                        <div class="col-12 col-lg-8 col-xl-6">
-                            <div class="welcome-text">
-                                <h2 data-animation="bounceInUp" data-delay="100ms">Hello <br>I'm Avinash Singh</h2>
-                                <p data-animation="bounceInUp" data-delay="500ms">I photograph very instinctively. I
-                                    see how it is taken like that. I do not follow certain styles, philosophies or
-                                    teachers.</p>
-                                <div class="hero-btn-group" data-animation="bounceInUp" data-delay="900ms">
-                                    <a href="#" class="btn alime-btn mb-3 mb-sm-0 mr-4">Get a Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="single-welcome-slide bg-img bg-overlay" data-aos="fade-left" data-aos-duration="3000"
-                style="background-image: url(img/bg-img/2.jpg);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-
-                        <div class="col-12 col-lg-8 col-xl-6">
-                            <div class="welcome-text">
-                                <h2 data-animation="bounceInUp" data-delay="100ms">Hello <br>I'm Kartika</h2>
-                                <p data-animation="bounceInUp" data-delay="500ms">I photograph very instinctively. It`s
-                                    about
-                                    finding something intresting in an ordinary place... I've found it has little to do
-                                    with
-                                    the things you see and everything to do with the way you see them.
-                                </p>
-                                <div class="hero-btn-group" data-animation="bounceInUp" data-delay="900ms">
-                                    <a href="#" class="btn alime-btn mb-3 mb-sm-0 mr-4">Get a Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <div class="alime-portfolio-area section-padding-80 ">
-        <div class="container-fluid" data-aos="zoom-in" data-aos-duration="3000">
-            <div class="row">
-                <div class="col-12">
-
-                    <div class="alime-projects-menu">
-                        <div class="portfolio-menu text-center">
-                            <button class="btn active" data-filter="*">All</button>
-                            <button class="btn" data-filter=".human">Human</button>
-                            <button class="btn" data-filter=".nature">Nature</button>
-                            <button class="btn" data-filter=".country">Country</button>
-                            <button class="btn" data-filter=".video">Video</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row alime-portfolio">
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-                    data-wow-delay="100ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/image11.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/image11.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item video human mb-30 wow fadeInUp"
-                    data-wow-delay="300ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/4.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/4.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item country mb-30 wow fadeInUp"
-                    data-wow-delay="500ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/5.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/5.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-                    data-wow-delay="700ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/6.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/6.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-                    data-wow-delay="100ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/7.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/7.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item video country mb-30 wow fadeInUp"
-                    data-wow-delay="300ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/8.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/8.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-                    data-wow-delay="500ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/10.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/10.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-                    data-wow-delay="700ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/9.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/9.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-                    data-wow-delay="700ms">
-                    <div class="single-portfolio-content">
-                        <img src="my image/image10.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="my image/image10.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-                    data-wow-delay="700ms">
-                    <div class="single-portfolio-content">
-                        <img src="my image/flower.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="my image/flower.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 single_gallery_item video country mb-30 wow fadeInUp"
-                    data-wow-delay="100ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/36.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/36.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-                    data-wow-delay="300ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/37.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/37.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-                    data-wow-delay="300ms">
-                    <div class="single-portfolio-content">
-                        <img src="my image/image12.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="my image/image12.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3 single_gallery_item country mb-30 wow fadeInUp"
-                    data-wow-delay="500ms">
-                    <div class="single-portfolio-content">
-                        <img src="img/bg-img/image_new.jpg" alt="">
-                        <div class="hover-content">
-                            <a href="img/bg-img/image_new.jpg" class="portfolio-img">+</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 text-center wow fadeInUp" data-wow-delay="700ms">
-                    <a href="#" class="btn alime-btn btn-2 mt-15">View More</a>
-                </div>
+    <div class="hero-section">
+        <div class="contest-triangle">
+            <div class="vertical-text">FRAME</div>
+            <div class="exclamation">!</div> 
+            <div class="film-board"></div>
+            <div class="slant-line"></div>
+            <div class="main-text">
+               
+                <div class="word word-photo">PHOTO</div>
+                <div class="word word-contest">CONTEST</div>
+                <div class="word word-year">2025-2026</div>
             </div>
         </div>
     </div>
 
-    <section class="pricing">
-        <div class="container" data-aos="zoom-in-up" data-aos-duration="3000">
-            <h2>Pricing</h2>
-        </div>
-        <div class="container">
-            <div class="card">
-                <div class="circle">
-                    <h3>Package 1</h3>
-                </div>
-                <div class="content">
-                    <div class="features">
-                        <div>Solo Shoot</div>
-                        <div>15 Minutes Session </div>
-                        <div>20 Digital Images</div>
-                        <div>Photo Release</div>
-                    </div>
-                    <a href="#">Learn More</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="circle">
-                    <h3>Package 2</h3>
-                </div>
-                <div class="content">
-                    <div class="features">
-                        <div>2-4 Persons</div>
-                        <div>30 Minutes Session </div>
-                        <div>30 Digital Images</div>
-                        <div>Photo Release</div>
-                    </div>
-                    <a href="#">Learn More</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="circle">
-                    <h3>Package 3</h3>
-                </div>
-                <div class="content">
-                    <div class="features">
-                        <div>5-10 Persons</div>
-                        <div>50 Minutes Session </div>
-                        <div>40 Digital Images</div>
-                        <div>Photo Release</div>
-                    </div>
-                    <a href="#">Learn More</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="follow-area clearfix" data-aos="fade-right" data-aos-duration="3000">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center">
-                        <a href="https://www.instagram.com/my_gallery_4u/">
-                            <h2>Instagram</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="instragram-feed-area owl-carousel">
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x11.jpg.pagespeed.ic.EUL6KdRKnX.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>@my_gallery_4u</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x12.jpg.pagespeed.ic.KtvCPGmp2L.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>my_gallery_4u</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/13.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>my_gallery_4u
-                        </span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/14.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>my_gallery_4u</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/15.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>my_gallery_4u</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/16.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>my_gallery_4u</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="wrapper" data-aos="fade-up" data-aos-duration="3000">
-            <div class="containerUp">
-                <div class="connect">
-                    <div >
-                        <h2>Stay up to date on the latest from My Gallery 4U</h2>
-                    </div>
-                    <div class="connect-form">
-                        <form>
-                            <input type="email" placeholder="Enter your email">
-                            <button>Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="social-info">
-                    <h2>Follow MY GALLERY 4U</h2>
-                    <div class="icons">
-
-                        <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"><img
-                                src="./img/footer-icons/pinpng.com-linkedin-png-533635.png"></a>
-                        <a href="https://www.instagram.com/my_gallery_4u" target="_blank"><img
-                                src="./img/footer-icons/insta.jpg"></a>
-                        <a href="https://www.instagram.com/my_gallery_4u" target="_blank"><img
-                                src="./img/footer-icons/pinterest-new.png"></a>
-                        <a href="https://www.quora.com/profile/Avinash-Singh-4809" target="_blank"><img
-                                src="./img/footer-icons/quora.png"></a>
-                        <a href="https://github.com/avinash201199" target="_blank"><img
-                                src="./img/footer-icons/gtihub.png"></a>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <hr>
-            <div class="containerDown">
-                <div class="last">
-                    <div class="head" style="color: #636363;">Total Website Visit</div>
-                    <div class="count" style="color: #636363;">00</div>
-                </div>
-                <p>Copyright © 2022 All rights reserved | Made with <span class="heart">❤</span> by <a
-                        href="https://www.instagram.com/my_gallery_4u" target="_blank">Avinash Singh</a></p>
-            </div>
-        </div>
-        </div>
-    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
+    <script>
+        eval(mod_pagespeed_2mSwO3vn68);
+    </script>
+    <script>
+        eval(mod_pagespeed_aQrG1NKKxL);
+    </script>
+    <script src="js/alime.bundle.js"></script>
+    <script src="js/default-assets/active.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
-
-<script>
-    function updateCounter() {
-        fetch('https://api.countapi.xyz/update/uimonk/youtubechannel/?amount=1')
-            .then(res => res.json())
-            .then(data => counterElement.innerHTML = data.value)
-    }
-    updateCounter()
-    counterElement = document.getElementsByClassName('count')[0];
-</script>
-
-
-<script src="js/jquery.min.js"></script>
-
-<script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
-<script>
-    eval(mod_pagespeed_2mSwO3vn68);
-</script>
-
-<script>
-    eval(mod_pagespeed_aQrG1NKKxL);
-</script>
-
-<script src="js/alime.bundle.js"></script>
-
-<script src="js/default-assets/active.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-23581568-13');
-</script>
-<script defer src="../../../static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"rayId":"699023133d611baa","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.9.0","si":100}'></script>
-<!-- animate on scroll js  -->
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-</body>
-
-
 
 </html>

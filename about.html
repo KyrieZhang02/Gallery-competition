@@ -9,28 +9,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>My Gallery 4U | About</title>
+    <title>关于比赛 | 摄影大赛</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="img/core-img/favicon.png">
-
-    <link rel="stylesheet" href="A.style.css.pagespeed.cf.0VivtDGN1d.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        h1 {
-            color: #eaeaea;
+        body {
+            background: #000 !important;
+            background-image: none !important;
+            animation: none !important;
         }
-
-        @media only screen and (max-width: 767px) {
-            h1 {
+        
+        .about-section {
+            min-height: 80vh;
+            padding: 80px 0;
+        }
+        
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+        
+        .competition-details {
+            margin-top: 50px;
+        }
+        
+        .competition-details h3 {
                 font-size: 1.8rem;
-            }
-
-            .classy-nav-container .classy-navbar .nav-brand {
-                max-width: fit-content;
-                margin-right: 15px;
-            }
+            margin-bottom: 20px;
+            color: #FF4D00;
+        }
+        
+        .competition-details ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .competition-details li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .competition-details li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #FF4D00;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -70,8 +115,11 @@
 
                     <nav class="classy-navbar justify-content-between" id="alimeNav">
 
-                        <a class="nav-brand" href="index.html">
-                            <h1>My Gallery 4U</h1>
+                        <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                            <div class="home-logo">
+                                <div class="logo-frame">FRAME!</div>
+                                <div class="logo-contest">Photo Contest</div>
+                            </div>
                         </a>
 
                         <div class="classy-navbar-toggler">
@@ -84,17 +132,15 @@
                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                             </div>
 
-                            <div class="classynav">
+                            <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
                                 <ul id="nav">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li class="active"><a href="about.html">About</a></li>
-                                    <li><a href="gallery.html">Gallery</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="index.html">首页</a></li>
+                                    <li class="active"><a href="about.html">关于比赛</a></li>
+                                    <li><a href="current-contest.html">当前比赛</a></li>
                                 </ul>
 
                                 <div class="search-icon" data-toggle="modal" data-target="#searchModal"> <i
-                                        class="fa fa-search" aria-hidden="true"></i> </div>
+                                        class="fa fa-search" aria-hidden="true"></i></div>
                             </div>
 
                         </div>
@@ -105,355 +151,50 @@
     </header>
 
 
-    <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2 class="page-title">About Us</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> Home</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">About</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+    <section class="about-section">
+        <div class="about-content" data-aos="fade-up" data-aos-duration="1500">
+            <h2>关于 FRAME 摄影大赛</h2>
+            <p>FRAME 摄影大赛是一个旨在发掘和展示优秀摄影作品的国际性比赛。我们致力于为摄影爱好者提供一个展示才华的平台，让更多人欣赏到优质的摄影作品。</p>
+            <p>本次比赛面向全球摄影师开放，无论您是专业摄影师还是摄影爱好者，只要您热爱摄影，都可以参与我们的比赛。我们相信每一张照片都有其独特的价值和意义，期待您通过镜头分享您眼中的世界。</p>
+            
+            <div class="competition-details">
+                <h3>比赛详情</h3>
+                <ul>
+                    <li>比赛时间：2024年1月 - 2025年12月</li>
+                    <li>参赛类别：风景、人像、野生动物、街拍等</li>
+                    <li>评审标准：创意性、技术性、表现力和故事性</li>
+                    <li>奖项设置：金奖、银奖、铜奖及多个优秀作品奖</li>
+                    <li>作品展览：获奖作品将在线上展出并有机会参与线下展览</li>
+                </ul>
+            </div>
+
+            <div class="competition-details">
+                <h3>参赛规则</h3>
+                <ul>
+                    <li>参赛作品必须是原创，不接受经过过度后期处理的作品</li>
+                    <li>每位参赛者最多可提交5张作品</li>
+                    <li>参赛作品提交截止日期为2025年10月31日</li>
+                    <li>参赛者需同意作品被用于比赛宣传</li>
+                    <li>评审结果将于2025年12月公布</li>
+                </ul>
             </div>
         </div>
     </section>
-
-
-    <div class="about-us-area section-padding-80-0 clearfix">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-6">
-                    <div class="about-us-content mb-80">
-                        <h3 class="wow fadeInUp" data-wow-delay="100ms">We Live For Passion</h3>
-                        <div class="line wow fadeInUp" data-wow-delay="200ms"></div>
-                        <p class="wow fadeInUp simple-text-color" data-wow-delay="300ms">Passion is energy so better to
-                            focus on the
-                            things which excites us. So, that we can perform our best at that. We should never
-                            compromise on our passion for anything.</p>
-                        <p class="wow fadeInUp simple-text-color" data-wow-delay="250ms">Being passionate requires
-                            dedication, hard work,
-                            focus, and the willingness to fail over and over again. However, if you're ready to put in
-                            the work, then being a passionate person who knows what he wants can bring excitement, joy,
-                            and a sense of true purpose to your life.</p>
-                        <p class="wow fadeInUp simple-text-color" data-wow-delay="400ms">One must always live for their
-                            passion because it
-                            is said that one person with passion is better than hundreds merely interested. Knowledge
-                            can be taught, Skills can be
-                            acquired and experience is earned in time, but it's very hard to make someone passionate
-                            about something , hence passion is priceless.</p>
-                        <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="300ms"
-                            href="contact.html">Contact Us</a>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="about-video-area mb-80 wow fadeInUp" data-wow-delay="100ms">
-                        <img src="https://i.ibb.co/vxVdzGk/ttt.jpg" alt="">
-                        <div class="video-icon">
-                            <a target="__blank" class="video-play-btn" onclick="redirect()"><i
-                                    class="arrow_triangle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <section class="why-choose-us-area bg-gray section-padding-80-0 clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
-                        <h2>Why Choose Us</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="100ms">
-                        <div class="chosse-us-icon">
-                            <i class="fa fa-film" aria-hidden="true"></i>
-                        </div>
-                        <h4>High Quality Images</h4>
-                        <p>Images and photography fascinates everybody but we believe in quality and provide High
-                            quality images which are best to see, to show, to set. </p>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="300ms">
-                        <div class="chosse-us-icon">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </div>
-                        <h4>Abundant Experience</h4>
-                        <p>Experiences makes a man perfect at everything. With a sufficient abundant experienced
-                            phtographers we provide you the best images.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="500ms">
-                        <div class="chosse-us-icon">
-                            <i class="fa fa-camera" aria-hidden="true"></i>
-                        </div>
-                        <h4>Modern Equipments</h4>
-                        <p>With modern and updated equipments we are able to capture every moment in an attractive
-                            manner. We use latest equipments.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="our-team-area section-padding-80-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
-                        <h2>Our Team</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="100ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/19.jpg" alt="">
-                        </div>
-                        <h5>Andrew Dean</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="https://www.facebook.com" target="_blank" style="font-size: 18px; "><i
-                                    class="fab fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.twitter.com" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-twitter" aria-hidden="true"></i> </a>
-                            <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"
-                                style="font-size: 18px; "> <i class="fa fa-linkedin" aria-hidden="true"></i> </a>
-                            <a href="https://in.pinterest.com/" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-pinterest" aria-hidden="true"></i> </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="300ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/20.jpg" alt="">
-                        </div>
-                        <h5>Tommy Kim</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="https://www.facebook.com" target="_blank" style="font-size: 18px; "><i
-                                    class="fab fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.twitter.com" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-twitter" aria-hidden="true"></i> </a>
-                            <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"
-                                style="font-size: 18px; "> <i class="fa fa-linkedin" aria-hidden="true"></i> </a>
-                            <a href="https://in.pinterest.com/" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-pinterest" aria-hidden="true"></i> </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="500ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/21.jpg" alt="">
-                        </div>
-                        <h5>Max McCormick</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="https://www.facebook.com" target="_blank" style="font-size: 18px; "><i
-                                    class="fab fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.twitter.com" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-twitter" aria-hidden="true"></i> </a>
-                            <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"
-                                style="font-size: 18px; "> <i class="fa fa-linkedin" aria-hidden="true"></i> </a>
-                            <a href="https://in.pinterest.com/" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-pinterest" aria-hidden="true"></i> </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="700ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/22.jpg" alt="">
-                        </div>
-                        <h5>Robert Ward</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="https://www.facebook.com" target="_blank" style="font-size: 18px; "><i
-                                    class="fab fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://www.twitter.com" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-twitter" aria-hidden="true"></i> </a>
-                            <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"
-                                style="font-size: 18px; "> <i class="fa fa-linkedin" aria-hidden="true"></i> </a>
-                            <a href="https://in.pinterest.com/" target="_blank" style="font-size: 18px; "> <i
-                                    class="fa fa-pinterest" aria-hidden="true"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="follow-area clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center">
-                        <h2>Follow Instagram</h2>
-                        <p><a href="https://www.instagram.com/my_gallery_4u/">@my_gallery_4u</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="instragram-feed-area owl-carousel">
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x11.jpg.pagespeed.ic.EUL6KdRKnX.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x12.jpg.pagespeed.ic.KtvCPGmp2L.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x13.jpg.pagespeed.ic.Yyn_qfYWhe.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x14.jpg.pagespeed.ic.HrODpshf0G.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x15.jpg.pagespeed.ic.E9v-lQJEPj.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="single-instagram-item">
-                <img src="img/bg-img/x16.jpg.pagespeed.ic._rIX_EXu7n.jpg" alt="">
-                <div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">
-                    <a href="#" style="font-size: 18px;">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        <span>Alime_photographer</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <footer>
-        <div class="wrapper">
-            <div class="containerUp">
-                <div class="social-info">
-                    <h2>Follow MY GALLERY 4U</h2>
-                    <div class="icons">
-
-                        <a href="https://www.linkedin.com/in/avinash-singh-071b79175/" target="_blank"><img
-                                src="./img/footer-icons/pinpng.com-linkedin-png-533635.png"></a>
-                        <a href="https://www.instagram.com/my_gallery_4u" target="_blank"><img
-                                src="./img/footer-icons/insta.jpg"></a>
-                        <a href="https://www.instagram.com/my_gallery_4u" target="_blank"><img
-                                src="./img/footer-icons/pinterest-new.png"></a>
-                        <a href="https://www.quora.com/profile/Avinash-Singh-4809" target="_blank"><img
-                                src="./img/footer-icons/quora.png"></a>
-                        <a href="https://github.com/avinash201199" target="_blank"><img
-                                src="./img/footer-icons/gtihub.png"></a>
-
-                    </div>
-                </div>
-                <div class="connect">
-                    <h2>Stay up to date on the latest from My Gallery 4U</h2>
-                    <form>
-                        <input type="email" placeholder="Enter your email">
-                        <button>Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <hr>
-            <div class="containerDown">
-                <div class="last">
-                    <p>Copyright © 2022 All rights reserved | Made with <span class="heart">❤</span> by <a href="#"
-                            target="_blank">Avinash Singh</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
 
     <script src="js/jquery.min.js"></script>
-
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
     <script>
         eval(mod_pagespeed_2mSwO3vn68);
     </script>
-
     <script>
         eval(mod_pagespeed_aQrG1NKKxL);
     </script>
-
     <script src="js/alime.bundle.js"></script>
-
     <script src="js/default-assets/active.js"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function redirect() {
-            window.location.href = "https://www.instagram.com/p/CHhGcHJBaib/?utm_source=ig_web_button_share_sheet"
-        }
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
+        AOS.init();
     </script>
-    <script defer src="../../../static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"rayId":"6990232658ee1baa","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.9.0","si":100}'></script>
 </body>
 
 <!-- Mirrored from preview.colorlib.com/theme/alime/about.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Oct 2021 17:30:38 GMT -->

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>作品投稿 | FRAME! Photo Contest</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #000 !important;
+            background-image: none !important;
+            animation: none !important;
+        }
+        
+        .submit-section {
+            min-height: 80vh;
+            padding: 80px 0;
+        }
+        
+        .submit-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .submit-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .submit-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #f5f5f5;
+            text-align: center;
+        }
+        
+        .submission-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #FF4D00;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .category-select {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .category-option {
+            flex: 0 0 calc(25% - 15px);
+            min-width: 150px;
+        }
+        
+        .category-option input[type="radio"] {
+            display: none;
+        }
+        
+        .category-option label {
+            display: block;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-option input[type="radio"]:checked + label {
+            background-color: #FF4D00;
+            border-color: #FF4D00;
+        }
+        
+        .file-upload {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: #FF4D00;
+            background-color: rgba(255, 77, 0, 0.1);
+        }
+        
+        .file-upload i {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .file-upload-info {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .image-preview {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .remove-image:hover {
+            background-color: #FF4D00;
+        }
+        
+        .submit-btn {
+            background-color: #FF4D00;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto 0;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #ff6a33;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .category-option {
+                flex: 0 0 calc(50% - 15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-search-area">
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="btn close-btn" data-dismiss="modal" style="font-size: 18px;"><i
+                                class="fas fa-times-circle"></i></button>
+                        <form action="#" method="post">
+                            <input type="search" name="top-search-bar" class="form-control"
+                                placeholder="Search and hit enter...">
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header-area">
+        <div class="main-header-area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="alimeNav">
+                        <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                            <div class="home-logo">
+                                <div class="logo-frame">FRAME!</div>
+                                <div class="logo-contest">Photo Contest</div>
+                            </div>
+                        </a>
+
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
+                                <ul id="nav">
+                                    <li><a href="index.html">首页</a></li>
+                                    <li><a href="about.html">关于比赛</a></li>
+                                    <li class="active"><a href="submit.html">作品投稿</a></li>
+                                </ul>
+
+                                <div class="search-icon" data-toggle="modal" data-target="#searchModal"> <i
+                                        class="fa fa-search" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="submit-section">
+        <div class="submit-content" data-aos="fade-up" data-aos-duration="1500">
+            <h2>作品投稿</h2>
+            <p>分享您的摄影作品，参与FRAME！摄影大赛</p>
+            
+            <form class="submission-form" id="photoSubmissionForm">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">电子邮箱</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">联系电话</label>
+                    <input type="tel" id="phone" name="phone" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>作品类别</label>
+                    <div class="category-select">
+                        <div class="category-option">
+                            <input type="radio" id="category-landscape" name="category" value="landscape" required>
+                            <label for="category-landscape">风景</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="radio" id="category-portrait" name="category" value="portrait">
+                            <label for="category-portrait">人像</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="radio" id="category-wildlife" name="category" value="wildlife">
+                            <label for="category-wildlife">野生动物</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="radio" id="category-street" name="category" value="street">
+                            <label for="category-street">街拍</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">作品标题</label>
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">作品描述</label>
+                    <textarea id="description" name="description" class="form-control" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>上传作品</label>
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="file-upload-text">点击或拖拽文件到此处上传</div>
+                        <div class="file-upload-info">支持 JPG, PNG 格式，最大文件大小为 10MB</div>
+                        <input type="file" id="photo-upload" name="photo" accept="image/jpeg, image/png" required>
+                    </div>
+                    <div class="preview-container" id="image-preview-container"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="terms" required>
+                        我已阅读并同意<a href="#" style="color: #FF4D00; text-decoration: none;">比赛规则</a>和<a href="#" style="color: #FF4D00; text-decoration: none;">隐私政策</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn">提交作品</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
+    <script>
+        eval(mod_pagespeed_2mSwO3vn68);
+    </script>
+    <script>
+        eval(mod_pagespeed_aQrG1NKKxL);
+    </script>
+    <script src="js/alime.bundle.js"></script>
+    <script src="js/default-assets/active.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        
+        // 图片预览功能
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const previewContainer = document.getElementById('image-preview-container');
+                    previewContainer.innerHTML = '';
+                    
+                    const preview = document.createElement('div');
+                    preview.className = 'image-preview';
+                    
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    
+                    const removeBtn = document.createElement('div');
+                    removeBtn.className = 'remove-image';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.addEventListener('click', function() {
+                        document.getElementById('photo-upload').value = '';
+                        previewContainer.innerHTML = '';
+                    });
+                    
+                    preview.appendChild(img);
+                    preview.appendChild(removeBtn);
+                    previewContainer.appendChild(preview);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 表单提交处理
+        document.getElementById('photoSubmissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // 在这里可以添加表单提交逻辑，如AJAX请求等
+            alert('感谢您的投稿！我们将尽快审核您的作品。');
+            this.reset();
+            document.getElementById('image-preview-container').innerHTML = '';
+        });
+    </script>
+</body>
+
+</html> 
