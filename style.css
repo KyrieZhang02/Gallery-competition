@@ -2663,3 +2663,90 @@ body {
        url('https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+.vertical-text {
+    /* 添加浏览器前缀 */
+    -webkit-writing-mode: vertical-lr;
+    -ms-writing-mode: vertical-lr;
+    writing-mode: vertical-lr;
+    
+    /* 添加浏览器前缀 */
+    -webkit-text-orientation: upright;
+    text-orientation: upright;
+    
+    /* 确保字母间距在所有浏览器中一致 */
+    letter-spacing: -0.6em;
+    -webkit-letter-spacing: -0.6em;
+    
+    font-size: 0.67em;
+    margin-top: 0.5rem;
+    text-shadow: 4px 4px 12px rgba(255, 255, 255, 0.2);
+    line-height: 0.6;
+    
+    /* 确保变换原点在所有浏览器中一致 */
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    
+    /* 添加初始不透明度 */
+    opacity: 0;
+    
+    /* 添加浏览器前缀的动画 */
+    -webkit-animation: frameAnimation 0.6s ease-out forwards;
+    animation: frameAnimation 0.6s ease-out forwards;
+    -webkit-animation-delay: 1.2s;
+    animation-delay: 1.2s;
+    
+    /* 添加备用显示方式 */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* 确保文字不会被压缩 */
+    white-space: nowrap;
+    
+    /* 添加硬件加速 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+}
+
+/* 添加备用样式，在writing-mode不支持时生效 */
+@supports not (writing-mode: vertical-lr) {
+    .vertical-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        letter-spacing: normal;
+    }
+    
+    .vertical-text span {
+        display: block;
+        margin: -0.2em 0;
+    }
+}
+
+/* 确保动画在所有浏览器中一致 */
+@-webkit-keyframes frameAnimation {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-10px) translateX(var(--shift-left)+10);
+        transform: translateY(-10px) translateX(var(--shift-left)+10);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0) translateX(var(--shift-left));
+        transform: translateY(0) translateX(var(--shift-left));
+    }
+}
+
+@keyframes frameAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) translateX(var(--shift-left)+10);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(var(--shift-left));
+    }
+}
