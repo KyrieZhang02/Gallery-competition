@@ -61,19 +61,27 @@
             gap: 2rem;
         }
 
-        .vertical-text {
-            writing-mode: vertical-lr;
-            text-orientation: upright;
-            font-size: 4rem;
-            letter-spacing: -2rem; /* 字间距调整：负值使字符更紧凑，正值使字符间距更大 */
-            margin-top: 2rem;
+        .frame-letters {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin-top: 0;
+            transform: translateY(2rem);
+        }
+
+        .frame-letter {
+            font-size: 3.5rem;
             text-shadow: 0.25rem 0.25rem 0.75rem rgba(255, 255, 255, 0.2);
-            line-height: 0.1;
-            transform-origin: center;
             opacity: 0;
             animation: frameAnimation 0.6s ease-out forwards;
-            animation-delay: 1.2s;
+            line-height: 0.9;
         }
+
+        .frame-letter:nth-child(1) { animation-delay: 1.0s; }
+        .frame-letter:nth-child(2) { animation-delay: 1.2s; }
+        .frame-letter:nth-child(3) { animation-delay: 1.4s; }
+        .frame-letter:nth-child(4) { animation-delay: 1.6s; }
+        .frame-letter:nth-child(5) { animation-delay: 1.8s; }
 
         .exclamation {
             font-size: 1.9em;
@@ -95,7 +103,7 @@
                 #fff 2rem,
                 #fff 4rem
             );
-            left: calc(4.5rem + var(--shift-left));
+            left: calc(3.5rem + var(--shift-left));
             top: 2rem;
             z-index: -1;
             transform-origin: left center;
@@ -293,12 +301,17 @@
 
     <div class="hero-section">
         <div class="contest-triangle">
-            <div class="vertical-text">FRAME</div>
-            <div class="exclamation">!</div> 
+            <div class="frame-letters">
+                <div class="frame-letter">F</div>
+                <div class="frame-letter">R</div>
+                <div class="frame-letter">A</div>
+                <div class="frame-letter">M</div>
+                <div class="frame-letter">E</div>
+            </div>
+            <div class="exclamation">!</div>
             <div class="film-board"></div>
             <div class="slant-line"></div>
             <div class="main-text">
-               
                 <div class="word word-photo">PHOTO</div>
                 <div class="word word-contest">CONTEST</div>
                 <div class="word word-year">2025-2026</div>
