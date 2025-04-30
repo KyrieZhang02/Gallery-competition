@@ -597,6 +597,31 @@ input:required {
   font-weight: 500;
 }
 
+/* 添加响应式样式 */
+@media only screen and (max-width: 767px) {
+  .home-logo {
+    align-items: flex-start;
+  }
+  
+  .logo-frame {
+    font-size: 1.8rem;
+  }
+  
+  .logo-contest {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logo-frame {
+    font-size: 1.5rem;
+  }
+  
+  .logo-contest {
+    font-size: 1rem;
+  }
+}
+
 .header-area {
   position: fixed;
   z-index: 100;
