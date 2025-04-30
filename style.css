@@ -586,9 +586,10 @@ input:required {
 
 .logo-frame {
   font-size: 2.2rem;
-  font-weight: 900;
+  font-weight: 700;
   color: #fff;
-  letter-spacing: 1px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .logo-contest {
@@ -605,6 +606,7 @@ input:required {
   
   .logo-frame {
     font-size: 1.8rem;
+    letter-spacing: 0.12em;
   }
   
   .logo-contest {
@@ -615,6 +617,7 @@ input:required {
 @media only screen and (max-width: 480px) {
   .logo-frame {
     font-size: 1.5rem;
+    letter-spacing: 0.1em;
   }
   
   .logo-contest {
