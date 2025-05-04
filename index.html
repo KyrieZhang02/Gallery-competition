@@ -191,52 +191,82 @@
 
         @media (max-width: 768px) {
             .contest-triangle {
+                --shift-left: -2rem;
                 font-size: 4rem;
-                transform: perspective(800px) rotateY(-20deg) translateX(var(--shift-left));  /* 减小旋转角度 */
+                transform: perspective(800px) rotateY(-20deg) translateX(var(--shift-left)) scale(0.8);
+                gap: 1.5rem;
             }
-            .hero-section {
-                perspective: 800px;
+            
+            .frame-letters {
+                transform: translateY(2rem) scale(0.9);
             }
+            
+            .frame-letter {
+                font-size: 4rem;
+                line-height: 1;
+            }
+            
+            .main-text {
+                margin-left: calc(-1rem + var(--shift-left));
+                transform: skewY(-5deg) scale(1.5); /* 添加scale属性调整大小 */
+                margin-bottom: 1rem;
+                font-size: 1.5em; /* 调整字体大小 */
+                width: 90%; /* 调整宽度 */
+            }
+            
             .slant-line {
-                width: 25rem;  /* 平板尺寸下减小宽度 */
+                width: 28rem;
                 height: 3rem;
-                left: calc(4rem + var(--shift-left));
-                background: repeating-linear-gradient(
-                    -45deg,
-                    #000 0,
-                    #000 1.5rem,  /* 减小条纹间距 */
-                    #fff 1.5rem,
-                    #fff 3rem
-                );
+                left: calc(4.5rem + var(--shift-left));
+                top: 3.5rem;
+                transform-origin: left center;
+                transform: rotate(-3deg) scale(0.9);
+            }
+            
+            .exclamation {
+                font-size: 3em !important;
+                margin: 0 -1rem;
+                transform: scaleY(1.5) translateY(1.5rem) translateX(var(--shift-left));
+
             }
         }
 
         @media (max-width: 480px) {
             .contest-triangle {
+                --shift-left: -1rem;
                 font-size: 3rem;
-                transform: perspective(600px) rotateY(-15deg) translateX(var(--shift-left));  /* 手机尺寸下进一步减小旋转角度 */
-            }
-            .slant-line {
-                width: 18rem;  /* 手机尺寸下进一步减小宽度 */
-                height: 2.5rem;
-                left: calc(3rem + var(--shift-left));
-                top: 1.5rem;
-                background: repeating-linear-gradient(
-                    -45deg,
-                    #000 0,
-                    #000 1rem,  /* 进一步减小条纹间距 */
-                    #fff 1rem,
-                    #fff 2rem
-                );
+                transform: perspective(600px) rotateY(-15deg) translateX(var(--shift-left)) scale(0.6);
+                gap: 1rem;
             }
             
-            @keyframes slantRotate {
-                from {
-                    transform: rotate(-20deg);  /* 减小初始旋转角度 */
-                }
-                to {
-                    transform: rotate(-5deg);  /* 减小最终旋转角度 */
-                }
+            .frame-letters {
+                transform: translateY(1.5rem) scale(0.6);
+            }
+            
+            .frame-letter {
+                font-size: 3.5rem;
+                line-height: 1.1;
+            }
+            
+            .main-text {
+                margin-left: calc(-0.5rem + var(--shift-left));
+                transform: skewY(-5deg);
+                margin-bottom: 0.8rem;
+            }
+            
+            .slant-line {
+                width: 20rem;
+                height: 2.5rem;
+                left: calc(3.5rem + var(--shift-left));
+                top: 3rem;
+                transform: rotate(-5deg) scale(0.7);
+            }
+            
+            .exclamation {
+                font-size: 1em !important;
+                margin: 0 -0.8rem;
+                transform: scaleY(1.8) translateY(1.2rem) translateX(var(--shift-left)) scale(0.6);
+                text-shadow: 3px 3px 8px rgba(255, 255, 255, 0.2);
             }
         }
 
