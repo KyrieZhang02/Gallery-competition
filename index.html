@@ -235,44 +235,7 @@
             }
         }
 
-        @media (max-width: 480px) {
-            .contest-triangle {
-                --shift-left: -1rem;
-                font-size: 3rem;
-                transform: perspective(600px) rotateY(-15deg) translateX(var(--shift-left)) scale(0.6);
-                gap: 1rem;
-            }
-            
-            .frame-letters {
-                transform: translateY(1.5rem) scale(0.6);
-            }
-            
-            .frame-letter {
-                font-size: 3.5rem;
-                line-height: 1.1;
-            }
-            
-            .main-text {
-                margin-left: calc(-0.5rem + var(--shift-left));
-                transform: skewY(-5deg);
-                margin-bottom: 0.8rem;
-            }
-            
-            .slant-line {
-                width: 20rem;
-                height: 2.5rem;
-                left: calc(3.5rem + var(--shift-left));
-                top: 3rem;
-                transform: rotate(-5deg) scale(0.7);
-            }
-            
-            .exclamation {
-                font-size: 1em !important;
-                margin: 0 -0.8rem;
-                transform: scaleY(1.8) translateY(1.2rem) translateX(var(--shift-left)) scale(0.6);
-                text-shadow: 3px 3px 8px rgba(255, 255, 255, 0.2);
-            }
-        }
+        
 
         @keyframes fadeIn {
             from {
