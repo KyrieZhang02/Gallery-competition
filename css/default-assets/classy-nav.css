@@ -251,22 +251,6 @@
   border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
 .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li:last-child a {
   border-bottom: none; }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li a {
-  border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:last-child a {
-  border-bottom: none; }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li a {
-  border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:last-child a {
-  border-bottom: none; }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li a {
-  border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:last-child a {
-  border-bottom: none; }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li a {
-  border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
-.classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li:last-child a {
-  border-bottom: none; }
 
 /* Desktop Area CSS */
 .breakpoint-off .classynav {
@@ -300,10 +284,10 @@
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown,
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown,
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
-.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
-.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
+.breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown,
 .breakpoint-off .classynav ul li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown li .dropdown {
   opacity: 0;
   visibility: hidden;
@@ -347,7 +331,7 @@
 .breakpoint-on .classy-navbar-toggler {
   display: block; }
 .breakpoint-on .classy-navbar .classy-menu {
-  background-color: #ffffff;
+  background: #000000 !important;
   position: fixed;
   top: 0;
   left: -200%;
@@ -362,7 +346,8 @@
   overflow-x: hidden;
   overflow-y: scroll; }
   .breakpoint-on .classy-navbar .classy-menu.menu-on {
-    left: 0; }
+    left: 0;
+    background: #000000 !important; }
 .breakpoint-on .classynav ul li {
   display: block;
   position: relative;
@@ -433,8 +418,16 @@
         border-right: none;
         border-bottom: 1px solid #f2f4f8; }
 .breakpoint-on .classynav > ul > li > a {
-  background-color: #f2f4f8;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+  background-color: #222121;
+  color: #fff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  margin: 5px 0;
+}
+.breakpoint-on .classynav > ul > li > a:hover,
+.breakpoint-on .classynav > ul > li > a:focus {
+  color: #fff !important;
+}
 .breakpoint-on .classynav ul li ul.dropdown li ul li {
   margin-left: 15px; }
 .breakpoint-on .classynav ul li.megamenu-item > a::after,
@@ -445,5 +438,14 @@
   background-color: #27ae60;
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg); }
+.breakpoint-on .classycloseIcon .cross-wrap span {
+  background: #fff !important;
+}
+.breakpoint-on .classynav > ul > li.active > a {
+    background-color: #222121;
+    color: #FF4D00 !important;
+    border-left: 6px solid #FF4D00;
+    border-radius: 12px;
+}
 
 /*# sourceMappingURL=classy-nav.css.map */
