@@ -19,6 +19,9 @@
 
     <link rel="stylesheet" href="style.css">
     <style>
+        body {
+            background: #000 !important;
+        }
         /* 英雄区块样式 - 用于创建全屏的黑色背景展示区
          * - 设置黑色背景
          * - 最小高度100vh确保占满整个视口高度
@@ -51,7 +54,7 @@
             --shift-left: -3rem;
             font-size: 7rem;
             font-weight: 900;
-            font-family: 'Arial Black', sans-serif;
+            font-family: 'futura-bold', sans-serif;
             color: white;
             text-align: left;
             position: relative;
@@ -84,6 +87,7 @@
         .frame-letter:nth-child(5) { animation-delay: 1.8s; }
 
         .exclamation {
+            font-family: 'arial-black', sans-serif !important;
             font-size: 1.9em;
             color: white;
             margin: 0 -1.5rem;
@@ -311,27 +315,107 @@
                 transform: translateY(0) translateX(var(--shift-left));
             }
         }
+
+        /* Timeline styles from timeline.html */
+        .timeline-container {
+            font-family: 'futura-bold', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 200px 20px;
+            overflow-x: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+        .timeline-title {
+            text-align: center;
+            color: #fff;
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+        .timeline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            min-width: 700px;
+            margin-bottom: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 0;
+            right: 0;
+            height: 2.5px;
+            background: #fff;
+            z-index: 0;
+        }
+        .timeline-event {
+            position: relative;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            z-index: 1;
+        }
+        .timeline-dot {
+            width: 18px;
+            height: 18px;
+            background: #FF4D00;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            top: 23px;
+            box-shadow: 0 0 0 4px #000, 0 0 10px #FF4D00;
+        }
+        .timeline-label {
+            margin-top: 38px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .timeline-date {
+            color: #ccc;
+            font-size: 0.98em;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+        @media (max-width: 900px) {
+            .timeline {
+                min-width: 700px;
+            }
+        }
+        @media (max-width: 600px) {
+            .timeline {
+                min-width: 500px;
+            }
+            .timeline-title {
+                font-size: 1.3em;
+                margin-bottom: 30px;
+            }
+            .timeline-label {
+                font-size: 0.95em;
+            }
+        }
+        .main-header-area, .header-area, .classy-nav-container {
+            background: #000 !important;
+        }
+        .timeline-event:first-child::before {
+            content: none !important;
+        }
+        .timeline-event:last-child::after {
+            content: none !important;
+        }
     </style>
 </head>
 
 <body>
-    <div class="top-search-area">
-        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn close-btn" data-dismiss="modal" style="font-size: 18px;"><i
-                                class="fas fa-times-circle"></i></button>
-                        <form action="https://preview.colorlib.com/theme/alime/index.html" method="post">
-                            <input type="search" name="top-search-bar" class="form-control"
-                                placeholder="Search and hit enter...">
-                            <button type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <header class="header-area">
         <div class="main-header-area">
@@ -341,7 +425,7 @@
                         <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
                             <div class="home-logo">
                                 <div class="logo-frame">FRAME!</div>
-                                <div class="logo-contest">Photo Contest</div>
+                                <div class="logo-contest">Photo Initiative</div>
                             </div>
                         </a>
 
@@ -356,13 +440,11 @@
 
                             <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
                                 <ul id="nav">
-                                    <li class="active"><a href="index.html">首页</a></li>
-                                    <li><a href="about.html">关于比赛</a></li>
-                                    <li><a href="current-contest.html">当前比赛</a></li>
+                                    <li class="active"><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="current-contest.html">Submission</a></li>
                                 </ul>
-
-                                <div class="search-icon" data-toggle="modal" data-target="#searchModal"> <i
-                                        class="fa fa-search" aria-hidden="true"></i></div>
+                                <!-- 删除搜索图标 -->
                             </div>
                         </div>
                     </nav>
@@ -390,6 +472,39 @@
             </div>
         </div>
     </div>
+
+    <!-- Timeline section start -->
+    <div class="timeline-container">
+        <div class="timeline-title">TIMELINE</div>
+        <div class="timeline">
+            <div class="timeline-event">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Submission Open</div>
+                <div class="timeline-date">May 14 2025</div>
+            </div>
+            <div class="timeline-event">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Submission Deadline</div>
+                <div class="timeline-date">June 14 2025</div>
+            </div>
+            <div class="timeline-event">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Review End</div>
+                <div class="timeline-date">June 18 2025</div>
+            </div>
+            <div class="timeline-event">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label"> Finalists Released</div>
+                <div class="timeline-date">June 21 2025</div>
+            </div>
+            <div class="timeline-event">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Winner Announcemen</div>
+                <div class="timeline-date">June 23 2025</div>
+            </div>
+        </div>
+    </div>
+    <!-- Timeline section end -->
 
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>

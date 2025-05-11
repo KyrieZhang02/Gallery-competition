@@ -275,24 +275,6 @@
 </head>
 
 <body>
-    <div class="top-search-area">
-        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn close-btn" data-dismiss="modal" style="font-size: 18px;"><i
-                                class="fas fa-times-circle"></i></button>
-                        <form action="#" method="post">
-                            <input type="search" name="top-search-bar" class="form-control"
-                                placeholder="Search and hit enter...">
-                            <button type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <header class="header-area">
         <div class="main-header-area">
             <div class="classy-nav-container breakpoint-off">
@@ -301,7 +283,7 @@
                         <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
                             <div class="home-logo">
                                 <div class="logo-frame">FRAME!</div>
-                                <div class="logo-contest">Photo Contest</div>
+                                <div class="logo-contest">Photo Initiative</div>
                             </div>
                         </a>
 
@@ -316,13 +298,11 @@
 
                             <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
                                 <ul id="nav">
-                                    <li><a href="index.html">首页</a></li>
-                                    <li><a href="about.html">关于比赛</a></li>
-                                    <li class="active"><a href="current-contest.html">当前比赛</a></li>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li class="active"><a href="current-contest.html">Submission</a></li>
                                 </ul>
-
-                                <div class="search-icon" data-toggle="modal" data-target="#searchModal"> <i
-                                        class="fa fa-search" aria-hidden="true"></i></div>
+                                <!-- 删除搜索图标 -->
                             </div>
                         </div>
                     </nav>
@@ -334,90 +314,42 @@
     <section class="contest-section">
         <div class="contest-content" data-aos="fade-up" data-aos-duration="1500">
             <div class="contest-header">
-                <h2>第一届 FRAME! 摄影比赛</h2>
+                <h2> FRAME! Contest 2025 Spring/Summer</h2>
             
             <div class="contest-timer" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="timer-title">作品提交倒计时</h3>
+                <h3 class="timer-title">Submission Countdown</h3>
                 <div class="countdown" id="contest-countdown">
                     <div class="countdown-item">
                         <div class="countdown-value" id="days">00</div>
-                        <div class="countdown-label">天</div>
+                        <div class="countdown-label">day</div>
                     </div>
                     <div class="countdown-item">
                         <div class="countdown-value" id="hours">00</div>
-                        <div class="countdown-label">小时</div>
+                        <div class="countdown-label">hour</div>
                     </div>
                     <div class="countdown-item">
                         <div class="countdown-value" id="minutes">00</div>
-                        <div class="countdown-label">分钟</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value" id="seconds">00</div>
-                        <div class="countdown-label">秒</div>
-                    </div>
-                </div>
-            </div>
-            <div class="theme-section" data-aos="fade-up" data-aos-delay="300">
-                <h3>比赛主题</h3>
-                <div class="theme-content">
-                    <p class="theme-intro">本届比赛以"校园"(School Campus)为主题，邀请摄影师通过镜头捕捉校园生活的多彩面貌、学习环境以及校园文化的独特魅力。</p>
-                    
-                    <div class="theme-categories">
-                        <div class="theme-category">
-                            <h4><i class="fas fa-school"></i> 校园建筑</h4>
-                            <p>展现学校建筑的特色、历史感和现代设计之美，包括教学楼、图书馆、实验室、体育场等。</p>
-                        </div>
-                        
-                        <div class="theme-category">
-                            <h4><i class="fas fa-users"></i> 校园生活</h4>
-                            <p>记录学生日常学习、活动、社交互动的真实瞬间，展示校园生活的多姿多彩。</p>
-                        </div>
-                        
-                        <div class="theme-category">
-                            <h4><i class="fas fa-leaf"></i> 校园环境</h4>
-                            <p>捕捉校园自然景观、季节变化以及校园环境与学习氛围的和谐共生。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="theme-note">
-                        <p>参赛者可以选择上述任一方向进行创作，通过独特的视角和创意表达对校园主题的理解与诠释。</p>
+                        <div class="countdown-label">minute</div>
                     </div>
                 </div>
             </div>
              
             <div class="prize-section" data-aos="fade-up" data-aos-delay="400">
-                <h3>奖项设置</h3>
-                <div class="prizes">
-                    <div class="prize-card">
-                        <div class="prize-badge badge-gold">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <h4 class="prize-title">金奖</h4>
-                        <div class="prize-amount">¥20,000</div>
-                        <p class="prize-desc">获奖证书、专业摄影器材、全球摄影展览机会、媒体曝光</p>
+                <h3>Prizes</h3>
+                <div class="prizes" style="display: flex; flex-direction: column; align-items: center; gap: 30px; max-width: 500px; margin: 0 auto;">
+                    <div class="prize-card" style="width: 100%; box-shadow: 0 10px 30px rgba(255, 77, 0, 0.2); padding: 25px 20px;">
+                        <h4 class="prize-title">Winner</h4>
+                        <div class="prize-amount" style="font-size: 2.5rem; margin: 15px 0;">50$</div>
+                        <p class="prize-desc">Trophy + Customized photo NFT </p>
                     </div>
-                    
-                    <div class="prize-card">
-                        <div class="prize-badge badge-silver">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <h4 class="prize-title">银奖</h4>
-                        <div class="prize-amount">¥10,000</div>
-                        <p class="prize-desc">获奖证书、专业摄影附件、线上展览机会、媒体推广</p>
-                    </div>
-                    
-                    <div class="prize-card">
-                        <div class="prize-badge badge-bronze">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <h4 class="prize-title">铜奖</h4>
-                        <div class="prize-amount">¥5,000</div>
-                        <p class="prize-desc">获奖证书、摄影配件、线上展示、社交媒体宣传</p>
+                    <div class="prize-card" style="width: 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(150, 150, 150, 0.4); padding: 25px 20px;">
+                        <h4 class="prize-title">Finalist</h4>
+                        <div class="prize-amount" style="font-size: 2.2rem; margin: 15px 0;">25$</div>
+                        <p class="prize-desc">Customized photo NFT</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="cta-section" data-aos="zoom-in" data-aos-delay="500">
+            <div class="cta-section" data-aos="zoom-in" data-aos-delay="0">
                 <a href="#" class="cta-button">立即报名参赛</a>
             </div>
         </div>
@@ -439,7 +371,7 @@
         
         // 倒计时功能
         function updateCountdown() {
-            const deadline = new Date("Jan 31, 2026 23:59:59").getTime();
+            const deadline = new Date("June, 14,2025 23:59:59").getTime();
             const now = new Date().getTime();
             const timeLeft = deadline - now;
             
