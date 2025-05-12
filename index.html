@@ -99,8 +99,8 @@
 
         .slant-line {
             position: absolute;
-            width: 35rem;  /* 默认宽度 */
-            height: 3.5rem;
+            width: 32rem;  /* 默认宽度 */
+            height: 4rem;
             background: repeating-linear-gradient(
                 -45deg,
                 #000 0,
@@ -125,7 +125,7 @@
             display: flex;
             flex-direction: column;
             margin-left: calc(-1.5rem + var(--shift-left));
-            transform: skewY(-5deg);
+            transform: skewY(-3deg);
             text-align: left;
             align-self: flex-end;
             margin-bottom: 0.5rem;
@@ -146,9 +146,10 @@
         }
 
         .word-photo {
-            font-size: 1em;
-            transform: translateX(0) translateY(0);
+            font-size: 1.1em;
+            transform: translateX(0) translateY(1rem);
             text-shadow: 3px 3px 10px rgba(255, 255, 255, 0.15);
+            letter-spacing: 0.08em;
         }
 
         .word-film {
@@ -159,8 +160,9 @@
 
         .word-contest {
             font-size: 0.8em;
-            transform: translateX(0) translateY(0);
+            transform: translateX(0) translateY(0.5rem);
             text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.08em;
         }
 
         .word-year {
@@ -169,6 +171,7 @@
             color: #FF4D00;
             text-shadow: 0 0 15px rgba(255, 77, 0, 0.4),
                          0 0 25px rgba(255, 77, 0, 0.2);
+            letter-spacing: 0.08em;
         }
 
         /* 整体发光效果 */
@@ -220,7 +223,7 @@
             }
             
             .slant-line {
-                width: 28rem;
+                width: 26rem;
                 height: 3rem;
                 left: calc(4.5rem + var(--shift-left));
                 top: 3.5rem;
@@ -265,7 +268,7 @@
                 transform: rotate(-30deg);
             }
             to {
-                transform: rotate(-3deg);
+                transform: rotate(-5deg);
             }
         }
 
