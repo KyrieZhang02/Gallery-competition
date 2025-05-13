@@ -1,563 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Mirrored from preview.colorlib.com/theme/alime/gallery.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Oct 2021 17:30:38 GMT -->
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>FRAME！Gallery</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="icon" href="img/core-img/favicon.png" />
-
-    <link rel="stylesheet" href="A.style.css.pagespeed.cf.0VivtDGN1d.css" />
-    <!-- animate on scroll css  -->
+    <title>FRAME！CONTEST - Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="gallery.css"/>
-   
-  </head>
+    <link rel="stylesheet" href="style.css">
 
-  <body>
-   
+    <style>
+        body {
+            background: #000 !important;
+            background-image: none !important;
+            animation: none !important;
+        }
+        
+        .gallery-section {
+            min-height: 100vh;
+            padding: 80px 0;
+            background: transparent !important;
+            font-family: 'futura-bold', sans-serif;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-header h2 {
+            font-family: 'Futura-Heavy', sans-serif;
+            font-size: 3rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-header p {
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 1.2rem;
+            color: #f5f5f5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .gallery-filter-btn {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid #FF4D00;
+            color: #fff;
+            border-radius: 30px;
+            font-family: 'Futura-Medium', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-filter-btn:hover,
+        .gallery-filter-btn.active {
+            background: #FF4D00;
+            color: #fff;
+        }
+        
+        /* 改进的瀑布流布局 - 实现三小一大的节奏 */
+        .gallery-grid {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 15px;
+            grid-auto-flow: dense;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: #111;
+            grid-column: span 1;
+            transition: transform 0.3s ease;
+        }
+        
+        /* 每第4个元素占据2x2的空间 */
+        .gallery-item:nth-child(4n) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-item-title {
+            font-family: 'Futura-Bold', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-item-artist {
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .gallery-item:nth-child(4n) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery-item:nth-child(4n) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item:nth-child(4n) {
+                grid-column: 1;
+                grid-row: span 1;
+            }
+        }
+        
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 1000;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            visibility: hidden;
+            backdrop-filter: none;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            background: transparent;
+        }
+        
+        .modal-title {
+            color: #fff;
+            font-family: 'Futura-Bold', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 15px;
+            text-shadow: 0px 0px 15px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
+            background: transparent;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .modal-artist {
+            color: #ccc;
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 1rem;
+            margin-top: 5px;
+            text-shadow: 0px 0px 15px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
+            background: transparent;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1010;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            text-shadow: 0px 0px 15px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
+            background: transparent;
+        }
+        
+        .modal-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
 
-    <div class="top-search-area">
-      <div
-        class="modal fade"
-        id="searchModal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <button
-                type="button"
-                class="btn close-btn"
-                data-dismiss="modal"
-                style="font-size: 18px"
-              >
-                <i class="fas fa-times-circle"></i>
-              </button>
-
-              <form
-                action="https://preview.colorlib.com/theme/alime/index.html"
-                method="post"
-              >
-                <input
-                  type="search"
-                  name="top-search-bar"
-                  class="form-control"
-                  placeholder="Search and hit enter..."
-                />
-                <button type="submit">Search</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+<body>
     <header class="header-area">
-      <div class="main-header-area">
-        <div class="classy-nav-container breakpoint-off">
-          <div class="container">
-            <nav class="classy-navbar justify-content-between" id="alimeNav">
-              <a
-                class="nav-brand"
-                href="index.html"
-                data-aos="fade-right"
-                data-aos-duration="3000"
-              >
-                <h1 class="home-logo">My Gallery 4U</h1>
-              </a>
+        <div class="main-header-area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="alimeNav">
+                        <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                            <div class="home-logo">
+                                <div class="logo-frame">FRAME!</div>
+                                <div class="logo-contest">Photo Initiative</div>
+                            </div>
+                        </a>
 
-              <div class="classy-navbar-toggler">
-                <span class="navbarToggler"
-                  ><span></span><span></span><span></span
-                ></span>
-              </div>
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
 
-              <div class="classy-menu">
-                <div class="classycloseIcon">
-                  <div class="cross-wrap">
-                    <span class="top"></span><span class="bottom"></span>
-                  </div>
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
+                                <ul id="nav">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li class="active"><a href="gallery.html">Gallery</a></li>
+                                    <li><a href="current-contest.html">Submission</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
-
-                <div
-                  class="classynav"
-                  data-aos="fade-left"
-                  data-aos-duration="3000"
-                >
-                  <ul id="nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="active"><a href="gallery.html">Gallery</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                  </ul>
-
-                  <div
-                    class="search-icon"
-                    data-toggle="modal"
-                    data-target="#searchModal"
-                  >
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
+            </div>
         </div>
-      </div>
     </header>
 
-    <section
-      class="breadcrumb-area bg-img bg-overlay jarallax"
-      style="
-        background-image: url(img/bg-img/x38.jpg.pagespeed.ic.iei-le2mzD.jpg);
-      "
-    >
-      <div class="container h-100">
-        <div class="row h-100 align-items-center">
-          <div class="col-12">
-            <div class="breadcrumb-content text-center">
-              <h2 class="page-title">Gallery</h2>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                  <li class="breadcrumb-item">
-                    <a href="index.html"><i class="icon_house_alt"></i> Home</a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                    Gallery
-                  </li>
-                </ol>
-              </nav>
+    <div class="section-divider" style="height: 5em; width: 100%;"></div>
+    
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-header" data-aos="fade-up" data-aos-duration="1500">
+                <h2>PHOTO GALLERY</h2>
+                </div>
+            
+            <div class="gallery-filters" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+                <button class="gallery-filter-btn active" data-filter="all">全部作品</button>
             </div>
-          </div>
+            
+            <div class="gallery-grid" id="gallery-grid" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400">
+                <!-- 图片将由JavaScript动态加载 -->
+            </div>
         </div>
-      </div>
     </section>
-
-    <div
-      class="alime-portfolio-area section-padding-80 clearfix"
-      data-aos="fade-up"
-      data-aos-duration="3000"
-    >
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div
-              class="alime-projects-menu wow fadeInUp"
-              data-wow-delay="100ms"
-            >
-              <div class="portfolio-menu text-center">
-                <button class="btn active" data-filter="*">All</button>
-                <button class="btn" data-filter=".human">Human</button>
-                <button class="btn" data-filter=".nature">Nature</button>
-                <button class="btn" data-filter=".country">Country</button>
-                <button class="btn" data-filter=".video">Video</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row alime-portfolio">
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-            data-wow-delay="100ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/david-marcu-78A265wPiO4-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/david-marcu-78A265wPiO4-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item video human mb-30 wow fadeInUp"
-            data-wow-delay="300ms"
-          >
-            <div class="single-portfolio-content">
-              <img src="img/bg-img/50.jpg" alt="" />
-              <div class="hover-content">
-                <a href="img/bg-img/50.jpg" class="portfolio-img">+</a>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item country mb-30 wow fadeInUp"
-            data-wow-delay="500ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/timothy-eberly-gJLQaCkyZsg-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/timothy-eberly-gJLQaCkyZsg-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-            data-wow-delay="700ms"
-          >
-            <div class="single-portfolio-content">
-              <img src="img/bg-img/47.jpg" alt="" />
-              <div class="hover-content">
-                <a href="img/bg-img/47.jpg" class="portfolio-img">+</a>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-            data-wow-delay="100ms"
-          >
-            <div class="single-portfolio-content">
-              <img src="img/bg-img/quino-al-mBQIfKlvowM-unsplash.jpg" alt="" />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/quino-al-mBQIfKlvowM-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item video country mb-30 wow fadeInUp"
-            data-wow-delay="300ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/frances-gunn-QcBAZ7VREHQ-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/frances-gunn-QcBAZ7VREHQ-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-            data-wow-delay="500ms"
-          >
-            <div class="single-portfolio-content">
-              <img src="img/bg-img/43.jpg" alt="" />
-              <div class="hover-content">
-                <a href="img/bg-img/43.jpg" class="portfolio-img">+</a>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item nature mb-30 wow fadeInUp"
-            data-wow-delay="700ms"
-          >
-            <div class="single-portfolio-content">
-              <img src="img/bg-img/tim-swaan-eOpewngf68w-unsplash.jpg" alt="" />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/tim-swaan-eOpewngf68w-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item video country mb-30 wow fadeInUp"
-            data-wow-delay="100ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/jake-blucker-SzNpyQMb8W4-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/jake-blucker-SzNpyQMb8W4-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item human mb-30 wow fadeInUp"
-            data-wow-delay="300ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/x48.jpg.pagespeed.ic.ZwS4OSeMPn.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a href="img/bg-img/48.jpg" class="portfolio-img">+</a>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item country mb-30 wow fadeInUp"
-            data-wow-delay="500ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/timothy-eberly-XemjjFd_4qE-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/timothy-eberly-XemjjFd_4qE-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="col-12 col-sm-6 col-lg-3 single_gallery_item country mb-30 wow fadeInUp"
-            data-wow-delay="700ms"
-          >
-            <div class="single-portfolio-content">
-              <img
-                src="img/bg-img/ryan-graybill-MNp1vbopkKc-unsplash.jpg"
-                alt=""
-              />
-              <div class="hover-content">
-                <a
-                  href="img/bg-img/ryan-graybill-MNp1vbopkKc-unsplash.jpg"
-                  class="portfolio-img"
-                  >+</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center wow fadeInUp" data-wow-delay="800ms">
-            <a href="#" class="btn alime-btn btn-2 mt-15">View More</a>
-          </div>
-        </div>
-      </div>
+    
+    <!-- Modal for image popup -->
+    <div id="imageModal" class="modal">
+        <img class="modal-content" id="modalImage">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-artist" id="modalArtist"></div>
+        <span class="modal-close">&times;</span>
     </div>
-
-    <div class="follow-area clearfix">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="section-heading text-center">
-              <h2>Follow Instagram</h2>
-              <p>
-                <a href="https://www.instagram.com/my_gallery_4u/"
-                  >@my_gallery_4u</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="instragram-feed-area owl-carousel">
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x11.jpg.pagespeed.ic.EUL6KdRKnX.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x12.jpg.pagespeed.ic.KtvCPGmp2L.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x13.jpg.pagespeed.ic.Yyn_qfYWhe.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x14.jpg.pagespeed.ic.HrODpshf0G.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x15.jpg.pagespeed.ic.E9v-lQJEPj.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="single-instagram-item">
-          <img src="img/bg-img/x16.jpg.pagespeed.ic._rIX_EXu7n.jpg" alt="" />
-          <div
-            class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
-          >
-            <a href="#" style="font-size: 18px">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <span>Alime_photographer</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-      <div class="wrapper">
-        <div class="containerUp">
-          <div class="social-info">
-            <h2>Follow MY GALLERY 4U</h2>
-            <div class="icons">
-              <a
-                href="https://www.linkedin.com/in/avinash-singh-071b79175/"
-                target="_blank"
-                ><img
-                  src="./img/footer-icons/pinpng.com-linkedin-png-533635.png"
-              /></a>
-              <a href="https://www.instagram.com/my_gallery_4u" target="_blank"
-                ><img src="./img/footer-icons/insta.jpg"
-              /></a>
-              <a href="https://www.instagram.com/my_gallery_4u" target="_blank"
-                ><img src="./img/footer-icons/pinterest-new.png"
-              /></a>
-              <a
-                href="https://www.quora.com/profile/Avinash-Singh-4809"
-                target="_blank"
-                ><img src="./img/footer-icons/quora.png"
-              /></a>
-              <a href="https://github.com/avinash201199" target="_blank"
-                ><img src="./img/footer-icons/gtihub.png"
-              /></a>
-            </div>
-          </div>
-          <div class="connect">
-            <h2>Stay up to date on the latest from My Gallery 4U</h2>
-            <form>
-              <input type="email" placeholder="Enter your email" />
-              <button>Subscribe</button>
-            </form>
-          </div>
-        </div>
-        <hr />
-        <div class="containerDown">
-          <div class="last">
-            <p>
-              Copyright © 2022 All rights reserved | Made with
-              <span class="heart">❤</span> by
-              <a href="#" target="_blank">Avinash Singh</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <script src="js/jquery.min.js"></script>
-
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
     <script>
-      eval(mod_pagespeed_2mSwO3vn68);
+        eval(mod_pagespeed_2mSwO3vn68);
     </script>
-
     <script>
-      eval(mod_pagespeed_aQrG1NKKxL);
+        eval(mod_pagespeed_aQrG1NKKxL);
     </script>
-
     <script src="js/alime.bundle.js"></script>
-
     <script src="js/default-assets/active.js"></script>
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "UA-23581568-13");
-    </script>
-    <script
-      defer
-      src="../../../static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"rayId":"699023286d631bc2","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.9.0","si":100}'
-    ></script>
-    <!-- animate on scroll js  -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
-      AOS.init();
+        AOS.init();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 照片数组，包含所有可用照片的索引
+            const availablePhotos = [1, 2, 3, 4, 5, 6, 7, 9, 10];
+            
+            // 照片标题和艺术家名称数组
+            const photoTitles = [
+                "Portrait of Silence", 
+                "Mountain Whispers", 
+                "Urban Rhythm", 
+                "Fragmented Reality", 
+                "Daily Struggles",
+                "The Gaze", 
+                "Serene Wilderness", 
+                "City Lights", 
+                "Hidden Emotions",
+                "Colorful Chaos", 
+                "Urban Life", 
+                "Nature's Glory"
+            ];
+            
+            const photoArtists = [
+                "By John Smith", 
+                "By Emily Johnson", 
+                "By Michael Wong", 
+                "By Sarah Parker", 
+                "By David Chen",
+                "By Alicia Rodriguez", 
+                "By Thomas Lee", 
+                "By Olivia Kim", 
+                "By James Wilson",
+                "By Luna Chang", 
+                "By Emma Parker", 
+                "By Robert Chen"
+            ];
+            
+            // 洗牌函数 - Fisher-Yates算法
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            // 随机排序照片
+            const shuffledPhotos = shuffleArray([...availablePhotos]);
+            
+            // 确保我们有足够的照片
+            const totalNeeded = 200; // 需要的照片总数
+            const photoIndexes = [];
+            
+            // 生成不重复的照片索引数组
+            for (let i = 0; i < totalNeeded; i++) {
+                // 如果照片不够，循环使用，但排列顺序不同
+                const photoIndex = shuffledPhotos[i % shuffledPhotos.length];
+                photoIndexes.push(photoIndex);
+            }
+            
+            // 生成随机的标题和艺术家索引
+            const shuffledTitles = shuffleArray([...Array(photoTitles.length).keys()]);
+            
+            // 获取gallery-grid元素
+            const galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = ''; // 清空现有内容
+            
+            // 创建12个gallery-item，每4个一组（3小1大）
+            for (let i = 0; i < totalNeeded; i++) {
+                const isLarge = (i + 1) % 4 === 0; // 每4张，第4张是大图
+                const photoIndex = photoIndexes[i];
+                const titleIndex = shuffledTitles[i % shuffledTitles.length];
+                
+                // 创建gallery-item元素
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.setAttribute('data-category', 'all');
+                
+                // 设置HTML内容
+                item.innerHTML = `
+                    <img src="img/photo/${photoIndex}.jpeg" alt="Photo">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">${photoTitles[titleIndex]}</div>
+                        <div class="gallery-item-artist">${photoArtists[titleIndex]}</div>
+                    </div>
+                `;
+                
+                // 添加到gallery-grid
+                galleryGrid.appendChild(item);
+            }
+            
+            // 初始化模态框
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalArtist = document.getElementById('modalArtist');
+            const modalClose = document.querySelector('.modal-close');
+            
+            // Gallery item click event
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 预加载图片
+                    const imgSrc = this.querySelector('img').src;
+                    const img = new Image();
+                    img.onload = function() {
+                        modalImg.src = imgSrc;
+                        modal.style.visibility = 'visible';
+                        setTimeout(() => {
+                            modal.classList.add('active');
+                        }, 10);
+                        
+                        modalTitle.textContent = item.querySelector('.gallery-item-title').textContent;
+                        modalArtist.textContent = item.querySelector('.gallery-item-artist').textContent;
+                        
+                        // 防止页面滚动
+                        document.body.style.overflow = 'hidden';
+                    };
+                    img.src = imgSrc;
+                });
+            });
+            
+            modalClose.addEventListener('click', function() {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.visibility = 'hidden';
+                    // 恢复页面滚动
+                    document.body.style.overflow = '';
+                }, 300);
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.visibility = 'hidden';
+                        // 恢复页面滚动
+                        document.body.style.overflow = '';
+                    }, 300);
+                }
+            });
+            
+            // 过滤功能
+            const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // 为当前按钮添加active类
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // 应用过滤
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
     </script>
-    <!-- Mirrored from preview.colorlib.com/theme/alime/gallery.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Oct 2021 17:30:46 GMT -->
-  </body>
+</body>
 </html>
+
