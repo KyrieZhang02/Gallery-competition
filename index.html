@@ -423,6 +423,239 @@
         .timeline-event:last-child::after {
             content: none !important;
         }
+
+        /* 照片展示区域样式 */
+        .featured-photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .featured-photo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        
+        .featured-photo-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        
+        .featured-photo-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .featured-photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #fff;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            /* 让缩略图中不显示任何信息 */
+            display: none;
+        }
+        
+        .featured-photo-item:hover .featured-photo-overlay {
+            transform: translateY(-5px);
+        }
+        
+        .featured-photo-title {
+            font-family: 'Futura-Bold', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .featured-photo-artist {
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        
+        /* 隐藏缩略图中的学校和国家信息 */
+        .featured-photo-school,
+        .featured-photo-country {
+            display: none;
+        }
+        
+        .featured-photo-meta {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .featured-photo-item:hover .featured-photo-meta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .view-more-btn a {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #FF4D00;
+            color: white;
+            text-decoration: none;
+            font-family: 'Futura-Bold';
+            font-size: 1.1em;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-more-btn a:hover {
+            background: #ff6a33;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.4);
+        }
+
+        /* 照片模态框样式 */
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .photo-modal.active {
+            opacity: 1;
+            display: flex;
+        }
+        
+        .photo-modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .photo-modal-content.loaded {
+            opacity: 1;
+        }
+        
+        /* 修改模态框样式将所有信息放到左下角，并向右移动 */
+        .photo-modal-info {
+            position: absolute;
+            left: 100px;
+            bottom: 7px;
+            background: transparent;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Futura Bk', sans-serif;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            max-width: 400px;
+            z-index: 10;
+        }
+        
+        /* 隐藏作品标题 */
+        .photo-modal-title {
+            display: none;
+        }
+        
+        .photo-modal-artist {
+            color: #fff;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .photo-modal-school {
+            color: #ccc;
+            font-size: 0.9rem;
+            font-style: italic;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .photo-modal-country {
+            color: #FF4D00;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .photo-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1010;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .photo-modal-close:hover {
+            opacity: 1;
+        }
+        
+        .photo-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 2rem;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            opacity: 0.7;
+            transition: opacity 0.3s, background 0.3s;
+            z-index: 1010;
+        }
+        
+        .photo-modal-nav:hover {
+            opacity: 1;
+            background: rgba(255,77,0,0.5);
+        }
+        
+        .photo-modal-prev {
+            left: 20px;
+        }
+        
+        .photo-modal-next {
+            right: 20px;
+        }
+        
+        /* 加载动画 */
+        .photo-loader {
+            display: none;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid #FF4D00;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
     </style>
 </head>
 
@@ -485,6 +718,35 @@
         </div>
     </div>
 
+    <!-- 照片展示区域 -->
+    <div class="featured-photos-section" style="padding: 50px 0; max-width: 1400px; margin: 0 auto;">
+        <h2 style="text-align: center; color: #fff; font-size: 2.5rem; font-family: 'Futura-Heavy', sans-serif; letter-spacing: 2px; margin-bottom: 40px;" data-aos="fade-up" data-aos-duration="1500">FRAME! Contest 2025 Spring/Summer
+        </h2>
+        
+        <div class="featured-photos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 20px; padding: 0 20px;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+            <!-- 照片项目1 -->
+            <div class="featured-photo-item" onclick="openPhotoModal('img/photo/12.jpeg', 'Fuji-san', 'Kasazawa Naomi', 'University College London,United Kingdom', 'Japan')">
+                <img src="img/photo/12.jpeg" alt="Featured Photo">
+            </div>
+            
+            <!-- 照片项目2 -->
+            <div class="featured-photo-item" onclick="openPhotoModal('img/photo/4.jpeg', 'Urban Rhythm', 'By Michael Wong', 'Hong Kong University', 'China')">
+                <img src="img/photo/4.jpeg" alt="Featured Photo">
+            </div>
+            
+            <!-- 照片项目3 -->
+            <div class="featured-photo-item" onclick="openPhotoModal('img/photo/7.jpeg', 'Nature\'s Glory', 'By Robert Chen', 'National Taiwan University', 'Taiwan')">
+                <img src="img/photo/7.jpeg" alt="Featured Photo">
+            </div>
+            
+            <!-- 添加的照片项目4 -->
+            <div class="featured-photo-item" onclick="openPhotoModal('img/photo/2.jpeg', 'Mountain Whispers', 'By Emily Johnson', 'Harvard University', 'United States')">
+                <img src="img/photo/2.jpeg" alt="Featured Photo">
+            </div>
+            
+        </div>
+    </div>
+
     <!-- Timeline section start -->
     <div class="timeline-container">
         <div class="timeline-title">TIMELINE</div>
@@ -519,6 +781,26 @@
     </div>
     <!-- Timeline section end -->
 
+    <!-- 照片模态框 -->
+    <div id="photoModal" class="photo-modal">
+        <div class="photo-loader" id="photoLoader"></div>
+        <img id="photoModalImage" class="photo-modal-content">
+        
+        <!-- 左下角信息框，包含所有信息 -->
+        <div class="photo-modal-info">
+            <!-- 移除作品标题 -->
+            <div>
+                <div id="photoModalArtist" class="photo-modal-artist"></div>
+                <div id="photoModalSchool" class="photo-modal-school"></div>
+                <div id="photoModalCountry" class="photo-modal-country"></div>
+            </div>
+        </div>
+        
+        <span class="photo-modal-close" onclick="closePhotoModal()">&times;</span>
+        <div class="photo-modal-nav photo-modal-prev" id="photoPrev">&#10094;</div>
+        <div class="photo-modal-nav photo-modal-next" id="photoNext">&#10095;</div>
+    </div>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
     <script>
@@ -532,6 +814,144 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+        
+        // 照片模态框功能
+        const featuredPhotos = [
+            { src: 'img/photo/12.jpeg', title: 'Fuji-san', artist: 'Uwasawa Naomi', school: 'University College London United Kingdom', country: 'Japan' },
+            { src: 'img/photo/4.jpeg', title: 'Urban Rhythm', artist: 'By Michael Wong', school: 'Hong Kong University', country: 'China' },
+            { src: 'img/photo/7.jpeg', title: 'Nature\'s Glory', artist: 'By Robert Chen', school: 'National Taiwan University', country: 'Taiwan' },
+            { src: 'img/photo/2.jpeg', title: 'Mountain Whispers', artist: 'By Emily Johnson', school: 'Harvard University', country: 'United States' }
+        ];
+        
+        let currentPhotoIndex = 0;
+        
+        function openPhotoModal(imgSrc, title, artist, school, country) {
+            // 获取模态框元素
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('photoModalImage');
+            const modalArtist = document.getElementById('photoModalArtist');
+            const modalSchool = document.getElementById('photoModalSchool');
+            const modalCountry = document.getElementById('photoModalCountry');
+            const loader = document.getElementById('photoLoader');
+            
+            // 查找当前照片索引
+            let foundIndex = -1;
+            for (let i = 0; i < featuredPhotos.length; i++) {
+                if (featuredPhotos[i].src === imgSrc) {
+                    foundIndex = i;
+                    break;
+                }
+            }
+            
+            if (foundIndex !== -1) {
+                currentPhotoIndex = foundIndex;
+            }
+            
+            // 如果没有提供学校和国家信息，则使用featuredPhotos中的数据
+            if (!school && !country && currentPhotoIndex !== -1) {
+                school = featuredPhotos[currentPhotoIndex].school || '';
+                country = featuredPhotos[currentPhotoIndex].country || '';
+            }
+            
+            // 显示加载动画
+            loader.style.display = 'block';
+            
+            // 先显示模态框为flex布局，但透明度为0
+            modal.style.display = 'flex';
+            
+            // 预加载图片
+            const img = new Image();
+            img.onload = function() {
+                // 设置模态框内容
+                modalImg.src = imgSrc;
+                modalImg.classList.remove('loaded');
+                
+                // 当图片在模态框中加载完成时
+                modalImg.onload = function() {
+                    modalArtist.textContent = artist;
+                    modalSchool.textContent = school || '';
+                    modalCountry.textContent = country || '';
+                    
+                    // 隐藏加载动画，显示图片
+                    loader.style.display = 'none';
+                    modalImg.classList.add('loaded');
+                    
+                    // 显示模态框
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                };
+                
+                // 防止页面滚动
+                document.body.style.overflow = 'hidden';
+            };
+            img.src = imgSrc;
+        }
+        
+        function closePhotoModal() {
+            // 获取模态框元素
+            const modal = document.getElementById('photoModal');
+            
+            // 隐藏模态框
+            modal.classList.remove('active');
+            
+            // 延迟隐藏，等待动画完成
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+            
+            // 恢复页面滚动
+            document.body.style.overflow = '';
+        }
+        
+        function showPreviousPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + featuredPhotos.length) % featuredPhotos.length;
+            const photo = featuredPhotos[currentPhotoIndex];
+            openPhotoModal(photo.src, photo.title, photo.artist, photo.school, photo.country);
+        }
+        
+        function showNextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % featuredPhotos.length;
+            const photo = featuredPhotos[currentPhotoIndex];
+            openPhotoModal(photo.src, photo.title, photo.artist, photo.school, photo.country);
+        }
+        
+        // 点击模态框背景关闭
+        document.getElementById('photoModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closePhotoModal();
+            }
+        });
+        
+        // 设置前后按钮点击事件
+        document.getElementById('photoPrev').addEventListener('click', function(event) {
+            event.stopPropagation();
+            showPreviousPhoto();
+        });
+        
+        document.getElementById('photoNext').addEventListener('click', function(event) {
+            event.stopPropagation();
+            showNextPhoto();
+        });
+        
+        // 使用键盘控制
+        document.addEventListener('keydown', function(event) {
+            if (!document.getElementById('photoModal').classList.contains('active')) {
+                return;
+            }
+            
+            switch (event.key) {
+                case 'Escape':
+                    closePhotoModal();
+                    break;
+                case 'ArrowLeft':
+                    showPreviousPhoto();
+                    break;
+                case 'ArrowRight':
+                    showNextPhoto();
+                    break;
+            }
+        });
     </script>
 </body>
 

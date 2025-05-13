@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>FRAME！CONTEST - 常见问题 Q&A</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #000 !important;
+            background-image: none !important;
+            animation: none !important;
+        }
+        
+        .faq-section {
+            min-height: 80vh;
+            padding: 80px 0;
+            background: transparent !important;
+            font-family: 'futura-bold', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .faq-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'futura-bold', sans-serif;
+        }
+        
+        .faq-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+            font-family: 'Futura-Heavy', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .faq-item {
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 25px;
+        }
+        
+        .faq-question {
+            font-size: 1.3rem;
+            color: #FF4D00;
+            margin-bottom: 15px;
+            font-family: 'Futura-Medium', sans-serif;
+            position: relative;
+            cursor: pointer;
+            padding-right: 30px;
+        }
+        
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            content: "−";
+        }
+        
+        .faq-answer {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #f5f5f5;
+            font-family: 'Futura Bk', sans-serif;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+        
+        .back-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .back-btn a {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            font-family: 'Futura-Bold';
+            font-size: 1.1em;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn a:hover {
+            background: #FF4D00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-area">
+        <div class="main-header-area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="alimeNav">
+                        <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                            <div class="home-logo">
+                                <div class="logo-frame">FRAME!</div>
+                                <div class="logo-contest">Photo Initiative</div>
+                            </div>
+                        </a>
+
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
+                                <ul id="nav">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="gallery.html">Gallery</a></li>
+                                    <li><a href="current-contest.html">Submission</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-divider" style="height: 3em; width: 100%;"></div>
+    
+    <section class="faq-section">
+        <div class="faq-content" data-aos="fade-up" data-aos-duration="1500">
+            <h2>常见问题 Q&A</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">如何参加比赛？</div>
+                <div class="faq-answer">
+                    <p>要参加FRAME! 摄影比赛，请前往我们网站的"Submission"页面，填写所有必要信息并上传您的作品。每位参赛者最多可以提交5张作品。请确保您的作品符合我们的格式要求（JPEG/PNG，不超过100MB）。</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">参赛有什么资格要求？</div>
+                <div class="faq-answer">
+                    <p>FRAME! 摄影比赛主要面向学生群体。所有参赛作品必须是参赛者原创作品，不接受抄袭或AI生成的内容。我们不会严格验证参赛者的学生身份，但希望参赛者遵守这一规定，共同建设我们的社区。</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">关于NFT的具体说明？</div>
+                <div class="faq-answer">
+                    <p>被选中的作品将由组织者铸造为NFT，以记录作者身份和创作内容。所有NFT将在铸造后立即发送到区块链销毁地址，确保它们永久保存、不可交易且无金融价值。NFT仅作为艺术认可的象征，不涉及任何商业活动。</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">参赛作品的版权归属？</div>
+                <div class="faq-answer">
+                    <p>参赛者保留其作品的所有版权。通过提交作品，参赛者授权组织者将其作品用于与FRAME! 摄影计划相关的适当、非商业目的。如果提交的作品涉及侵权或不当内容，组织者保留取消该作品参赛或展览资格的权利。</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">获奖者将获得什么奖励？</div>
+                <div class="faq-answer">
+                    <p>美国和中国大陆的参赛者能够获得现金奖励。对于其他地区，我们可以提供等值的礼品卡（Amazon、Apple、Starbucks等）。汇率参考颁奖时的谷歌汇率。具体奖项设置请关注最新公告。</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">如果我的作品含有敏感信息，应该怎么办？</div>
+                <div class="faq-answer">
+                    <p>如果您的作品包含敏感信息或信息，我们建议您在提交时附上作品说明。所有提交的作品必须符合公共道德标准和价值观。</p>
+                </div>
+            </div>
+            
+            <div class="back-btn">
+                <a href="about.html">返回规则页面</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
+    <script>
+        eval(mod_pagespeed_2mSwO3vn68);
+    </script>
+    <script>
+        eval(mod_pagespeed_aQrG1NKKxL);
+    </script>
+    <script src="js/alime.bundle.js"></script>
+    <script src="js/default-assets/active.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        
+        // FAQ折叠功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // 关闭其他打开的FAQ
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // 切换当前FAQ的状态
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // 默认打开第一个FAQ
+            if (faqItems.length > 0) {
+                faqItems[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html> 
