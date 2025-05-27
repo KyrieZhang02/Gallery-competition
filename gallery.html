@@ -268,6 +268,82 @@
         .modal-close:hover {
             opacity: 1;
         }
+        
+        /* 系列照片样式 */
+        .series-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 77, 0, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+        
+        .modal-series-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .series-nav-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .series-nav-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .series-counter {
+            color: white;
+            font-size: 0.9rem;
+            margin: 0 10px;
+        }
+        
+        .series-thumbnails {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow-x: auto;
+            max-width: 80vw;
+        }
+        
+        .series-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .series-thumbnail.active {
+            opacity: 1;
+            border: 2px solid #FF4D00;
+        }
+        
+        .series-thumbnail:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -328,6 +404,16 @@
         <img class="modal-content" id="modalImage">
         <div class="modal-title" id="modalTitle"></div>
         <div class="modal-artist" id="modalArtist"></div>
+        <div class="series-thumbnails" id="seriesThumbnails" style="display: none;"></div>
+        <div class="modal-series-nav" id="seriesNav" style="display: none;">
+            <button class="series-nav-button" id="prevSeries">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="series-counter" id="seriesCounter"></span>
+            <button class="series-nav-button" id="nextSeries">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
         <span class="modal-close">&times;</span>
     </div>
 
@@ -349,18 +435,29 @@
         
         document.addEventListener('DOMContentLoaded', function() {
             // 照片数组，包含所有可用照片的索引
-            const availablePhotos = [1];
-            
-            // 照片标题和艺术家名称数组
-            const photoTitles = [
-                "Coming Soon", 
-                
+            const availablePhotos = [
+                {
+                    id: 1,
+                    title: "Coming Soon",
+                    artist: "FRAME!",
+                    series: null
+                },
+                {
+                    id: 1,
+                    title: "Coming Soon",
+                    artist: "FRAME!",
+                    series: {
+                        name: "Example",
+                        photos: ["1", "1", "1", "1"]
+                    }
+                }
             ];
             
-            const photoArtists = [
-                "FRAME!", 
-               
-            ];
+            // 设置要展示的照片总数
+            const totalDisplayCount = 100; // 可以根据需要更改这个数字
+            
+            let currentSeriesIndex = 0;
+            let currentSeries = null;
             
             // 洗牌函数 - Fisher-Yates算法
             function shuffleArray(array) {
@@ -374,78 +471,167 @@
             // 随机排序照片
             const shuffledPhotos = shuffleArray([...availablePhotos]);
             
-            // 确保我们有足够的照片
-            const totalNeeded = 200; // 需要的照片总数
-            const photoIndexes = [];
-            
-            // 生成不重复的照片索引数组
-            for (let i = 0; i < totalNeeded; i++) {
-                // 如果照片不够，循环使用，但排列顺序不同
-                const photoIndex = shuffledPhotos[i % shuffledPhotos.length];
-                photoIndexes.push(photoIndex);
+            // 创建要展示的照片数组
+            const displayPhotos = [];
+            for (let i = 0; i < totalDisplayCount; i++) {
+                // 使用取模运算循环使用照片
+                const photo = shuffledPhotos[i % shuffledPhotos.length];
+                displayPhotos.push({
+                    ...photo,
+                    // 为重复的照片添加唯一标识
+                    uniqueId: `${photo.id}_${Math.floor(i / shuffledPhotos.length)}`
+                });
             }
-            
-            // 生成随机的标题和艺术家索引
-            const shuffledTitles = shuffleArray([...Array(photoTitles.length).keys()]);
             
             // 获取gallery-grid元素
             const galleryGrid = document.getElementById('gallery-grid');
             galleryGrid.innerHTML = ''; // 清空现有内容
             
-            // 创建12个gallery-item，每4个一组（3小1大）
-            for (let i = 0; i < totalNeeded; i++) {
-                const isLarge = (i + 1) % 4 === 0; // 每4张，第4张是大图
-                const photoIndex = photoIndexes[i];
-                const titleIndex = shuffledTitles[i % shuffledTitles.length];
-                
-                // 创建gallery-item元素
+            // 创建gallery-item元素
+            displayPhotos.forEach((photo, index) => {
+                const isLarge = (index + 1) % 4 === 0; // 每4张，第4张是大图
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
+                if (isLarge) {
+                    item.style.gridColumn = 'span 2';
+                    item.style.gridRow = 'span 2';
+                }
                 item.setAttribute('data-category', 'all');
                 
                 // 设置HTML内容
-                item.innerHTML = `
-                    <img src="img/Photo/${photoIndex}.jpeg" alt="Photo">
+                let html = `
+                    <img src="img/Photo/${photo.id}.jpeg" alt="Photo">
                     <div class="gallery-item-overlay">
-                        <div class="gallery-item-title">${photoTitles[titleIndex]}</div>
-                        <div class="gallery-item-artist">${photoArtists[titleIndex]}</div>
+                        <div class="gallery-item-title">${photo.title}</div>
+                        <div class="gallery-item-artist">${photo.artist}</div>
                     </div>
                 `;
                 
-                // 添加到gallery-grid
+                // 如果是系列照片，添加系列标识
+                if (photo.series) {
+                    html = `
+                        <div class="series-indicator">${photo.series.photos.length} Photos</div>
+                        ${html}
+                    `;
+                }
+                
+                item.innerHTML = html;
+                
+                // 添加点击事件
+                item.addEventListener('click', function() {
+                    if (photo.series) {
+                        openSeriesModal(photo);
+                    } else {
+                        openSingleModal(photo);
+                    }
+                });
+                
                 galleryGrid.appendChild(item);
+            });
+            
+            // 打开系列照片模态框
+            function openSeriesModal(photo) {
+                currentSeries = photo.series;
+                currentSeriesIndex = 0;
+                
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalArtist = document.getElementById('modalArtist');
+                const seriesNav = document.getElementById('seriesNav');
+                const seriesThumbnails = document.getElementById('seriesThumbnails');
+                const seriesCounter = document.getElementById('seriesCounter');
+                
+                // 显示第一张照片
+                modalImg.src = `img/Photo/${currentSeries.photos[0]}.jpeg`;
+                modalTitle.textContent = photo.title;
+                modalArtist.textContent = photo.artist;
+                
+                // 显示导航和计数器
+                seriesNav.style.display = 'flex';
+                seriesCounter.textContent = `1 / ${currentSeries.photos.length}`;
+                
+                // 创建缩略图
+                seriesThumbnails.innerHTML = '';
+                currentSeries.photos.forEach((photoId, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = `img/Photo/${photoId}.jpeg`;
+                    thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
+                    thumb.addEventListener('click', () => {
+                        currentSeriesIndex = index;
+                        updateSeriesView();
+                    });
+                    seriesThumbnails.appendChild(thumb);
+                });
+                seriesThumbnails.style.display = 'flex';
+                
+                modal.style.visibility = 'visible';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+                
+                // 防止页面滚动
+                document.body.style.overflow = 'hidden';
             }
             
-            // 初始化模态框
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalArtist = document.getElementById('modalArtist');
-            const modalClose = document.querySelector('.modal-close');
+            // 打开单张照片模态框
+            function openSingleModal(photo) {
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalArtist = document.getElementById('modalArtist');
+                const seriesNav = document.getElementById('seriesNav');
+                const seriesThumbnails = document.getElementById('seriesThumbnails');
+                
+                modalImg.src = `img/Photo/${photo.id}.jpeg`;
+                modalTitle.textContent = photo.title;
+                modalArtist.textContent = photo.artist;
+                
+                // 隐藏系列相关元素
+                seriesNav.style.display = 'none';
+                seriesThumbnails.style.display = 'none';
+                
+                modal.style.visibility = 'visible';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+                
+                // 防止页面滚动
+                document.body.style.overflow = 'hidden';
+            }
             
-            // Gallery item click event
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // 预加载图片
-                    const imgSrc = this.querySelector('img').src;
-                    const img = new Image();
-                    img.onload = function() {
-                        modalImg.src = imgSrc;
-                        modal.style.visibility = 'visible';
-                        setTimeout(() => {
-                            modal.classList.add('active');
-                        }, 10);
-                        
-                        modalTitle.textContent = item.querySelector('.gallery-item-title').textContent;
-                        modalArtist.textContent = item.querySelector('.gallery-item-artist').textContent;
-                        
-                        // 防止页面滚动
-                        document.body.style.overflow = 'hidden';
-                    };
-                    img.src = imgSrc;
+            // 更新系列照片视图
+            function updateSeriesView() {
+                const modalImg = document.getElementById('modalImage');
+                const seriesCounter = document.getElementById('seriesCounter');
+                const thumbnails = document.querySelectorAll('.series-thumbnail');
+                
+                modalImg.src = `img/Photo/${currentSeries.photos[currentSeriesIndex]}.jpeg`;
+                seriesCounter.textContent = `${currentSeriesIndex + 1} / ${currentSeries.photos.length}`;
+                
+                thumbnails.forEach((thumb, index) => {
+                    thumb.classList.toggle('active', index === currentSeriesIndex);
                 });
+            }
+            
+            // 添加导航按钮事件监听
+            document.getElementById('prevSeries').addEventListener('click', () => {
+                if (currentSeries && currentSeriesIndex > 0) {
+                    currentSeriesIndex--;
+                    updateSeriesView();
+                }
             });
+            
+            document.getElementById('nextSeries').addEventListener('click', () => {
+                if (currentSeries && currentSeriesIndex < currentSeries.photos.length - 1) {
+                    currentSeriesIndex++;
+                    updateSeriesView();
+                }
+            });
+            
+            // 关闭模态框
+            const modalClose = document.querySelector('.modal-close');
+            const modal = document.getElementById('imageModal');
             
             modalClose.addEventListener('click', function() {
                 modal.classList.remove('active');
@@ -453,6 +639,9 @@
                     modal.style.visibility = 'hidden';
                     // 恢复页面滚动
                     document.body.style.overflow = '';
+                    // 重置系列照片状态
+                    currentSeries = null;
+                    currentSeriesIndex = 0;
                 }, 300);
             });
             
@@ -463,6 +652,9 @@
                         modal.style.visibility = 'hidden';
                         // 恢复页面滚动
                         document.body.style.overflow = '';
+                        // 重置系列照片状态
+                        currentSeries = null;
+                        currentSeriesIndex = 0;
                     }, 300);
                 }
             });
@@ -480,6 +672,7 @@
                     const filterValue = this.getAttribute('data-filter');
                     
                     // 应用过滤
+                    const galleryItems = document.querySelectorAll('.gallery-item');
                     galleryItems.forEach(item => {
                         if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                             item.style.display = 'block';
