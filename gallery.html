@@ -581,7 +581,10 @@
             ];
             
             // 设置要展示的照片总数
-            const totalDisplayCount = 100; // 可以根据需要更改这个数字
+            const totalDisplayCount = 25; // 可以根据需要更改这个数字
+            const PAGE_SIZE = 12; // 每页显示的图片数量
+            let currentPage = 0;
+            let isLoading = false;
             
             let currentSeriesIndex = 0;
             let currentSeries = null;
@@ -601,11 +604,9 @@
             // 创建要展示的照片数组
             const displayPhotos = [];
             for (let i = 0; i < totalDisplayCount; i++) {
-                // 使用取模运算循环使用照片
                 const photo = shuffledPhotos[i % shuffledPhotos.length];
                 displayPhotos.push({
                     ...photo,
-                    // 为重复的照片添加唯一标识
                     uniqueId: `${photo.id}_${Math.floor(i / shuffledPhotos.length)}`
                 });
             }
@@ -620,7 +621,7 @@
             }
             
             // 创建gallery-item元素
-            displayPhotos.forEach((photo, index) => {
+            function createGalleryItem(photo, index) {
                 const isLarge = (index + 1) % 4 === 0;
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
@@ -630,9 +631,9 @@
                 }
                 item.setAttribute('data-category', 'all');
                 
-                // 设置HTML内容，使用getPhotoUrl函数
+                // 设置HTML内容
                 let html = `
-                    <img src="${getPhotoUrl(photo.id)}" alt="Photo">
+                    <img src="${getPhotoUrl(photo.id)}" alt="Photo" loading="lazy">
                     <div class="gallery-item-overlay">
                         <div class="gallery-item-title">${photo.title}</div>
                         <div class="gallery-item-artist">${photo.artist}</div>
@@ -641,6 +642,7 @@
                 
                 if (photo.series) {
                     html = `
+                        <div class="series-indicator">${photo.series.photos.length} Photos</div>
                         ${html}
                     `;
                 }
@@ -656,7 +658,49 @@
                     }
                 });
                 
-                galleryGrid.appendChild(item);
+                return item;
+            }
+            
+            // 加载一页图片
+            function loadPage(page) {
+                const start = page * PAGE_SIZE;
+                const end = Math.min(start + PAGE_SIZE, displayPhotos.length);
+                const fragment = document.createDocumentFragment();
+                
+                for (let i = start; i < end; i++) {
+                    const item = createGalleryItem(displayPhotos[i], i);
+                    fragment.appendChild(item);
+                }
+                
+                galleryGrid.appendChild(fragment);
+                currentPage = page;
+            }
+            
+            // 初始加载
+            loadPage(0);
+            
+            // 添加滚动监听
+            const loadMoreThreshold = 200; // 距离底部多少像素时加载更多
+            
+            window.addEventListener('scroll', () => {
+                if (isLoading) return;
+                
+                const scrollHeight = document.documentElement.scrollHeight;
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+                
+                if (scrollHeight - scrollTop - clientHeight < loadMoreThreshold) {
+                    const nextPage = currentPage + 1;
+                    const start = nextPage * PAGE_SIZE;
+                    
+                    if (start < displayPhotos.length) {
+                        isLoading = true;
+                        loadPage(nextPage);
+                        setTimeout(() => {
+                            isLoading = false;
+                        }, 500);
+                    }
+                }
             });
             
             // 修改打开系列照片模态框函数
