@@ -622,8 +622,17 @@
                 if (isLocalDev) {
                     return `img/Photo/${photoId}.jpeg`;
                 } else {
-                    // 生产环境使用jsDelivr CDN
-                    return `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`;
+                    // 先尝试使用 jsDelivr CDN
+                    const cdnUrl = `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`;
+                    
+                    // 创建一个图片元素来测试CDN链接
+                    const img = new Image();
+                    img.onerror = function() {
+                        // 如果CDN加载失败，切换到GitHub原始链接
+                        this.src = `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photoId}.jpeg`;
+                    };
+                    
+                    return cdnUrl;
                 }
             }
             
