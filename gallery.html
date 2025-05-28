@@ -617,7 +617,14 @@
             
             // 获取图片URL的辅助函数
             function getPhotoUrl(photoId) {
-                return `img/Photo/${photoId}.jpeg`;
+                // 本地开发环境使用本地路径，生产环境使用CDN
+                const isLocalDev = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+                if (isLocalDev) {
+                    return `img/Photo/${photoId}.jpeg`;
+                } else {
+                    // 生产环境使用jsDelivr CDN
+                    return `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`;
+                }
             }
             
             // 创建gallery-item元素
