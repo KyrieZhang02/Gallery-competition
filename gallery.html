@@ -616,18 +616,6 @@
             
             // 获取图片URL的辅助函数
             function getPhotoUrl(photoId) {
-                // 尝试不同的图片格式
-                const formats = ['jpeg', 'jpg', 'HEIC', 'heic'];
-                // 返回第一个存在的图片URL
-                for (let format of formats) {
-                    const url = `img/Photo/${photoId}.${format}`;
-                    const img = new Image();
-                    img.src = url;
-                    if (img.complete) {
-                        return url;
-                    }
-                }
-                // 如果都不存在，返回默认格式
                 return `img/Photo/${photoId}.jpeg`;
             }
             
