@@ -758,19 +758,20 @@
                 const seriesThumbnails = document.getElementById('seriesThumbnails');
                 const seriesCounter = document.getElementById('seriesCounter');
                 
-                // 使用getPhotoUrl函数获取图片URL
-                modalImg.src = getPhotoUrl(currentSeries.photos[0]);
+                // 使用多源加载策略加载图片
+                loadImageWithFallback(currentSeries.photos[0], modalImg);
+                
                 modalTitle.textContent = photo.title;
                 modalArtist.textContent = photo.artist;
                 
                 seriesNav.style.display = 'flex';
                 seriesCounter.textContent = `1 / ${currentSeries.photos.length}`;
                 
-                // 创建缩略图，使用getPhotoUrl函数
+                // 创建缩略图
                 seriesThumbnails.innerHTML = '';
                 currentSeries.photos.forEach((photoId, index) => {
                     const thumb = document.createElement('img');
-                    thumb.src = getPhotoUrl(photoId);
+                    loadImageWithFallback(photoId, thumb);
                     thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
                     thumb.addEventListener('click', () => {
                         currentSeriesIndex = index;
@@ -797,8 +798,9 @@
                 const seriesNav = document.getElementById('seriesNav');
                 const seriesThumbnails = document.getElementById('seriesThumbnails');
                 
-                // 使用getPhotoUrl函数获取图片URL
-                modalImg.src = getPhotoUrl(photo.id);
+                // 使用多源加载策略加载图片
+                loadImageWithFallback(photo.id, modalImg);
+                
                 modalTitle.textContent = photo.title;
                 modalArtist.textContent = photo.artist;
                 
@@ -819,13 +821,44 @@
                 const seriesCounter = document.getElementById('seriesCounter');
                 const thumbnails = document.querySelectorAll('.series-thumbnail');
                 
-                // 使用getPhotoUrl函数获取图片URL
-                modalImg.src = getPhotoUrl(currentSeries.photos[currentSeriesIndex]);
+                // 使用多源加载策略加载图片
+                loadImageWithFallback(currentSeries.photos[currentSeriesIndex], modalImg);
+                
                 seriesCounter.textContent = `${currentSeriesIndex + 1} / ${currentSeries.photos.length}`;
                 
                 thumbnails.forEach((thumb, index) => {
                     thumb.classList.toggle('active', index === currentSeriesIndex);
                 });
+            }
+
+            // 添加新的图片加载函数
+            function loadImageWithFallback(photoId, imgElement) {
+                let currentUrlIndex = 0;
+                const urls = [
+                    `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photoId}.jpeg`,
+                    `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`,
+                    `img/Photo/${photoId}.jpeg`
+                ];
+
+                function tryNextUrl() {
+                    if (currentUrlIndex < urls.length) {
+                        console.log(`Trying to load image ${photoId} from ${urls[currentUrlIndex]}`);
+                        imgElement.src = urls[currentUrlIndex];
+                        currentUrlIndex++;
+                    }
+                }
+
+                imgElement.onerror = function() {
+                    console.log(`Failed to load image ${photoId} from ${imgElement.src}, trying next source...`);
+                    tryNextUrl();
+                };
+
+                imgElement.onload = function() {
+                    console.log(`Successfully loaded image ${photoId} from ${imgElement.src}`);
+                };
+
+                // 开始尝试加载第一个源
+                tryNextUrl();
             }
             
             // 添加导航按钮事件监听
