@@ -284,32 +284,43 @@
         
         .modal-series-nav {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 400px;
+            left: 0;
+            right: 0;
             display: flex;
-            gap: 10px;
-            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1010;
         }
         
         .series-nav-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
+            background: rgba(255, 77, 0, 0.2);
+            border: 1px solid rgba(255, 77, 0, 0.3);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .series-nav-button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 77, 0, 0.4);
         }
         
         .series-counter {
             color: white;
             font-size: 0.9rem;
-            margin: 0 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 15px;
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .series-thumbnails {
@@ -401,19 +412,19 @@
     
     <!-- Modal for image popup -->
     <div id="imageModal" class="modal">
-        <img class="modal-content" id="modalImage">
-        <div class="modal-title" id="modalTitle"></div>
-        <div class="modal-artist" id="modalArtist"></div>
-        <div class="series-thumbnails" id="seriesThumbnails" style="display: none;"></div>
         <div class="modal-series-nav" id="seriesNav" style="display: none;">
             <button class="series-nav-button" id="prevSeries">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <span class="series-counter" id="seriesCounter"></span>
+            <div class="series-counter" id="seriesCounter"></div>
             <button class="series-nav-button" id="nextSeries">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-artist" id="modalArtist"></div>
+        <div class="series-thumbnails" id="seriesThumbnails" style="display: none;"></div>
         <span class="modal-close">&times;</span>
     </div>
 
@@ -438,19 +449,135 @@
             const availablePhotos = [
                 {
                     id: 1,
-                    title: "Coming Soon",
-                    artist: "FRAME!",
+                    title: "Happy Lizard (Toledo Zoo)",
+                    artist: "Chloe, taken in USA",
                     series: null
                 },
                 {
-                    id: 1,
-                    title: "Coming Soon",
-                    artist: "FRAME!",
+                    id: 2,
+                    title: "Polar Beer (Detroit Zoo)",
+                    artist: "Chloe, taken in USA",
+                    series: null
+                },
+                {
+                    id: 3,
+                    title: "Sleeping Wolf (Detroit Zoo)",
+                    artist: "Chloe, taken in USA",
+                    series: null
+                },
+                {
+                    id: 4,
+                    title: "Autozone Apes",
+                    artist: "Megh, taken in USA",
+                    series: null
+                },
+                {
+                    id: 5,
+                    title: "LV",
+                    artist: "Megh, taken in USA",
+                    series: null
+                },
+                {
+                    id: 6,
+                    title: "SC400",
+                    artist: "Megh, taken in USA",
+                    series: null
+                },
+                {
+                    id: 7,
+                    title: "VOB (View of Boston)",
+                    artist: "Megh, taken in USA",
+                    series: null
+                },
+                {
+                    id: 8,
+                    title: "Water Falls",
+                    artist: "Megh, taken in USA",
+                    series: null
+                },
+                {
+                    id: 9,
+                    title: "Existentialist Solitude in Megastructure: Tai Hing Estate",
+                    artist: "Matthew Wu, taken in Hong Kong",
                     series: {
-                        name: "Example",
-                        photos: ["1", "1", "1", "1"]
+                        name: "Existentialist Solitude in Megastructure: Tai Hing Estate",
+                        photos: ["9", "10", "11", "13"]
                     }
-                }
+                },
+                {
+                    id: 14,
+                    title: "F80",
+                    artist: "Floodiesflics, taken in North America",
+                    series: null
+                },
+                {
+                    id: 15,
+                    title: "M430i",
+                    artist: "Floodiesflics, taken in North America",
+                    series: null
+                },
+                {
+                    id: 16,
+                    title: "廊桥遗梦",
+                    artist: "Zhozhou, taken in China",
+                    series: null
+                },
+                {
+                    id: 17,
+                    title: "廊桥遗梦",
+                    artist: "Zhozhou, taken in China",
+                    series: null
+                },
+                {
+                    id: 18,
+                    title: "Desert",
+                    artist: "Zhozhou, taken in China",
+                    series: null
+                },
+                {
+                    id: 19,
+                    title: "Dream",
+                    artist: "Zhozhou, taken in China",
+                    series: null
+                },
+                {
+                    id: 20,
+                    title: "Memories",
+                    artist: "Zhozhou, taken in China",
+                    series: null
+                },
+                {
+                    id: 21,
+                    title: "Blooms Beyond the Fence",
+                    artist: "SHINYA, taken in China",
+                    series: null
+                },
+                {
+                    id: 22,
+                    title: "Frog in the Verdant Habitat",
+                    artist: "SHINYA, taken in China",
+                    series: null
+                },
+                {
+                    id: 23,
+                    title: "Pink Beauty by the Window",
+                    artist: "SHINYA, taken in China",
+                    series: null
+                },
+                {
+                    id: 24,
+                    title: "River Bridge under the Clouds",
+                    artist: "SHINYA, taken in China",
+                    series: null
+                },
+                {
+                    id: 25,
+                    title: "Sentry Spirit",
+                    artist: "SHINYA, taken in China",
+                    series: null
+                },
+
+
             ];
             
             // 设置要展示的照片总数
@@ -487,9 +614,26 @@
             const galleryGrid = document.getElementById('gallery-grid');
             galleryGrid.innerHTML = ''; // 清空现有内容
             
+            // 获取图片URL的辅助函数
+            function getPhotoUrl(photoId) {
+                // 尝试不同的图片格式
+                const formats = ['jpeg', 'jpg', 'HEIC', 'heic'];
+                // 返回第一个存在的图片URL
+                for (let format of formats) {
+                    const url = `img/Photo/${photoId}.${format}`;
+                    const img = new Image();
+                    img.src = url;
+                    if (img.complete) {
+                        return url;
+                    }
+                }
+                // 如果都不存在，返回默认格式
+                return `img/Photo/${photoId}.jpeg`;
+            }
+            
             // 创建gallery-item元素
             displayPhotos.forEach((photo, index) => {
-                const isLarge = (index + 1) % 4 === 0; // 每4张，第4张是大图
+                const isLarge = (index + 1) % 4 === 0;
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 if (isLarge) {
@@ -498,19 +642,17 @@
                 }
                 item.setAttribute('data-category', 'all');
                 
-                // 设置HTML内容
+                // 设置HTML内容，使用getPhotoUrl函数
                 let html = `
-                    <img src="img/Photo/${photo.id}.jpeg" alt="Photo">
+                    <img src="${getPhotoUrl(photo.id)}" alt="Photo">
                     <div class="gallery-item-overlay">
                         <div class="gallery-item-title">${photo.title}</div>
                         <div class="gallery-item-artist">${photo.artist}</div>
                     </div>
                 `;
                 
-                // 如果是系列照片，添加系列标识
                 if (photo.series) {
                     html = `
-                        <div class="series-indicator">${photo.series.photos.length} Photos</div>
                         ${html}
                     `;
                 }
@@ -529,7 +671,7 @@
                 galleryGrid.appendChild(item);
             });
             
-            // 打开系列照片模态框
+            // 修改打开系列照片模态框函数
             function openSeriesModal(photo) {
                 currentSeries = photo.series;
                 currentSeriesIndex = 0;
@@ -542,20 +684,19 @@
                 const seriesThumbnails = document.getElementById('seriesThumbnails');
                 const seriesCounter = document.getElementById('seriesCounter');
                 
-                // 显示第一张照片
-                modalImg.src = `img/Photo/${currentSeries.photos[0]}.jpeg`;
+                // 使用getPhotoUrl函数获取图片URL
+                modalImg.src = getPhotoUrl(currentSeries.photos[0]);
                 modalTitle.textContent = photo.title;
                 modalArtist.textContent = photo.artist;
                 
-                // 显示导航和计数器
                 seriesNav.style.display = 'flex';
                 seriesCounter.textContent = `1 / ${currentSeries.photos.length}`;
                 
-                // 创建缩略图
+                // 创建缩略图，使用getPhotoUrl函数
                 seriesThumbnails.innerHTML = '';
                 currentSeries.photos.forEach((photoId, index) => {
                     const thumb = document.createElement('img');
-                    thumb.src = `img/Photo/${photoId}.jpeg`;
+                    thumb.src = getPhotoUrl(photoId);
                     thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
                     thumb.addEventListener('click', () => {
                         currentSeriesIndex = index;
@@ -570,11 +711,10 @@
                     modal.classList.add('active');
                 }, 10);
                 
-                // 防止页面滚动
                 document.body.style.overflow = 'hidden';
             }
             
-            // 打开单张照片模态框
+            // 修改打开单张照片模态框函数
             function openSingleModal(photo) {
                 const modal = document.getElementById('imageModal');
                 const modalImg = document.getElementById('modalImage');
@@ -583,11 +723,11 @@
                 const seriesNav = document.getElementById('seriesNav');
                 const seriesThumbnails = document.getElementById('seriesThumbnails');
                 
-                modalImg.src = `img/Photo/${photo.id}.jpeg`;
+                // 使用getPhotoUrl函数获取图片URL
+                modalImg.src = getPhotoUrl(photo.id);
                 modalTitle.textContent = photo.title;
                 modalArtist.textContent = photo.artist;
                 
-                // 隐藏系列相关元素
                 seriesNav.style.display = 'none';
                 seriesThumbnails.style.display = 'none';
                 
@@ -596,17 +736,17 @@
                     modal.classList.add('active');
                 }, 10);
                 
-                // 防止页面滚动
                 document.body.style.overflow = 'hidden';
             }
             
-            // 更新系列照片视图
+            // 修改更新系列照片视图函数
             function updateSeriesView() {
                 const modalImg = document.getElementById('modalImage');
                 const seriesCounter = document.getElementById('seriesCounter');
                 const thumbnails = document.querySelectorAll('.series-thumbnail');
                 
-                modalImg.src = `img/Photo/${currentSeries.photos[currentSeriesIndex]}.jpeg`;
+                // 使用getPhotoUrl函数获取图片URL
+                modalImg.src = getPhotoUrl(currentSeries.photos[currentSeriesIndex]);
                 seriesCounter.textContent = `${currentSeriesIndex + 1} / ${currentSeries.photos.length}`;
                 
                 thumbnails.forEach((thumb, index) => {
