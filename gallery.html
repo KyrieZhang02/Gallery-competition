@@ -622,17 +622,16 @@
                 if (isLocalDev) {
                     return `img/Photo/${photoId}.jpeg`;
                 } else {
-                    // 先尝试使用 jsDelivr CDN
-                    const cdnUrl = `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`;
-                    
-                    // 创建一个图片元素来测试CDN链接
-                    const img = new Image();
-                    img.onerror = function() {
-                        // 如果CDN加载失败，切换到GitHub原始链接
-                        this.src = `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photoId}.jpeg`;
-                    };
-                    
-                    return cdnUrl;
+                    // 尝试多个图片源
+                    const urls = [
+                        // GitHub Raw URL（主要源）
+                        `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photoId}.jpeg`,
+                        // jsDelivr CDN（备用源）
+                        `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`,
+                        // 相对路径（最后尝试）
+                        `img/Photo/${photoId}.jpeg`
+                    ];
+                    return urls[0]; // 先使用 GitHub Raw URL
                 }
             }
             
@@ -647,9 +646,36 @@
                 }
                 item.setAttribute('data-category', 'all');
                 
+                // 创建图片元素
+                const img = new Image();
+                let currentUrlIndex = 0;
+                const urls = [
+                    `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photo.id}.jpeg`,
+                    `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photo.id}.jpeg`,
+                    `img/Photo/${photo.id}.jpeg`
+                ];
+
+                function tryNextUrl() {
+                    if (currentUrlIndex < urls.length) {
+                        img.src = urls[currentUrlIndex];
+                        currentUrlIndex++;
+                    }
+                }
+
+                img.onerror = function() {
+                    console.log(`Failed to load image ${photo.id} from ${img.src}, trying next source...`);
+                    tryNextUrl();
+                };
+
+                img.onload = function() {
+                    console.log(`Successfully loaded image ${photo.id} from ${img.src}`);
+                };
+
+                // 设置初始图片源
+                tryNextUrl();
+                
                 // 设置HTML内容
-                let html = `
-                    <img src="${getPhotoUrl(photo.id)}" alt="Photo" loading="lazy">
+                item.innerHTML = `
                     <div class="gallery-item-overlay">
                         <div class="gallery-item-title">${photo.title}</div>
                         <div class="gallery-item-artist">${photo.artist}</div>
@@ -657,13 +683,13 @@
                 `;
                 
                 if (photo.series) {
-                    html = `
-                        <div class="series-indicator">${photo.series.photos.length} Photos</div>
-                        ${html}
-                    `;
+                    const indicator = document.createElement('div');
+                    indicator.className = 'series-indicator';
+                    indicator.textContent = `${photo.series.photos.length} Photos`;
+                    item.insertBefore(indicator, item.firstChild);
                 }
                 
-                item.innerHTML = html;
+                item.insertBefore(img, item.firstChild);
                 
                 // 添加点击事件
                 item.addEventListener('click', function() {
