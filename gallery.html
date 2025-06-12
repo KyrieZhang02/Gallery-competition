@@ -733,16 +733,16 @@
                 // 本地开发环境使用本地路径，生产环境使用CDN
                 const isLocalDev = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
                 if (isLocalDev) {
-                    return `https://s.coze.cn/t/shBJbnm2onc/`;
+                    return `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`;
                 } else {
                     // 尝试多个图片源
                     const urls = [
                         // GitHub Raw URL（主要源）
-                        `https://s.coze.cn/t/shBJbnm2onc/`,
+                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
                         // jsDelivr CDN（备用源）
-                        `https://s.coze.cn/t/shBJbnm2onc/`,
+                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
                         // 相对路径（最后尝试）
-                        `https://s.coze.cn/t/shBJbnm2onc/`
+                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
                     ];
                     return urls[0]; // 先使用 GitHub Raw URL
                 }
@@ -763,9 +763,9 @@
                 const img = new Image();
                 let currentUrlIndex = 0;
                 const urls = [
-                    `https://s.coze.cn/t/shBJbnm2onc/`,
-                    `https://s.coze.cn/t/shBJbnm2onc/`,
-                    `https://s.coze.cn/t/shBJbnm2onc/`
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
                 ];
 
                 function tryNextUrl() {
@@ -943,9 +943,9 @@
             function loadImageWithFallback(photoId, imgElement) {
                 let currentUrlIndex = 0;
                 const urls = [
-                    `https://s.coze.cn/t/shBJbnm2onc/`,
-                    `https://s.coze.cn/t/shBJbnm2onc/`,
-                    `https://s.coze.cn/t/shBJbnm2onc/`
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
+                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
                 ];
 
                 function tryNextUrl() {
