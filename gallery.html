@@ -733,16 +733,16 @@
                 // 本地开发环境使用本地路径，生产环境使用CDN
                 const isLocalDev = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
                 if (isLocalDev) {
-                    return `img/Photo/${photoId}.jpeg`;
+                    return `https://s.coze.cn/t/shBJbnm2onc/`;
                 } else {
                     // 尝试多个图片源
                     const urls = [
                         // GitHub Raw URL（主要源）
-                        `https://raw.githubusercontent.com/kyriezhang/Gallery-competition/master/img/Photo/${photoId}.jpeg`,
+                        `https://s.coze.cn/t/shBJbnm2onc/`,
                         // jsDelivr CDN（备用源）
-                        `https://cdn.jsdelivr.net/gh/kyriezhang/Gallery-competition@master/img/Photo/${photoId}.jpeg`,
+                        `https://s.coze.cn/t/shBJbnm2onc/`,
                         // 相对路径（最后尝试）
-                        `img/Photo/${photoId}.jpeg`
+                        `https://s.coze.cn/t/shBJbnm2onc/`
                     ];
                     return urls[0]; // 先使用 GitHub Raw URL
                 }
