@@ -9,8 +9,8 @@
 
     <title>FRAME！CONTEST - Gallery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="img/core-img/favicon.png">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -22,19 +22,19 @@
             background-image: none !important;
             animation: none !important;
         }
-        
+
         .gallery-section {
             min-height: 100vh;
             padding: 80px 0;
             background: transparent !important;
             font-family: 'futura-bold', sans-serif;
         }
-        
+
         .gallery-header {
             text-align: center;
             margin-bottom: 50px;
         }
-        
+
         .gallery-header h2 {
             font-family: 'Futura-Heavy', sans-serif;
             font-size: 3rem;
@@ -42,7 +42,7 @@
             letter-spacing: 2px;
             margin-bottom: 20px;
         }
-        
+
         .gallery-header p {
             font-family: 'Futura Bk', sans-serif;
             font-size: 1.2rem;
@@ -50,7 +50,7 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .gallery-filters {
             display: flex;
             justify-content: center;
@@ -58,7 +58,7 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-        
+
         .gallery-filter-btn {
             padding: 8px 20px;
             background: transparent;
@@ -69,13 +69,13 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .gallery-filter-btn:hover,
         .gallery-filter-btn.active {
             background: #FF4D00;
             color: #fff;
         }
-        
+
         /* 改进的瀑布流布局 - 实现三小一大的节奏 */
         .gallery-grid {
             width: 100%;
@@ -87,7 +87,7 @@
             grid-gap: 15px;
             grid-auto-flow: dense;
         }
-        
+
         .gallery-item {
             position: relative;
             overflow: hidden;
@@ -97,13 +97,13 @@
             grid-column: span 1;
             transition: transform 0.3s ease;
         }
-        
+
         /* 每第4个元素占据2x2的空间 */
         .gallery-item:nth-child(4n) {
             grid-column: span 2;
             grid-row: span 2;
         }
-        
+
         .gallery-item img {
             width: 100%;
             height: 100%;
@@ -111,15 +111,15 @@
             display: block;
             transition: transform 0.4s ease;
         }
-        
+
         .gallery-item:hover {
             transform: translateY(-5px);
         }
-        
+
         .gallery-item:hover img {
             transform: scale(1.03);
         }
-        
+
         .gallery-item-overlay {
             position: absolute;
             bottom: 0;
@@ -132,24 +132,24 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
         }
-        
+
         .gallery-item:hover .gallery-item-overlay {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .gallery-item-title {
             font-family: 'Futura-Bold', sans-serif;
             font-size: 1.2rem;
             margin-bottom: 5px;
         }
-        
+
         .gallery-item-artist {
             font-family: 'Futura Bk', sans-serif;
             font-size: 0.9rem;
             color: #ccc;
         }
-        
+
         /* 响应式调整 */
         @media (max-width: 1200px) {
             .gallery-grid {
@@ -157,40 +157,40 @@
                 max-width: 100%;
             }
         }
-        
+
         @media (max-width: 992px) {
             .gallery-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
+
             .gallery-item:nth-child(4n) {
                 grid-column: span 2;
                 grid-row: span 2;
             }
         }
-        
+
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .gallery-item:nth-child(4n) {
                 grid-column: span 2;
                 grid-row: span 2;
             }
         }
-        
+
         @media (max-width: 576px) {
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .gallery-item:nth-child(4n) {
                 grid-column: 1;
                 grid-row: span 1;
             }
         }
-        
+
         /* Modal styles */
         .modal {
             position: fixed;
@@ -211,13 +211,13 @@
             visibility: hidden;
             backdrop-filter: none;
         }
-        
+
         .modal.active {
             opacity: 1;
             pointer-events: auto;
             visibility: visible;
         }
-        
+
         .modal-content {
             max-width: 90%;
             max-height: 85vh;
@@ -227,7 +227,7 @@
             box-shadow: none;
             background: transparent;
         }
-        
+
         .modal-title {
             color: #fff;
             font-family: 'Futura-Bold', sans-serif;
@@ -238,7 +238,7 @@
             text-align: center;
             width: 100%;
         }
-        
+
         .modal-artist {
             color: #ccc;
             font-family: 'Futura Bk', sans-serif;
@@ -249,7 +249,7 @@
             text-align: center;
             width: 100%;
         }
-        
+
         .modal-close {
             position: absolute;
             top: 20px;
@@ -264,11 +264,11 @@
             text-shadow: 0px 0px 15px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
             background: transparent;
         }
-        
+
         .modal-close:hover {
             opacity: 1;
         }
-        
+
         /* 系列照片样式 */
         .series-indicator {
             position: absolute;
@@ -281,7 +281,7 @@
             font-size: 0.8rem;
             z-index: 2;
         }
-        
+
         .modal-series-nav {
             position: absolute;
             top: 50%;
@@ -293,7 +293,7 @@
             z-index: 1010;
             transform: translateY(-50%);
         }
-        
+
         .series-nav-button {
             background: rgba(255, 77, 0, 0.3);
             border: 2px solid rgba(255, 77, 0, 0.5);
@@ -307,16 +307,16 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .series-nav-button:hover {
             background: rgba(255, 77, 0, 0.6);
             transform: scale(1.1);
         }
-        
+
         .series-nav-button i {
             font-size: 24px;
         }
-        
+
         .series-thumbnails {
             position: absolute;
             bottom: 80px;
@@ -330,7 +330,7 @@
             overflow-x: auto;
             max-width: 80vw;
         }
-        
+
         .series-thumbnail {
             width: 60px;
             height: 60px;
@@ -340,12 +340,12 @@
             opacity: 0.6;
             transition: all 0.3s ease;
         }
-        
+
         .series-thumbnail.active {
             opacity: 1;
             border: 2px solid #FF4D00;
         }
-        
+
         .series-thumbnail:hover {
             opacity: 1;
         }
@@ -353,642 +353,384 @@
 </head>
 
 <body>
-    <header class="header-area">
-        <div class="main-header-area">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <nav class="classy-navbar justify-content-between" id="alimeNav">
-                        <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
-                            <div class="home-logo">
-                                <div class="logo-frame">FRAME!</div>
-                                <div class="logo-contest">Photo Initiative</div>
-                            </div>
-                        </a>
+<header class="header-area">
+    <div class="main-header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <nav class="classy-navbar justify-content-between" id="alimeNav">
+                    <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                        <div class="home-logo">
+                            <div class="logo-frame">FRAME!</div>
+                            <div class="logo-contest">Photo Initiative</div>
+                        </div>
+                    </a>
 
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <div class="classy-menu">
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                         </div>
 
-                        <div class="classy-menu">
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
-                                <ul id="nav">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li class="active"><a href="gallery.html">Gallery</a></li>
-                                    <li><a href="current-contest.html">Submission</a></li>
-                                </ul>
-                            </div>
+                        <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
+                            <ul id="nav">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li class="active"><a href="gallery.html">Gallery</a></li>
+                                <li><a href="current-contest.html">Submission</a></li>
+                            </ul>
                         </div>
-                    </nav>
-                </div>
+                    </div>
+                </nav>
             </div>
         </div>
-    </header>
-
-    <div class="section-divider" style="height: 5em; width: 100%;"></div>
-    
-    <section class="gallery-section">
-        <div class="container">
-            <div class="gallery-header" data-aos="fade-up" data-aos-duration="1500">
-                <h2>PHOTO GALLERY</h2>
-                </div>
-            
-          
-            <div class="gallery-grid" id="gallery-grid" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400">
-                <!-- 图片将由JavaScript动态加载 -->
-            </div>
-        </div>
-    </section>
-    
-    <!-- Modal for image popup -->
-    <div id="imageModal" class="modal">
-        <div class="modal-series-nav" id="seriesNav" style="display: none;">
-            <button class="series-nav-button" id="prevSeries">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="series-nav-button" id="nextSeries">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-        <img class="modal-content" id="modalImage">
-        <div class="modal-title" id="modalTitle"></div>
-        <div class="modal-artist" id="modalArtist"></div>
-        <div class="series-thumbnails" id="seriesThumbnails" style="display: none;"></div>
-        <span class="modal-close">&times;</span>
     </div>
+</header>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
-    <script>
-        eval(mod_pagespeed_2mSwO3vn68);
-    </script>
-    <script>
-        eval(mod_pagespeed_aQrG1NKKxL);
-    </script>
-    <script src="js/alime.bundle.js"></script>
-    <script src="js/default-assets/active.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <script>
-        AOS.init();
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // 照片数组，包含所有可用照片的索引
-            const availablePhotos = [
-                {
-                    id: 1,
-                    title: "Happy Lizard (Toledo Zoo)",
-                    artist: "Chloe, taken in USA",
-                    series: null
-                },
-                {
-                    id: 2,
-                    title: "Polar Beer (Detroit Zoo)",
-                    artist: "Chloe, taken in USA",
-                    series: null
-                },
-                {
-                    id: 3,
-                    title: "Sleeping Wolf (Detroit Zoo)",
-                    artist: "Chloe, taken in USA",
-                    series: null
-                },
-                {
-                    id: 4,
-                    title: "Autozone Apes",
-                    artist: "Megh, taken in USA",
-                    series: null
-                },
-                {
-                    id: 5,
-                    title: "LV",
-                    artist: "Megh, taken in USA",
-                    series: null
-                },
-                {
-                    id: 6,
-                    title: "SC400",
-                    artist: "Megh, taken in USA",
-                    series: null
-                },
-                {
-                    id: 7,
-                    title: "VOB (View of Boston)",
-                    artist: "Megh, taken in USA",
-                    series: null
-                },
-                {
-                    id: 8,
-                    title: "Water Falls",
-                    artist: "Megh, taken in USA",
-                    series: null
-                },
-                {
-                    id: 9.1,
-                    title: "Existentialist Solitude in Megastructure: Tai Hing Estate",
-                    artist: "Matthew Wu, taken in Hong Kong",
-                    series: {
-                        name: "Existentialist Solitude in Megastructure: Tai Hing Estate",
-                        photos: ["9.1", "9.2", "9.3", "9.4"]
-                    }
-                },
-                {
-                    id: 14,
-                    title: "F80",
-                    artist: "Floodiesflics, taken in North America",
-                    series: null
-                },
-                {
-                    id: 15,
-                    title: "M430i",
-                    artist: "Floodiesflics, taken in North America",
-                    series: null
-                },
-                {
-                    id: 16,
-                    title: "廊桥遗梦",
-                    artist: "Zhozhou, taken in China",
-                    series: null
-                },
-                {
-                    id: 17,
-                    title: "廊桥遗梦",
-                    artist: "Zhozhou, taken in China",
-                    series: null
-                },
-                {
-                    id: 18,
-                    title: "Desert",
-                    artist: "Zhozhou, taken in China",
-                    series: null
-                },
-                {
-                    id: 19,
-                    title: "Dream",
-                    artist: "Zhozhou, taken in China",
-                    series: null
-                },
-                {
-                    id: 20,
-                    title: "Memories",
-                    artist: "Zhozhou, taken in China",
-                    series: null
-                },
-                {
-                    id: 21,
-                    title: "Blooms Beyond the Fence",
-                    artist: "SHINYA, taken in Tokyo",
-                    series: null
-                },
-                {
-                    id: 22,
-                    title: "Frog in the Verdant Habitat",
-                    artist: "SHINYA, taken in Tokyo",
-                    series: null
-                },
-                {
-                    id: 23,
-                    title: "Pink Beauty by the Window",
-                    artist: "SHINYA, taken in Tokyo",
-                    series: null
-                },
-                {
-                    id: 24,
-                    title: "River Bridge under the Clouds",
-                    artist: "SHINYA, taken in Tokyo",
-                    series: null
-                },
-                {
-                    id: 25,
-                    title: "Sentry Spirit",
-                    artist: "SHINYA, taken in Tokyo",
-                    series: null
-                },
-                {
-                    id: 26,
-                    title: "",
-                    artist: "Tony",
-                    series: null
-                },
-                {
-                    id: 27,
-                    title: "",
-                    artist: "Tony, taken in Indiana",
-                    series: null
-                },
-                {
-                    id: 28.1,
-                    title: "游神/Deity Parade",
-                    artist: "weng",
-                    series: {
-                        name: "游神/Deity Parade",
-                        photos: ["28.1", "28.2", "28.3", "28.4","28.5","28.6","28.7","28.8","28.9"]
-                    }
+<div class="section-divider" style="height: 5em; width: 100%;"></div>
 
-                },
-                {
-                    id: 29,
-                    title: "",
-                    artist: "wcz",
-                    series: null
-                },
-                {
-                    id: 30,
-                    title: "",
-                    artist: "wcz",
-                    series: null
-                },
-                {
-                    id: 31,
-                    title: "",
-                    artist: "wcz",
-                    series: null
-                },
-                {
-                    id: 32,
-                    title: "",
-                    artist: "wcz",
-                    series: null
-                },
-                {
-                    id: 33,
-                    title: "",
-                    artist: "wcz",
-                    series: null
-                },
-                {
-                    id: 34,
-                    title: "色彩/Colors",
-                    artist: "那瓦",
-                    series: null
-                },
-                {
-                    id: 35,
-                    title: "注视/Gaze",
-                    artist: "那瓦",
-                    series: null
-                },
-                {
-                    id: 36,
-                    title: "等待/waiting",
-                    artist: "那瓦",
-                    series: null
-                },
-                {
-                    id: 37,
-                    title: "追逐/Chase",
-                    artist: "那瓦",
-                    series: null
-                },
-                {
-                    id: 38,
-                    title: "期盼/Hope",
-                    artist: "那瓦",
-                    series: null
-                },
-                {
-                    id: 39,
-                    title: "修行/Spiritual Practice",
-                    artist: "Mia Zhu",
-                    series: null
-                },
-                {
-                    id: 40,
-                    title: "桥下的船/Boat Under The Bridge",
-                    artist: "Mia Zhu",
-                    series: null
-                },
-                {
-                    id: 41,
-                    title: "梦境/Dreamscape",
-                    artist: "Mia Zhu",
-                    series: null
-                },
-                {
-                    id: 42,
-                    title: "船之歌/Song Of The Boat",
-                    artist: "Mia Zhu",
-                    series: null
-                },
-                {
-                    id: 43,
-                    title: "空白/Blank",
-                    artist: "Mia Zhu",
-                    series: null
-                },
-                
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-header" data-aos="fade-up" data-aos-duration="1500">
+            <h2>PHOTO GALLERY</h2>
+        </div>
 
 
-                                
-                
+        <div class="gallery-grid" id="gallery-grid" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400">
+            <!-- 图片将由JavaScript动态加载 -->
+        </div>
+    </div>
+</section>
 
+<!-- Modal for image popup -->
+<div id="imageModal" class="modal">
+    <div class="modal-series-nav" id="seriesNav" style="display: none;">
+        <button class="series-nav-button" id="prevSeries">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="series-nav-button" id="nextSeries">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <img class="modal-content" id="modalImage">
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-artist" id="modalArtist"></div>
+    <div class="series-thumbnails" id="seriesThumbnails" style="display: none;"></div>
+    <span class="modal-close">&times;</span>
+</div>
 
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
+<script>
+    eval(mod_pagespeed_2mSwO3vn68);
+</script>
+<script>
+    eval(mod_pagespeed_aQrG1NKKxL);
+</script>
+<script src="js/alime.bundle.js"></script>
+<script src="js/default-assets/active.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+<script>
+    AOS.init();
 
-
-
-            ];
-            
-            // 设置要展示的照片总数
-            const totalDisplayCount = 45; // 可以根据需要更改这个数字
-            const PAGE_SIZE = 15; // 每页显示的图片数量
-            let currentPage = 0;
-            let isLoading = false;
-            
-            let currentSeriesIndex = 0;
-            let currentSeries = null;
-            
-            // 洗牌函数 - Fisher-Yates算法
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
+    document.addEventListener('DOMContentLoaded', function() {
+        // 照片数组，包含所有可用照片的索引，并添加url字段指向OSS地址
+        const availablePhotos = [
+            {
+                id: 1,
+                title: "Happy Lizard (Toledo Zoo)",
+                artist: "Chloe, taken in USA",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2025-06-22_224346_869.jpg?Expires=1750604707&OSSAccessKeyId=TMP.3KqtieNuzmEQHaUdaVig1NcbEn5eAEPgMnEuWFSr2ua7ZG3VCHHc1eqL3x4rrx9z5KpQcdKRX2WksFRe3yttNPR4mdXfqM&Signature=tvH2%2F3wRHvgZbJHuzSJkHrYeBF8%3D"
+            },
+            {
+                id: 2,
+                title: "Polar Beer (Detroit Zoo)",
+                artist: "Chloe, taken in USA",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250622224401_219.jpg?Expires=1750604722&OSSAccessKeyId=TMP.3KqtieNuzmEQHaUdaVig1NcbEn5eAEPgMnEuWFSr2ua7ZG3VCHHc1eqL3x4rrx9z5KpQcdKRX2WksFRe3yttNPR4mdXfqM&Signature=SkJ2Nmst2hpk9iikpsce%2BC5rUyQ%3D"
             }
-            
-            // 随机排序照片
-            const shuffledPhotos = shuffleArray([...availablePhotos]);
-            
-            // 创建要展示的照片数组
-            const displayPhotos = [];
-            for (let i = 0; i < totalDisplayCount; i++) {
-                const photo = shuffledPhotos[i % shuffledPhotos.length];
-                displayPhotos.push({
-                    ...photo,
-                    uniqueId: `${photo.id}_${Math.floor(i / shuffledPhotos.length)}`
-                });
+        ];
+
+        // 设置要展示的照片总数
+        const totalDisplayCount = 45; // 可以根据需要更改这个数字
+        const PAGE_SIZE = 15; // 每页显示的图片数量
+        let currentPage = 0;
+        let isLoading = false;
+
+        let currentSeriesIndex = 0;
+        let currentSeries = null;
+
+        // 洗牌函数 - Fisher-Yates算法
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-            
-            // 获取gallery-grid元素
-            const galleryGrid = document.getElementById('gallery-grid');
-            galleryGrid.innerHTML = ''; // 清空现有内容
-            
-            // 获取图片URL的辅助函数
-            function getPhotoUrl(photoId) {
-                // 本地开发环境使用本地路径，生产环境使用CDN
-                const isLocalDev = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
-                if (isLocalDev) {
-                    return `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`;
-                } else {
-                    // 尝试多个图片源
-                    const urls = [
-                        // GitHub Raw URL（主要源）
-                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                        // jsDelivr CDN（备用源）
-                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                        // 相对路径（最后尝试）
-                        `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
-                    ];
-                    return urls[0]; // 先使用 GitHub Raw URL
-                }
+            return array;
+        }
+
+        // 随机排序照片
+        const shuffledPhotos = shuffleArray([...availablePhotos]);
+
+        // 创建要展示的照片数组
+        const displayPhotos = [];
+        for (let i = 0; i < totalDisplayCount; i++) {
+            const photo = shuffledPhotos[i % shuffledPhotos.length];
+            displayPhotos.push({
+                ...photo,
+                uniqueId: `${photo.id}_${Math.floor(i / shuffledPhotos.length)}`
+            });
+        }
+
+        // 获取gallery-grid元素
+        const galleryGrid = document.getElementById('gallery-grid');
+        galleryGrid.innerHTML = ''; // 清空现有内容
+
+        // 创建gallery-item元素
+        function createGalleryItem(photo, index) {
+            const isLarge = (index + 1) % 4 === 0;
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            if (isLarge) {
+                item.style.gridColumn = 'span 2';
+                item.style.gridRow = 'span 2';
             }
-            
-            // 创建gallery-item元素
-            function createGalleryItem(photo, index) {
-                const isLarge = (index + 1) % 4 === 0;
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                if (isLarge) {
-                    item.style.gridColumn = 'span 2';
-                    item.style.gridRow = 'span 2';
-                }
-                item.setAttribute('data-category', 'all');
-                
-                // 创建图片元素
-                const img = new Image();
-                let currentUrlIndex = 0;
-                const urls = [
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
-                ];
+            item.setAttribute('data-category', 'all');
 
-                function tryNextUrl() {
-                    if (currentUrlIndex < urls.length) {
-                        img.src = urls[currentUrlIndex];
-                        currentUrlIndex++;
-                    }
-                }
+            // 创建图片元素
+            const img = new Image();
 
-                img.onerror = function() {
-                    console.log(`Failed to load image ${photo.id} from ${img.src}, trying next source...`);
-                    tryNextUrl();
-                };
+            // 使用OSS地址加载图片，并设置多源回退
+            loadImageWithFallback(photo.url, img);
 
-                img.onload = function() {
-                    console.log(`Successfully loaded image ${photo.id} from ${img.src}`);
-                };
-
-                // 设置初始图片源
-                tryNextUrl();
-                
-                // 设置HTML内容
-                item.innerHTML = `
+            // 设置HTML内容
+            item.innerHTML = `
                     <div class="gallery-item-overlay">
                         <div class="gallery-item-title">${photo.title}</div>
                         <div class="gallery-item-artist">${photo.artist}</div>
                     </div>
                 `;
-                
+
+            if (photo.series) {
+                const indicator = document.createElement('div');
+                indicator.className = 'series-indicator';
+                indicator.textContent = `${photo.series.photos.length} Photos`;
+                item.insertBefore(indicator, item.firstChild);
+            }
+
+            item.insertBefore(img, item.firstChild);
+
+            // 添加点击事件
+            item.addEventListener('click', function() {
                 if (photo.series) {
-                    const indicator = document.createElement('div');
-                    indicator.className = 'series-indicator';
-                    indicator.textContent = `${photo.series.photos.length} Photos`;
-                    item.insertBefore(indicator, item.firstChild);
-                }
-                
-                item.insertBefore(img, item.firstChild);
-                
-                // 添加点击事件
-                item.addEventListener('click', function() {
-                    if (photo.series) {
-                        openSeriesModal(photo);
-                    } else {
-                        openSingleModal(photo);
-                    }
-                });
-                
-                return item;
-            }
-            
-            // 加载一页图片
-            function loadPage(page) {
-                const start = page * PAGE_SIZE;
-                const end = Math.min(start + PAGE_SIZE, displayPhotos.length);
-                const fragment = document.createDocumentFragment();
-                
-                for (let i = start; i < end; i++) {
-                    const item = createGalleryItem(displayPhotos[i], i);
-                    fragment.appendChild(item);
-                }
-                
-                galleryGrid.appendChild(fragment);
-                currentPage = page;
-            }
-            
-            // 初始加载
-            loadPage(0);
-            
-            // 添加滚动监听
-            const loadMoreThreshold = 100; // 距离底部多少像素时加载更多
-            
-            window.addEventListener('scroll', () => {
-                if (isLoading) return;
-                
-                const scrollHeight = document.documentElement.scrollHeight;
-                const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
-                
-                if (scrollHeight - scrollTop - clientHeight < loadMoreThreshold) {
-                    const nextPage = currentPage + 1;
-                    const start = nextPage * PAGE_SIZE;
-                    
-                    if (start < displayPhotos.length) {
-                        isLoading = true;
-                        loadPage(nextPage);
-                        setTimeout(() => {
-                            isLoading = false;
-                        }, 500);
-                    }
+                    openSeriesModal(photo);
+                } else {
+                    openSingleModal(photo);
                 }
             });
-            
-            // 修改打开系列照片模态框函数
-            function openSeriesModal(photo) {
-                currentSeries = photo.series;
-                currentSeriesIndex = 0;
-                
-                const modal = document.getElementById('imageModal');
-                const modalImg = document.getElementById('modalImage');
-                const modalTitle = document.getElementById('modalTitle');
-                const modalArtist = document.getElementById('modalArtist');
-                const seriesNav = document.getElementById('seriesNav');
-                const seriesThumbnails = document.getElementById('seriesThumbnails');
-                
-                // 使用多源加载策略加载图片
-                loadImageWithFallback(currentSeries.photos[0], modalImg);
-                
-                modalTitle.textContent = photo.title;
-                modalArtist.textContent = photo.artist;
-                
-                seriesNav.style.display = 'flex';
-                
-                // 创建缩略图
-                seriesThumbnails.innerHTML = '';
-                currentSeries.photos.forEach((photoId, index) => {
-                    const thumb = document.createElement('img');
-                    loadImageWithFallback(photoId, thumb);
-                    thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
-                    thumb.addEventListener('click', () => {
-                        currentSeriesIndex = index;
-                        updateSeriesView();
-                    });
-                    seriesThumbnails.appendChild(thumb);
-                });
-                seriesThumbnails.style.display = 'flex';
-                
-                modal.style.visibility = 'visible';
-                setTimeout(() => {
-                    modal.classList.add('active');
-                }, 10);
-                
-                document.body.style.overflow = 'hidden';
-            }
-            
-            // 修改打开单张照片模态框函数
-            function openSingleModal(photo) {
-                const modal = document.getElementById('imageModal');
-                const modalImg = document.getElementById('modalImage');
-                const modalTitle = document.getElementById('modalTitle');
-                const modalArtist = document.getElementById('modalArtist');
-                const seriesNav = document.getElementById('seriesNav');
-                const seriesThumbnails = document.getElementById('seriesThumbnails');
-                
-                // 使用多源加载策略加载图片
-                loadImageWithFallback(photo.id, modalImg);
-                
-                modalTitle.textContent = photo.title;
-                modalArtist.textContent = photo.artist;
-                
-                seriesNav.style.display = 'none';
-                seriesThumbnails.style.display = 'none';
-                
-                modal.style.visibility = 'visible';
-                setTimeout(() => {
-                    modal.classList.add('active');
-                }, 10);
-                
-                document.body.style.overflow = 'hidden';
-            }
-            
-            // 修改更新系列照片视图函数
-            function updateSeriesView() {
-                const modalImg = document.getElementById('modalImage');
-                const thumbnails = document.querySelectorAll('.series-thumbnail');
-                
-                // 使用多源加载策略加载图片
-                loadImageWithFallback(currentSeries.photos[currentSeriesIndex], modalImg);
-                
-                thumbnails.forEach((thumb, index) => {
-                    thumb.classList.toggle('active', index === currentSeriesIndex);
-                });
+
+            return item;
+        }
+
+        // 加载一页图片
+        function loadPage(page) {
+            const start = page * PAGE_SIZE;
+            const end = Math.min(start + PAGE_SIZE, displayPhotos.length);
+            const fragment = document.createDocumentFragment();
+
+            for (let i = start; i < end; i++) {
+                const item = createGalleryItem(displayPhotos[i], i);
+                fragment.appendChild(item);
             }
 
-            // 添加新的图片加载函数
-            function loadImageWithFallback(photoId, imgElement) {
-                let currentUrlIndex = 0;
-                const urls = [
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`,
-                    `https://storage.googleapis.com/assets.welovesupermom.com/upermom-v2/62821f7e23dd409da9978196216da235_original.jpg`
-                ];
+            galleryGrid.appendChild(fragment);
+            currentPage = page;
+        }
 
-                function tryNextUrl() {
-                    if (currentUrlIndex < urls.length) {
-                        console.log(`Trying to load image ${photoId} from ${urls[currentUrlIndex]}`);
-                        imgElement.src = urls[currentUrlIndex];
-                        currentUrlIndex++;
-                    }
+        // 初始加载
+        loadPage(0);
+
+        // 添加滚动监听
+        const loadMoreThreshold = 100; // 距离底部多少像素时加载更多
+
+        window.addEventListener('scroll', () => {
+            if (isLoading) return;
+
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            if (scrollHeight - scrollTop - clientHeight < loadMoreThreshold) {
+                const nextPage = currentPage + 1;
+                const start = nextPage * PAGE_SIZE;
+
+                if (start < displayPhotos.length) {
+                    isLoading = true;
+                    loadPage(nextPage);
+                    setTimeout(() => {
+                        isLoading = false;
+                    }, 500);
                 }
-
-                imgElement.onerror = function() {
-                    console.log(`Failed to load image ${photoId} from ${imgElement.src}, trying next source...`);
-                    tryNextUrl();
-                };
-
-                imgElement.onload = function() {
-                    console.log(`Successfully loaded image ${photoId} from ${imgElement.src}`);
-                };
-
-                // 开始尝试加载第一个源
-                tryNextUrl();
             }
-            
-            // 添加导航按钮事件监听
-            document.getElementById('prevSeries').addEventListener('click', () => {
-                if (currentSeries && currentSeriesIndex > 0) {
-                    currentSeriesIndex--;
-                    updateSeriesView();
-                }
-            });
-            
-            document.getElementById('nextSeries').addEventListener('click', () => {
-                if (currentSeries && currentSeriesIndex < currentSeries.photos.length - 1) {
-                    currentSeriesIndex++;
-                    updateSeriesView();
-                }
-            });
-            
-            // 关闭模态框
-            const modalClose = document.querySelector('.modal-close');
+        });
+
+        // 修改打开系列照片模态框函数
+        function openSeriesModal(photo) {
+            currentSeries = photo.series;
+            currentSeriesIndex = 0;
+
             const modal = document.getElementById('imageModal');
-            
-            modalClose.addEventListener('click', function() {
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalArtist = document.getElementById('modalArtist');
+            const seriesNav = document.getElementById('seriesNav');
+            const seriesThumbnails = document.getElementById('seriesThumbnails');
+
+            // 使用多源加载策略加载图片
+            loadImageWithFallback(currentSeries.photos[0].url, modalImg);
+
+            modalTitle.textContent = photo.title;
+            modalArtist.textContent = photo.artist;
+
+            seriesNav.style.display = 'flex';
+
+            // 创建缩略图
+            seriesThumbnails.innerHTML = '';
+            currentSeries.photos.forEach((photoObj, index) => {
+                const thumb = document.createElement('img');
+                loadImageWithFallback(photoObj.url, thumb);
+                thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
+                thumb.addEventListener('click', () => {
+                    currentSeriesIndex = index;
+                    updateSeriesView();
+                });
+                seriesThumbnails.appendChild(thumb);
+            });
+            seriesThumbnails.style.display = 'flex';
+
+            modal.style.visibility = 'visible';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 修改打开单张照片模态框函数
+        function openSingleModal(photo) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalArtist = document.getElementById('modalArtist');
+            const seriesNav = document.getElementById('seriesNav');
+            const seriesThumbnails = document.getElementById('seriesThumbnails');
+
+            // 使用多源加载策略加载图片
+            loadImageWithFallback(photo.url, modalImg);
+
+            modalTitle.textContent = photo.title;
+            modalArtist.textContent = photo.artist;
+
+            seriesNav.style.display = 'none';
+            seriesThumbnails.style.display = 'none';
+
+            modal.style.visibility = 'visible';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 修改更新系列照片视图函数
+        function updateSeriesView() {
+            const modalImg = document.getElementById('modalImage');
+            const thumbnails = document.querySelectorAll('.series-thumbnail');
+
+            // 使用多源加载策略加载图片
+            loadImageWithFallback(currentSeries.photos[currentSeriesIndex].url, modalImg);
+
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentSeriesIndex);
+            });
+        }
+
+        // 图片加载函数，支持OSS地址和多源回退
+        function loadImageWithFallback(primaryUrl, imgElement) {
+            // 这里设置OSS图片的多源回退地址，实际使用时请替换为你自己的OSS地址和备用地址
+            const fallbackUrls = [
+                primaryUrl, // OSS主地址
+                `https://img.example.com/fallback/${getImageFileName(primaryUrl)}`, // 备用CDN地址
+                `https://backup.example.com/images/${getImageFileName(primaryUrl)}` // 备用服务器地址
+            ];
+
+            let currentUrlIndex = 0;
+
+            function tryNextUrl() {
+                if (currentUrlIndex < fallbackUrls.length) {
+                    console.log(`Trying to load image from ${fallbackUrls[currentUrlIndex]}`);
+                    imgElement.src = fallbackUrls[currentUrlIndex];
+                    currentUrlIndex++;
+                }
+            }
+
+            imgElement.onerror = function() {
+                console.log(`Failed to load image from ${imgElement.src}, trying next source...`);
+                tryNextUrl();
+            };
+
+            imgElement.onload = function() {
+                console.log(`Successfully loaded image from ${imgElement.src}`);
+            };
+
+            // 开始尝试加载第一个源
+            tryNextUrl();
+        }
+
+        // 从URL中提取文件名的辅助函数
+        function getImageFileName(url) {
+            const parts = url.split('/');
+            return parts[parts.length - 1];
+        }
+
+        // 添加导航按钮事件监听
+        document.getElementById('prevSeries').addEventListener('click', () => {
+            if (currentSeries && currentSeriesIndex > 0) {
+                currentSeriesIndex--;
+                updateSeriesView();
+            }
+        });
+
+        document.getElementById('nextSeries').addEventListener('click', () => {
+            if (currentSeries && currentSeriesIndex < currentSeries.photos.length - 1) {
+                currentSeriesIndex++;
+                updateSeriesView();
+            }
+        });
+
+        // 关闭模态框
+        const modalClose = document.querySelector('.modal-close');
+        const modal = document.getElementById('imageModal');
+
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.visibility = 'hidden';
+                // 恢复页面滚动
+                document.body.style.overflow = '';
+                // 重置系列照片状态
+                currentSeries = null;
+                currentSeriesIndex = 0;
+            }, 300);
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
                 modal.classList.remove('active');
                 setTimeout(() => {
                     modal.style.visibility = 'hidden';
@@ -998,47 +740,33 @@
                     currentSeries = null;
                     currentSeriesIndex = 0;
                 }, 300);
-            });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.classList.remove('active');
-                    setTimeout(() => {
-                        modal.style.visibility = 'hidden';
-                        // 恢复页面滚动
-                        document.body.style.overflow = '';
-                        // 重置系列照片状态
-                        currentSeries = null;
-                        currentSeriesIndex = 0;
-                    }, 300);
-                }
-            });
-            
-            // 过滤功能
-            const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // 移除所有按钮的active类
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // 为当前按钮添加active类
-                    this.classList.add('active');
-                    
-                    const filterValue = this.getAttribute('data-filter');
-                    
-                    // 应用过滤
-                    const galleryItems = document.querySelectorAll('.gallery-item');
-                    galleryItems.forEach(item => {
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
+            }
+        });
+
+        // 过滤功能
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // 为当前按钮添加active类
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                // 应用过滤
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 });
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
-
