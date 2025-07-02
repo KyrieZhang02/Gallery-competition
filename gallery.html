@@ -441,52 +441,76 @@
         // 照片数组，包含所有可用照片的索引，并添加url字段指向OSS地址
         const availablePhotos = [
             {
-                id: 1,
                 title: "Happy Lizard (Toledo Zoo)",
                 artist: "Chloe, taken in USA",
                 series: null,
                 url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/1.s.1.jpg"
             },
             {
-                id: 2,
                 title: "Polar Beer (Detroit Zoo)",
                 artist: "Chloe, taken in USA",
                 series: null,
                 url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/1.s.2.jpg"
             },
             {
-                id: 3,
                 title: "Sunset at Lake Michigan",
                 artist: "Chloe, taken in USA",
                 series: null,
                 url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/1.s.3.jpg"
             },
+            
             {
-                id: 4,
-                title: "Downtown Detroit",
-                artist: "Chloe, taken in USA",
-                series: null,
-                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/1.s.4.jpg"
-            },
-            {
-                id: 5,
-                title: "Campus Life Series",
-                artist: "Chloe, taken in USA",
+                title: "",
+                artist: "",
                 series: {
                     photos: [
                         {
-                            url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/series1.1.jpg"
+                            url: ""
                         },
                         {
-                            url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/series1.2.jpg"
+                            url: ""
                         },
                         {
-                            url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/series1.3.jpg"
+                            url: ""
                         }
                     ]
                 },
                 url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/1.%20Chloe_USA_University%20Of%20Michigan%20Dearborn/series1.1.jpg"
-            }
+            },
+            {
+                title: "课间时光",
+                artist: "Haoti Wen",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/10.%20Haoti%20Wen_China_Nanjing%20University%20of%20the%20Arts/10.s.1.JPG",
+            },
+            {
+                title: "矿坑公园",
+                artist: "Haoti Wen",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/10.%20Haoti%20Wen_China_Nanjing%20University%20of%20the%20Arts/10.s.2.jpg",
+            },
+            {
+           	    title: "马",
+                artist: "Haoti Wen",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/10.%20Haoti%20Wen_China_Nanjing%20University%20of%20the%20Arts/10.s.3.JPG",
+            },
+            {
+                title: "迷雾缆车",
+                artist: "Haoti Wen",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/10.%20Haoti%20Wen_China_Nanjing%20University%20of%20the%20Arts/10.s.4.JPG",
+            },
+            {
+                title: "时光旋转木马",
+                artist: "Haoti Wen",
+                series: null,
+                url: "https://photo-234.oss-cn-beijing.aliyuncs.com/Frame%EF%BC%81photo/drive-download-20250628T154045Z-1-001/10.%20Haoti%20Wen_China_Nanjing%20University%20of%20the%20Arts/10.s.5.jpg",
+            },
+
+
+
+            
         ];
 
         // 设置要展示的照片总数
@@ -516,7 +540,7 @@
             const photo = shuffledPhotos[i % shuffledPhotos.length];
             displayPhotos.push({
                 ...photo,
-                uniqueId: `${photo.id}_${Math.floor(i / shuffledPhotos.length)}`
+                uniqueId: `${Math.floor(i / shuffledPhotos.length)}_${i}`
             });
         }
 
