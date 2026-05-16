@@ -792,7 +792,7 @@
         for (var i = 0; i <= 500; i++) {
             var t = (i / 500) * 2 * Math.PI;
             bnd.push({
-                x: cxH + xStretch * sc * 16 * Math.pow(Math.sin(t), 3),
+                x: cxH + xStretch * sc * 16 * Math.sign(Math.sin(t)) * Math.pow(Math.abs(Math.sin(t)), 2.9),
                 y: cyH - sc * (13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t))
             });
         }
@@ -830,7 +830,7 @@
         var y = yMin + 10;
         var gap = function(fs) { return Math.max(3, fs * 0.3); };
 
-        while (y < yMax - 2 && total < 600) {
+        while (y < yMax - 50 && total < 600) {
             var segs = segsAt(y);
             var rowW = 0;
             for (var j = 0; j < segs.length; j++) rowW += segs[j][1] - segs[j][0];
