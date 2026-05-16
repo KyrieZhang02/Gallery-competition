@@ -707,6 +707,7 @@
                                     <li><a href="about.html">About</a></li>
                                     <li><a href="gallery.html">Gallery</a></li>
                                     <li><a href="current-contest.html">Submission</a></li>
+                                    <li><a href="past-competitions.html">Past Competition</a></li>
                                 </ul>
                                 <!-- 删除搜索图标 -->
                             </div>
@@ -739,41 +740,150 @@
 
     <!-- 照片展示区域 -->
     <div class="featured-photos-section" style="padding: 50px 0; max-width: 1400px; margin: 0 auto;">
-        <h2 style="text-align: center; color: #fff; font-size: 2.5rem; font-family: 'Futura-Heavy', sans-serif; letter-spacing: 2px; margin-bottom: 40px;" data-aos="fade-up" data-aos-duration="1500">FRAME! Contest 2025 Spring/Summer
+        <h2 style="text-align: center; color: #fff; font-size: 2.5rem; font-family: 'Futura-Heavy', sans-serif; letter-spacing: 2px; margin-bottom: 40px;" data-aos="fade-up" data-aos-duration="1500">FRAME! Contest 2026 Summer
         </h2>
         
-        <div class="featured-photos-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 20px; padding: 0 20px;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
-            <!-- 照片项目1 -->
-            <div class="featured-photo-item" onclick="openPhotoModal('img/Photo/12.jpg', 'Fuji-san', 'Kasazawa Naomi', 'University College London, United Kingdom', 'Japan')">
-                <img src="img/Photo/12.jpg" alt="Featured Photo">
-            </div>
-            
-            <!-- 照片项目2 -->
-            <div class="featured-photo-item" onclick="openPhotoModal('img/Photo/chris.jpeg', '', 'Chris Williams', 'Kloof High School, South Africa', 'South Africa')">
-                <img src="img/Photo/1winner.jpeg" alt="Featured Photo">
-            </div>
-            
-            <!-- 照片项目3 -->
-            <div class="featured-photo-item" onclick="openPhotoModal('img/Photo/xia.jpeg', '', '', '', '')">
-                <img src="img/Photo/1winner2.jpeg" alt="Featured Photo">
-            </div>
-            
-            <!-- 添加的照片项目4 -->
-            <div class="featured-photo-item" onclick="openPhotoModal('img/Photo/spike.jpeg', 'none', 'Weihang Ding', 'Malden Catholic High School, United States', 'United States')">
-                <img src="img/Photo/1winner3.jpeg" alt="Featured Photo">
-            </div>
+        <!-- 引言区域 - 在心形上方 -->
+        <div style="text-align: center; margin-bottom: 30px;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+            <blockquote style="font-family: 'Futura Bk', sans-serif; font-style: italic; font-size: 1.8rem; margin-bottom: 0px; color: #fff;">
+                "Shall I compare thee to a summer's day"
+            </blockquote>
+            <p style="text-align: center; margin-bottom: 0; font-family: 'Futura Bk', sans-serif; color: #ccc;">
+                — William Shakespeare
+            </p>
+        </div>
+
+        <div style="display: flex; justify-content: center; padding: 10px 0;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+            <canvas id="loveHeart" width="760" height="560" style="max-width: 100%; height: auto;"></canvas>
         </div>
     </div>
+    <script>
+    window.addEventListener('load', function() {
+        var canvas = document.getElementById('loveHeart');
+        var ctx = canvas.getContext('2d');
+        var W = 760, H = 560;
 
-    
-    <!-- 引言区域 -->
+        /* Words ordered: less common → top/bottom, most common → middle rows */
+        var words = [
+            /* top narrow lobes (small font) */
+            'Grá','Meilė','Alofa','Evîn','Cariad','Gràdh','Aroha','Kuyay',
+            'Mīlestība','Armastus','Kærlighed','Kjærlighet',
+            'Rakkaus','Maitasun','Dashuri','Imħabba','Láska',
+            /* widening — European & mid-frequency */
+            'Liefde','Kärlek','Miłość','Szerelem','Dragoste','Ljubav','Ljubezen',
+            /* widest middle rows — most recognizable languages */
+            'Love','Amor','Amour','Amore','Liebe',
+            'Любовь','Αγάπη','愛','爱','사랑','Love',
+            'प्यार','حب','عشق','Aşk','Amor','Amour',
+            '愛','ভালোবাসা','Любов','אהבה',
+            /* narrowing — Asian, African, other */
+            'Prema','Premam','Kaadhal','محبت','Muhabbet',
+            'Муҳаббат','Сүйүү','Дурлал','Söygi',
+            'Cinta','Pag-ibig','Yêu','ความรัก',
+            /* bottom taper */
+            'Upendo','Uthando','Ifẹ','Jacayl','Ihunanya',
+            'Aloha','माया','Metta'
+        ];
+
+        /* ---- heart boundary (parametric, wider & rounder) ---- */
+        var cxH = 380, cyH = 230, sc = 15;
+        var xStretch = 1.25;   /* horizontal stretch for rounder shape */
+        var bnd = [];
+        for (var i = 0; i <= 500; i++) {
+            var t = (i / 500) * 2 * Math.PI;
+            bnd.push({
+                x: cxH + xStretch * sc * 16 * Math.pow(Math.sin(t), 3),
+                y: cyH - sc * (13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t))
+            });
+        }
+
+        /* ---- scanline: segments at row y ---- */
+        function segsAt(py) {
+            var xs = [];
+            for (var i = 0; i < bnd.length - 1; i++) {
+                var a = bnd[i], b = bnd[i + 1];
+                if ((a.y <= py && b.y > py) || (a.y > py && b.y <= py)) {
+                    xs.push(a.x + (py - a.y) / (b.y - a.y) * (b.x - a.x));
+                }
+            }
+            xs.sort(function(a, b) { return a - b; });
+            var out = [];
+            for (var i = 0; i < xs.length - 1; i += 2) out.push([xs[i], xs[i + 1]]);
+            return out;
+        }
+
+        /* ---- find y-range & max row width ---- */
+        var yMin = 9999, yMax = 0, maxRowW = 0;
+        for (var i = 0; i < bnd.length; i++) {
+            if (bnd[i].y < yMin) yMin = bnd[i].y;
+            if (bnd[i].y > yMax) yMax = bnd[i].y;
+        }
+        for (var ty = yMin; ty <= yMax; ty += 1) {
+            var ss = segsAt(ty), tw = 0;
+            for (var j = 0; j < ss.length; j++) tw += ss[j][1] - ss[j][0];
+            if (tw > maxRowW) maxRowW = tw;
+        }
+
+        /* ---- place words row-by-row, centered in each segment ---- */
+        var idx = 0;
+        var total = 0;
+        var y = yMin + 10;
+        var gap = function(fs) { return Math.max(3, fs * 0.3); };
+
+        while (y < yMax - 2 && total < 600) {
+            var segs = segsAt(y);
+            var rowW = 0;
+            for (var j = 0; j < segs.length; j++) rowW += segs[j][1] - segs[j][0];
+
+            if (rowW < 12) { y += 5; continue; }
+
+            var ratio = rowW / maxRowW;
+            var fs = Math.max(8, Math.round(7 + ratio * 22));
+            ctx.font = fs + 'px Arial, "PingFang SC", "Noto Sans", sans-serif';
+            var g = gap(fs);
+
+            var placed = false;
+            for (var s = 0; s < segs.length; s++) {
+                var L = segs[s][0] + 2, R = segs[s][1] - 2;
+                var segW = R - L;
+
+                /* pass 1: measure how many words fit */
+                var probe = idx, fitWords = [], fitW = 0;
+                while (probe < idx + words.length && total + fitWords.length < 600) {
+                    var w = words[probe % words.length];
+                    var tw = ctx.measureText(w).width;
+                    var need = fitWords.length > 0 ? tw + g : tw;
+                    if (fitW + need > segW) break;
+                    fitWords.push({ word: w, tw: tw, gi: probe });
+                    fitW += need;
+                    probe++;
+                }
+
+                if (fitWords.length === 0) continue;
+
+                /* pass 2: draw centered */
+                var startX = L + (segW - fitW) / 2;
+                var x = startX;
+                for (var k = 0; k < fitWords.length; k++) {
+                    var fi = fitWords[k];
+                    ctx.fillStyle = (fi.gi % 7 === 0) ? '#FF4D00'
+                                  : 'rgba(255,255,255,' + (0.55 + ratio * 0.45).toFixed(2) + ')';
+                    ctx.fillText(fi.word, x, y);
+                    x += fi.tw + g;
+                    idx++;
+                    total++;
+                    placed = true;
+                }
+            }
+            y += fs + 2;
+            if (!placed) y += 3;
+        }
+    });
+    </script>
+
+
+    <!-- 正文区域 -->
     <div class="quote-section" style="max-width: 1000px; margin: 20px auto 40px; padding: 0 20px 30px; text-align: center; color: #fff;">
-        <blockquote style="font-family: 'Futura Bk', sans-serif; font-style: italic; font-size: 1.8rem; margin-bottom: 0px;">
-            "There is nothing in this world that does not have a decisive moment."
-        </blockquote>
-        <p style="text-align: right; margin-bottom: 40px; font-family: 'Futura Bk', sans-serif; color: #ccc;">
-            — Henri Cartier Bresson
-        </p>
         
         <div style="text-align: center; margin-top: 40px; margin-bottom: 60px; font-family: 'Futura Bk'; font-size: 1.2em;">
             <p style="color: #dad5d5 !important; display: block; font-weight: bold;">
@@ -796,27 +906,27 @@
             <div class="timeline-event">
                 <div class="timeline-dot"></div>
                 <div class="timeline-label">Submission Open</div>
-                <div class="timeline-date" style="font-family: 'Futura-Light';">May 26 2025</div>
+                <div class="timeline-date" style="font-family: 'Futura-Light';">June 7 2026</div>
             </div>
             <div class="timeline-event">
                 <div class="timeline-dot"></div>
                 <div class="timeline-label">Submission Deadline</div>
-                <div class="timeline-date" style="font-family: 'Futura-Light';">June 26 2025</div>
+                <div class="timeline-date" style="font-family: 'Futura-Light';">August 31 2026</div>
             </div>
             <div class="timeline-event">
                 <div class="timeline-dot"></div>
                 <div class="timeline-label">Review End</div>
-                <div class="timeline-date" style="font-family: 'Futura-Light';">July 3 2025</div>
+                <div class="timeline-date" style="font-family: 'Futura-Light';">September 10 2026</div>
             </div>
             <div class="timeline-event">
                 <div class="timeline-dot"></div>
                 <div class="timeline-label"> Finalists Released</div>
-                <div class="timeline-date" style="font-family: 'Futura-Light';">July 15 2025</div>
+                <div class="timeline-date" style="font-family: 'Futura-Light';">September 13 2026</div>
             </div>
             <div class="timeline-event">
                 <div class="timeline-dot"></div>
                 <div class="timeline-label">Winner Announcement</div>
-                <div class="timeline-date" style="font-family: 'Futura-Light';">July 17 2025</div>
+                <div class="timeline-date" style="font-family: 'Futura-Light';">September 27 2026</div>
             </div>
         </div>
     </div>

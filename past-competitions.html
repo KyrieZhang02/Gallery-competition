@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>FRAME！CONTEST - Past Competitions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body { background: #000 !important; }
+
+        .past-section {
+            min-height: 100vh;
+            padding: 80px 0 60px;
+        }
+
+        .past-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .past-header h1 {
+            font-family: 'Futura-Heavy', sans-serif;
+            font-size: 2.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .past-header .season-badge {
+            display: inline-block;
+            padding: 4px 18px;
+            border: 1px solid #FF4D00;
+            color: #FF4D00;
+            border-radius: 20px;
+            font-family: 'Futura-Medium', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .past-header .divider {
+            width: 60px;
+            height: 2px;
+            background: #FF4D00;
+            margin: 20px auto 0;
+        }
+
+        .edition-block {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .edition-title {
+            font-family: 'Futura-Heavy', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .edition-subtitle {
+            font-family: 'Futura Bk', sans-serif;
+            color: #888;
+            text-align: center;
+            margin-bottom: 36px;
+            font-size: 0.95rem;
+        }
+
+        .featured-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .featured-photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .featured-photo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .featured-photo-item img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .featured-photo-item:hover img { transform: scale(1.05); }
+
+        .photo-info {
+            padding: 14px 16px;
+            background: #111;
+        }
+
+        .photo-info .artist {
+            font-family: 'Futura-Medium', sans-serif;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .photo-info .school {
+            font-family: 'Futura Bk', sans-serif;
+            color: #777;
+            font-size: 0.75rem;
+        }
+
+        .quote-block {
+            max-width: 760px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .quote-block blockquote {
+            font-family: 'Futura Bk', sans-serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #eee;
+            margin: 0 0 12px;
+        }
+
+        .quote-block cite {
+            font-family: 'Futura-Medium', sans-serif;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: normal;
+        }
+
+        /* Photo Modal */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.93);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-modal.active { display: flex; }
+        .photo-modal-content {
+            max-width: 80vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .photo-modal-close {
+            position: absolute;
+            top: 24px; right: 32px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .photo-modal-close:hover { color: #FF4D00; }
+
+        @media (max-width: 768px) {
+            .featured-photos-grid { grid-template-columns: repeat(2, 1fr); }
+            .past-header h1 { font-size: 1.8rem; }
+        }
+        @media (max-width: 480px) {
+            .featured-photos-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header-area">
+    <div class="main-header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <nav class="classy-navbar justify-content-between" id="alimeNav">
+                    <a class="nav-brand" href="index.html" data-aos="fade-right" data-aos-duration="3000">
+                        <div class="home-logo">
+                            <div class="logo-frame">FRAME!</div>
+                            <div class="logo-contest">Photo Initiative</div>
+                        </div>
+                    </a>
+
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <div class="classy-menu">
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <div class="classynav" data-aos="fade-left" data-aos-duration="3000">
+                            <ul id="nav">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="current-contest.html">Submission</a></li>
+                                <li class="active"><a href="past-competitions.html">Past Competition</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div style="height: 5em;"></div>
+
+<section class="past-section">
+
+    <div class="past-header" data-aos="fade-up" data-aos-duration="1200">
+        <h1>Past Competitions</h1>
+        <div class="season-badge">ARCHIVE</div>
+        <div class="divider"></div>
+    </div>
+
+    <!-- 2025 Spring/Summer Edition -->
+    <div class="edition-block" data-aos="fade-up" data-aos-duration="1400">
+        <div class="edition-title">FRAME! Contest 2025 Spring / Summer</div>
+        <div class="edition-subtitle">Winners &amp; Featured Works</div>
+
+        <div class="featured-photos-grid">
+            <div class="featured-photo-item" onclick="openModal('img/Photo/12.jpg')">
+                <img src="img/Photo/12.jpg" alt="Fuji-san">
+                <div class="photo-info">
+                    <div class="artist">Kasazawa Naomi</div>
+                    <div class="school">University College London, United Kingdom</div>
+                </div>
+            </div>
+            <div class="featured-photo-item" onclick="openModal('img/Photo/1winner.jpeg')">
+                <img src="img/Photo/1winner.jpeg" alt="Featured">
+                <div class="photo-info">
+                    <div class="artist">Chris Williams</div>
+                    <div class="school">Kloof High School, South Africa</div>
+                </div>
+            </div>
+            <div class="featured-photo-item" onclick="openModal('img/Photo/1winner2.jpeg')">
+                <img src="img/Photo/1winner2.jpeg" alt="Featured">
+                <div class="photo-info">
+                    <div class="artist">&nbsp;</div>
+                    <div class="school">&nbsp;</div>
+                </div>
+            </div>
+            <div class="featured-photo-item" onclick="openModal('img/Photo/1winner3.jpeg')">
+                <img src="img/Photo/1winner3.jpeg" alt="Featured">
+                <div class="photo-info">
+                    <div class="artist">Weihang Ding</div>
+                    <div class="school">Malden Catholic High School, United States</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote-block" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="100">
+        <blockquote>"There is nothing in this world that does not have a decisive moment."</blockquote>
+        <cite>— Henri Cartier-Bresson</cite>
+    </div>
+
+    <!-- Body text -->
+    <div style="max-width: 760px; margin: 0 auto 80px; padding: 0 20px; text-align: center; font-family: 'Futura Bk'; font-size: 1.1em;" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="150">
+        <p style="color: #dad5d5; font-weight: bold; line-height: 1.8;">
+            Life is an animated existence, on going forever, every millisecond turns into the unreplicable past. On the scale of human history, camera has only existed for a very short period, however, pulling out a phone and taking a snap has been such a natural part of our instinct. Why is mankind obsessed with taking pictures? I figured, the instant you press the shutter, you have created a frame, a space, an eternal moment, one life. What life do you want to create through your eyes as a student photographer?
+        </p>
+    </div>
+
+</section>
+
+<!-- Modal -->
+<div id="photoModal" class="photo-modal" onclick="closeModal()">
+    <span class="photo-modal-close" onclick="closeModal()">&times;</span>
+    <img id="modalImg" class="photo-modal-content" src="" alt="">
+</div>
+
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<script src="js/bootstrap/popper.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/classy-nav/jquery.classyNav.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1200, once: true });
+    $("#alimeNav").classyNav();
+
+    function openModal(src) {
+        document.getElementById('modalImg').src = src;
+        document.getElementById('photoModal').classList.add('active');
+    }
+    function closeModal() {
+        document.getElementById('photoModal').classList.remove('active');
+    }
+</script>
+</body>
+</html>
