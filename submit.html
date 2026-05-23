@@ -54,6 +54,27 @@
             padding: 30px;
             margin-top: 30px;
         }
+
+        .form-intro {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .form-section-title {
+            color: #FF4D00;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 34px 0 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
         
         .form-group {
             margin-bottom: 25px;
@@ -81,6 +102,10 @@
             background-color: rgba(255, 255, 255, 0.15);
             border-color: #FF4D00;
             outline: none;
+        }
+
+        .form-control option {
+            color: #111;
         }
         
         textarea.form-control {
@@ -153,6 +178,7 @@
         .file-upload-info {
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
+            text-align: center;
         }
         
         .file-upload input[type="file"] {
@@ -163,6 +189,33 @@
             height: 100%;
             opacity: 0;
             cursor: pointer;
+        }
+
+        .upload-status {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+
+        .form-message {
+            display: none;
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            background-color: rgba(255, 77, 0, 0.18);
+            border: 1px solid rgba(255, 77, 0, 0.45);
+        }
+
+        .form-message.success {
+            background-color: rgba(46, 204, 113, 0.18);
+            border-color: rgba(46, 204, 113, 0.45);
+        }
+
+        .form-message.error {
+            background-color: rgba(231, 76, 60, 0.18);
+            border-color: rgba(231, 76, 60, 0.45);
         }
         
         .preview-container {
@@ -226,8 +279,19 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255, 77, 0, 0.3);
         }
+
+        .submit-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            transform: none;
+        }
         
         @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
             .category-option {
                 flex: 0 0 calc(50% - 15px);
             }
@@ -296,76 +360,172 @@
 
     <section class="submit-section">
         <div class="submit-content" data-aos="fade-up" data-aos-duration="1500">
-            <h2>作品投稿</h2>
-            <p>分享您的摄影作品，参与FRAME！摄影大赛</p>
+            <h2>FRAME! Photo Contest Submission</h2>
+            <p>Upload your works directly on the FRAME! website</p>
             
-            <form class="submission-form" id="photoSubmissionForm">
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
+            <form class="submission-form" id="photoSubmissionForm" method="post" enctype="multipart/form-data">
+                <div class="form-intro">
+                    Please make sure reading the rules and guidelines (including Q&amp;A) on the website before finishing the submission.
+                    We look forward to see your works! You can submit your works individually (photo 1-5) or as a series,
+                    if you choose to submit as a series, go to "Submitting your works as a series" question.
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">电子邮箱</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">联系电话</label>
-                    <input type="tel" id="phone" name="phone" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label>作品类别</label>
-                    <div class="category-select">
-                        <div class="category-option">
-                            <input type="radio" id="category-landscape" name="category" value="landscape" required>
-                            <label for="category-landscape">风景</label>
-                        </div>
-                        <div class="category-option">
-                            <input type="radio" id="category-portrait" name="category" value="portrait">
-                            <label for="category-portrait">人像</label>
-                        </div>
-                        <div class="category-option">
-                            <input type="radio" id="category-wildlife" name="category" value="wildlife">
-                            <label for="category-wildlife">野生动物</label>
-                        </div>
-                        <div class="category-option">
-                            <input type="radio" id="category-street" name="category" value="street">
-                            <label for="category-street">街拍</label>
-                        </div>
+
+                <div class="form-section-title">Participant Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name (Nickname is fine) *</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email (If your submission enters finalists, we will inform you via this email). *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="title">作品标题</label>
-                    <input type="text" id="title" name="title" class="form-control" required>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Residence Country/Region (You can list the one where you practice your photography or your origin) *</label>
+                        <input type="text" id="country" name="country" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="school">Full name of the school you are attending right now or about to attend (Name + Country/Region). *</label>
+                        <input type="text" id="school" name="school" class="form-control" required>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="description">作品描述</label>
-                    <textarea id="description" name="description" class="form-control" required></textarea>
+
+                <div class="form-section-title">Individual Photos</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Photo 1 (minimum) *</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="file-upload-text">Add file</div>
+                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                            <input type="file" id="photo-1" class="photo-file" name="photo_1" accept="image/jpeg, image/png" required>
+                        </div>
+                        <div class="upload-status">No file selected</div>
+                        <div class="preview-container"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photo 2</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="file-upload-text">Add file</div>
+                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                            <input type="file" id="photo-2" class="photo-file" name="photo_2" accept="image/jpeg, image/png">
+                        </div>
+                        <div class="upload-status">No file selected</div>
+                        <div class="preview-container"></div>
+                    </div>
                 </div>
-                
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Photo 3</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="file-upload-text">Add file</div>
+                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                            <input type="file" id="photo-3" class="photo-file" name="photo_3" accept="image/jpeg, image/png">
+                        </div>
+                        <div class="upload-status">No file selected</div>
+                        <div class="preview-container"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photo 4</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="file-upload-text">Add file</div>
+                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                            <input type="file" id="photo-4" class="photo-file" name="photo_4" accept="image/jpeg, image/png">
+                        </div>
+                        <div class="upload-status">No file selected</div>
+                        <div class="preview-container"></div>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label>上传作品</label>
+                    <label>Photo 5</label>
                     <div class="file-upload">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="file-upload-text">点击或拖拽文件到此处上传</div>
-                        <div class="file-upload-info">支持 JPG, PNG 格式，最大文件大小为 10MB</div>
-                        <input type="file" id="photo-upload" name="photo" accept="image/jpeg, image/png" required>
+                        <div class="file-upload-text">Add file</div>
+                        <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                        <input type="file" id="photo-5" class="photo-file" name="photo_5" accept="image/jpeg, image/png">
                     </div>
-                    <div class="preview-container" id="image-preview-container"></div>
+                    <div class="upload-status">No file selected</div>
+                    <div class="preview-container"></div>
                 </div>
-                
+
+                <div class="form-section-title">Photo Names and Descriptions</div>
                 <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="terms" required>
-                        我已阅读并同意<a href="#" style="color: #FF4D00; text-decoration: none;">比赛规则</a>和<a href="#" style="color: #FF4D00; text-decoration: none;">隐私政策</a>
-                    </label>
+                    <label for="photo-1-name">Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *</label>
+                    <textarea id="photo-1-name" name="photo_1_name_description" class="form-control" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo-2-name">Photo 2 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                    <textarea id="photo-2-name" name="photo_2_name_description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo-3-name">Photo 3 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                    <textarea id="photo-3-name" name="photo_3_name_description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo-4-name">Photo 4 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                    <textarea id="photo-4-name" name="photo_4_name_description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo-5-name">Photo 5 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                    <textarea id="photo-5-name" name="photo_5_name_description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-section-title">Series Submission</div>
+                <div class="form-group">
+                    <label>Submitting your works as a series</label>
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="file-upload-text">Add file</div>
+                        <div class="file-upload-info">Upload your series files here if you are submitting a series.</div>
+                        <input type="file" id="series-upload" class="photo-file" name="series_work" accept="image/jpeg, image/png, application/zip" multiple>
+                    </div>
+                    <div class="upload-status">No file selected</div>
+                    <div class="preview-container"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="series-description">Series work description and name</label>
+                    <textarea id="series-description" name="series_description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="camera">What is the camera(s) that you used for your works?</label>
+                    <input type="text" id="camera" name="camera" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>You have read and understood all terms indicated in the FRAME! Photo Contest Official Rules (link FRAME! CONTEST) *</label>
+                    <div class="category-select">
+                        <div class="category-option">
+                            <input type="radio" id="rules-yes" name="rules_confirmation" value="yes" required>
+                            <label for="rules-yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Anything you want to tell us (questions, concerns, suggestions...) *</label>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
                 </div>
                 
-                <button type="submit" class="submit-btn">提交作品</button>
+                <button type="submit" class="submit-btn">Submit</button>
+                <div class="form-message" id="form-message"></div>
             </form>
         </div>
     </section>
@@ -384,44 +544,198 @@
     <script>
         AOS.init();
         
-        // 图片预览功能
-        document.getElementById('photo-upload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const previewContainer = document.getElementById('image-preview-container');
-                    previewContainer.innerHTML = '';
-                    
+        const SUPABASE_URL = 'https://yrgotbwawxuieldtcpbx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZ290Yndhd3h1aWVsZHRjcGJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MDkyNDcsImV4cCI6MjA5NTA4NTI0N30.8_hsFkocl2oeNM9u38aZGEi8_8HhGkZBPuitEucSmu8';
+        const SUPABASE_BUCKET = 'submissions';
+        const SUPABASE_TABLE = 'photo_submissions';
+        const formMessage = document.getElementById('form-message');
+        const submitButton = document.querySelector('.submit-btn');
+        const maxFileSize = 10 * 1024 * 1024;
+
+        function showMessage(message, type) {
+            formMessage.textContent = message;
+            formMessage.className = `form-message ${type || ''}`.trim();
+            formMessage.style.display = 'block';
+        }
+
+        function isSupabaseConfigured() {
+            return !SUPABASE_URL.includes('YOUR_') && !SUPABASE_ANON_KEY.includes('YOUR_');
+        }
+
+        function getUploadParts(input) {
+            const group = input.closest('.form-group');
+            return {
+                status: group.querySelector('.upload-status'),
+                previewContainer: group.querySelector('.preview-container')
+            };
+        }
+
+        function resetUpload(input) {
+            const parts = getUploadParts(input);
+            input.value = '';
+            parts.status.textContent = 'No file selected';
+            parts.previewContainer.innerHTML = '';
+        }
+
+        document.querySelectorAll('.photo-file').forEach(function(input) {
+            input.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                const parts = getUploadParts(input);
+                parts.previewContainer.innerHTML = '';
+                formMessage.style.display = 'none';
+
+                const invalidFile = files.find(function(file) {
+                    const isZip = input.id === 'series-upload' && file.type === 'application/zip';
+                    return (!['image/jpeg', 'image/png'].includes(file.type) && !isZip) || file.size > maxFileSize;
+                });
+
+                if (invalidFile) {
+                    alert('Please upload JPG or PNG files only. Each file must be under 10MB. Series submissions may also use ZIP files.');
+                    resetUpload(input);
+                    return;
+                }
+
+                if (!files.length) {
+                    resetUpload(input);
+                    return;
+                }
+
+                parts.status.textContent = files.length === 1 ? files[0].name : `${files.length} file(s) selected`;
+
+                files.forEach(function(file) {
                     const preview = document.createElement('div');
                     preview.className = 'image-preview';
-                    
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    
-                    const removeBtn = document.createElement('div');
-                    removeBtn.className = 'remove-image';
-                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    removeBtn.addEventListener('click', function() {
-                        document.getElementById('photo-upload').value = '';
-                        previewContainer.innerHTML = '';
-                    });
-                    
-                    preview.appendChild(img);
-                    preview.appendChild(removeBtn);
-                    previewContainer.appendChild(preview);
-                }
-                reader.readAsDataURL(file);
-            }
+
+                    if (file.type === 'application/zip') {
+                        preview.textContent = file.name;
+                        parts.previewContainer.appendChild(preview);
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.alt = file.name;
+
+                        preview.appendChild(img);
+                        parts.previewContainer.appendChild(preview);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
         });
+
+        function slugifyFileName(name) {
+            return name
+                .toLowerCase()
+                .replace(/[^a-z0-9._-]+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        }
+
+        async function uploadFiles(submissionId, inputId, inputName) {
+            const input = document.getElementById(inputId);
+            const files = Array.from(input.files || []);
+
+            const uploadedFiles = [];
+            for (const file of files) {
+                const path = `${submissionId}/${inputName}/${Date.now()}-${slugifyFileName(file.name)}`;
+                const uploadResponse = await fetch(`${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${path}`, {
+                    method: 'POST',
+                    headers: {
+                        apikey: SUPABASE_ANON_KEY,
+                        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': file.type || 'application/octet-stream',
+                        'x-upsert': 'false'
+                    },
+                    body: file
+                });
+
+                if (!uploadResponse.ok) {
+                    const errorText = await uploadResponse.text();
+                    throw new Error(errorText || `Upload failed for ${file.name}`);
+                }
+
+                uploadedFiles.push({
+                    field: inputName,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    path: path,
+                    url: `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/${path}`
+                });
+            }
+
+            return uploadedFiles;
+        }
         
-        // 表单提交处理
-        document.getElementById('photoSubmissionForm').addEventListener('submit', function(e) {
+        document.getElementById('photoSubmissionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // 在这里可以添加表单提交逻辑，如AJAX请求等
-            alert('感谢您的投稿！我们将尽快审核您的作品。');
-            this.reset();
-            document.getElementById('image-preview-container').innerHTML = '';
+
+            if (!isSupabaseConfigured()) {
+                showMessage('Supabase is not configured yet. Add your project URL and anon public key in submit.html before launch.', 'error');
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            showMessage('Uploading your files. Please keep this page open.', '');
+
+            try {
+                const submissionId = crypto.randomUUID();
+                const uploadedFiles = [
+                    ...(await uploadFiles(submissionId, 'photo-1', 'photo_1')),
+                    ...(await uploadFiles(submissionId, 'photo-2', 'photo_2')),
+                    ...(await uploadFiles(submissionId, 'photo-3', 'photo_3')),
+                    ...(await uploadFiles(submissionId, 'photo-4', 'photo_4')),
+                    ...(await uploadFiles(submissionId, 'photo-5', 'photo_5')),
+                    ...(await uploadFiles(submissionId, 'series-upload', 'series_work'))
+                ];
+
+                const payload = {
+                    id: submissionId,
+                    name: document.getElementById('name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    residence_country_region: document.getElementById('country').value.trim(),
+                    school: document.getElementById('school').value.trim(),
+                    photo_1_name_description: document.getElementById('photo-1-name').value.trim(),
+                    photo_2_name_description: document.getElementById('photo-2-name').value.trim(),
+                    photo_3_name_description: document.getElementById('photo-3-name').value.trim(),
+                    photo_4_name_description: document.getElementById('photo-4-name').value.trim(),
+                    photo_5_name_description: document.getElementById('photo-5-name').value.trim(),
+                    series_description: document.getElementById('series-description').value.trim(),
+                    camera: document.getElementById('camera').value.trim(),
+                    rules_confirmation: document.getElementById('rules-yes').checked,
+                    message: document.getElementById('message').value.trim(),
+                    files: uploadedFiles
+                };
+
+                const insertResponse = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+                    method: 'POST',
+                    headers: {
+                        apikey: SUPABASE_ANON_KEY,
+                        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        Prefer: 'return=minimal'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!insertResponse.ok) {
+                    const errorText = await insertResponse.text();
+                    throw new Error(errorText || 'Could not save submission details.');
+                }
+
+                showMessage('Thank you for your submission. Your work has been uploaded successfully.', 'success');
+                this.reset();
+                document.querySelectorAll('.photo-file').forEach(resetUpload);
+            } catch (error) {
+                showMessage(`Submission failed: ${error.message}`, 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit';
+            }
         });
     </script>
 </body>
