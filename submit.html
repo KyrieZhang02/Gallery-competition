@@ -510,7 +510,7 @@
                         <div class="file-upload">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">Upload your series files here if you are submitting a series.</div>
+                            <div class="file-upload-info">JPG or PNG, max 10MB each. Up to 10 images, or 1 ZIP file. You can add files more than once.</div>
                             <input type="file" id="series-upload" class="photo-file" name="series_work" accept="image/jpeg, image/png, application/zip" multiple>
                         </div>
                         <div class="upload-status">No file selected</div>
@@ -570,6 +570,7 @@
         const formMessage = document.getElementById('form-message');
         const submitButton = document.querySelector('.submit-btn');
         const maxFileSize = 10 * 1024 * 1024;
+        const maxSeriesFiles = 10;
 
         function showMessage(message, type) {
             formMessage.textContent = message;
@@ -636,18 +637,91 @@
         function resetUpload(input) {
             const parts = getUploadParts(input);
             input.value = '';
+            if (input.id === 'series-upload') {
+                delete input._seriesFiles;
+            }
             parts.status.textContent = 'No file selected';
             parts.previewContainer.innerHTML = '';
         }
 
+        function fileKey(file) {
+            return `${file.name}-${file.size}-${file.lastModified}`;
+        }
+
+        function setInputFiles(input, files) {
+            const dataTransfer = new DataTransfer();
+            files.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            input.files = dataTransfer.files;
+        }
+
+        function mergeSeriesFiles(input, newFiles) {
+            const existing = input._seriesFiles || [];
+            const merged = existing.slice();
+
+            newFiles.forEach(function(file) {
+                const key = fileKey(file);
+                if (!merged.some(function(existingFile) { return fileKey(existingFile) === key; })) {
+                    merged.push(file);
+                }
+            });
+
+            const hasZip = merged.some(function(file) { return file.type === 'application/zip'; });
+            if (hasZip && merged.length > 1) {
+                return { error: 'Please upload either up to 10 images or a single ZIP file, not both.' };
+            }
+
+            if (hasZip) {
+                return { files: merged.slice(0, 1) };
+            }
+
+            if (merged.length > maxSeriesFiles) {
+                return { error: `Series submissions are limited to ${maxSeriesFiles} images.` };
+            }
+
+            return { files: merged };
+        }
+
+        function renderUploadPreview(input, files) {
+            const parts = getUploadParts(input);
+            parts.previewContainer.innerHTML = '';
+
+            if (!files.length) {
+                parts.status.textContent = 'No file selected';
+                return;
+            }
+
+            parts.status.textContent = files.length === 1 ? files[0].name : `${files.length} file(s) selected`;
+
+            files.forEach(function(file) {
+                const preview = document.createElement('div');
+                preview.className = 'image-preview';
+
+                if (file.type === 'application/zip') {
+                    preview.textContent = file.name;
+                    parts.previewContainer.appendChild(preview);
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.alt = file.name;
+                    preview.appendChild(img);
+                    parts.previewContainer.appendChild(preview);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
         document.querySelectorAll('.photo-file').forEach(function(input) {
             input.addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
-                const parts = getUploadParts(input);
-                parts.previewContainer.innerHTML = '';
+                const pickedFiles = Array.from(e.target.files);
                 formMessage.style.display = 'none';
 
-                const invalidFile = files.find(function(file) {
+                const invalidFile = pickedFiles.find(function(file) {
                     const isZip = input.id === 'series-upload' && file.type === 'application/zip';
                     return (!['image/jpeg', 'image/png'].includes(file.type) && !isZip) || file.size > maxFileSize;
                 });
@@ -658,34 +732,28 @@
                     return;
                 }
 
+                let files = pickedFiles;
+
+                if (input.id === 'series-upload') {
+                    const mergeResult = mergeSeriesFiles(input, pickedFiles);
+                    if (mergeResult.error) {
+                        alert(mergeResult.error);
+                        input.value = '';
+                        renderUploadPreview(input, input._seriesFiles || []);
+                        return;
+                    }
+
+                    input._seriesFiles = mergeResult.files;
+                    setInputFiles(input, mergeResult.files);
+                    files = mergeResult.files;
+                }
+
                 if (!files.length) {
                     resetUpload(input);
                     return;
                 }
 
-                parts.status.textContent = files.length === 1 ? files[0].name : `${files.length} file(s) selected`;
-
-                files.forEach(function(file) {
-                    const preview = document.createElement('div');
-                    preview.className = 'image-preview';
-
-                    if (file.type === 'application/zip') {
-                        preview.textContent = file.name;
-                        parts.previewContainer.appendChild(preview);
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.alt = file.name;
-
-                        preview.appendChild(img);
-                        parts.previewContainer.appendChild(preview);
-                    };
-                    reader.readAsDataURL(file);
-                });
+                renderUploadPreview(input, files);
             });
         });
 
@@ -753,6 +821,24 @@
 
             try {
                 const submissionType = getSubmissionType();
+
+                if (submissionType === 'series') {
+                    const seriesFiles = Array.from(document.getElementById('series-upload').files || []);
+                    const hasZip = seriesFiles.some(function(file) { return file.type === 'application/zip'; });
+
+                    if (!seriesFiles.length) {
+                        throw new Error('Please upload at least one series image or ZIP file.');
+                    }
+
+                    if (hasZip && seriesFiles.length > 1) {
+                        throw new Error('Please upload either up to 10 images or a single ZIP file.');
+                    }
+
+                    if (!hasZip && seriesFiles.length > maxSeriesFiles) {
+                        throw new Error(`Series submissions are limited to ${maxSeriesFiles} images.`);
+                    }
+                }
+
                 const submissionId = crypto.randomUUID();
                 const uploadedFiles = [
                     ...(await uploadFiles(submissionId, 'photo-1', 'photo_1')),
