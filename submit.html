@@ -395,10 +395,25 @@
                     </div>
                 </div>
 
+                <div class="form-section-title">Submission Type</div>
+                <div class="form-group">
+                    <label>How are you submitting your works? *</label>
+                    <div class="category-select">
+                        <div class="category-option">
+                            <input type="radio" id="submission-individual" name="submission_type" value="individual" required checked>
+                            <label for="submission-individual">Individual photos</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="radio" id="submission-series" name="submission_type" value="series" required>
+                            <label for="submission-series">Series</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-section-title">Individual Photos</div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Photo 1 (minimum) *</label>
+                        <label id="photo-1-label">Photo 1 (minimum) *</label>
                         <div class="file-upload">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div class="file-upload-text">Add file</div>
@@ -462,7 +477,7 @@
 
                 <div class="form-section-title">Photo Names and Descriptions</div>
                 <div class="form-group">
-                    <label for="photo-1-name">Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *</label>
+                    <label for="photo-1-name" id="photo-1-name-label">Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *</label>
                     <textarea id="photo-1-name" name="photo_1_name_description" class="form-control" required></textarea>
                 </div>
 
@@ -488,7 +503,7 @@
 
                 <div class="form-section-title">Series Submission</div>
                 <div class="form-group">
-                    <label>Submitting your works as a series</label>
+                    <label id="series-upload-label">Submitting your works as a series</label>
                     <div class="file-upload">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <div class="file-upload-text">Add file</div>
@@ -500,7 +515,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="series-description">Series work description and name</label>
+                    <label for="series-description" id="series-description-label">Series work description and name</label>
                     <textarea id="series-description" name="series_description" class="form-control"></textarea>
                 </div>
 
@@ -560,6 +575,34 @@
 
         function isSupabaseConfigured() {
             return !SUPABASE_URL.includes('YOUR_') && !SUPABASE_ANON_KEY.includes('YOUR_');
+        }
+
+        function getSubmissionType() {
+            return document.querySelector('input[name="submission_type"]:checked').value;
+        }
+
+        function updateSubmissionRequirements() {
+            const isSeries = getSubmissionType() === 'series';
+            const photoOneInput = document.getElementById('photo-1');
+            const photoOneDescription = document.getElementById('photo-1-name');
+            const seriesInput = document.getElementById('series-upload');
+            const seriesDescription = document.getElementById('series-description');
+
+            photoOneInput.required = !isSeries;
+            photoOneDescription.required = !isSeries;
+            seriesInput.required = isSeries;
+            seriesDescription.required = isSeries;
+
+            document.getElementById('photo-1-label').textContent = isSeries ? 'Photo 1' : 'Photo 1 (minimum) *';
+            document.getElementById('photo-1-name-label').textContent = isSeries
+                ? 'Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)'
+                : 'Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *';
+            document.getElementById('series-upload-label').textContent = isSeries
+                ? 'Submitting your works as a series *'
+                : 'Submitting your works as a series';
+            document.getElementById('series-description-label').textContent = isSeries
+                ? 'Series work description and name *'
+                : 'Series work description and name';
         }
 
         function getUploadParts(input) {
@@ -626,6 +669,12 @@
             });
         });
 
+        document.querySelectorAll('input[name="submission_type"]').forEach(function(input) {
+            input.addEventListener('change', updateSubmissionRequirements);
+        });
+
+        updateSubmissionRequirements();
+
         function slugifyFileName(name) {
             return name
                 .toLowerCase()
@@ -683,6 +732,7 @@
             showMessage('Uploading your files. Please keep this page open.', '');
 
             try {
+                const submissionType = getSubmissionType();
                 const submissionId = crypto.randomUUID();
                 const uploadedFiles = [
                     ...(await uploadFiles(submissionId, 'photo-1', 'photo_1')),
@@ -695,6 +745,7 @@
 
                 const payload = {
                     id: submissionId,
+                    submission_type: submissionType,
                     name: document.getElementById('name').value.trim(),
                     email: document.getElementById('email').value.trim(),
                     residence_country_region: document.getElementById('country').value.trim(),

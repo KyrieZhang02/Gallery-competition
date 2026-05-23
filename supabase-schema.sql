@@ -6,6 +6,7 @@ create extension if not exists "pgcrypto";
 create table if not exists public.photo_submissions (
     id uuid primary key default gen_random_uuid(),
     created_at timestamptz not null default now(),
+    submission_type text not null default 'individual',
     name text not null,
     email text not null,
     residence_country_region text not null,
@@ -22,6 +23,9 @@ create table if not exists public.photo_submissions (
     files jsonb not null default '[]'::jsonb
 );
 
+alter table public.photo_submissions
+add column if not exists submission_type text not null default 'individual';
+
 alter table public.photo_submissions enable row level security;
 
 drop policy if exists "Allow public contest submissions" on public.photo_submissions;
@@ -35,8 +39,13 @@ with check (
     and email <> ''
     and residence_country_region <> ''
     and school <> ''
-    and photo_1_name_description <> ''
     and message <> ''
+    and submission_type in ('individual', 'series')
+    and (
+        (submission_type = 'individual' and photo_1_name_description <> '')
+        or
+        (submission_type = 'series' and series_description <> '')
+    )
 );
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
