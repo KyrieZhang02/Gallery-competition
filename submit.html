@@ -410,113 +410,117 @@
                     </div>
                 </div>
 
-                <div class="form-section-title">Individual Photos</div>
-                <div class="form-row">
+                <div id="individual-submission-fields">
+                    <div class="form-section-title">Individual Photos</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="photo-1-label">Photo 1 (minimum) *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div class="file-upload-text">Add file</div>
+                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <input type="file" id="photo-1" class="photo-file" name="photo_1" accept="image/jpeg, image/png" required>
+                            </div>
+                            <div class="upload-status">No file selected</div>
+                            <div class="preview-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Photo 2</label>
+                            <div class="file-upload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div class="file-upload-text">Add file</div>
+                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <input type="file" id="photo-2" class="photo-file" name="photo_2" accept="image/jpeg, image/png">
+                            </div>
+                            <div class="upload-status">No file selected</div>
+                            <div class="preview-container"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Photo 3</label>
+                            <div class="file-upload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div class="file-upload-text">Add file</div>
+                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <input type="file" id="photo-3" class="photo-file" name="photo_3" accept="image/jpeg, image/png">
+                            </div>
+                            <div class="upload-status">No file selected</div>
+                            <div class="preview-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Photo 4</label>
+                            <div class="file-upload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div class="file-upload-text">Add file</div>
+                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <input type="file" id="photo-4" class="photo-file" name="photo_4" accept="image/jpeg, image/png">
+                            </div>
+                            <div class="upload-status">No file selected</div>
+                            <div class="preview-container"></div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label id="photo-1-label">Photo 1 (minimum) *</label>
+                        <label>Photo 5</label>
                         <div class="file-upload">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div class="file-upload-text">Add file</div>
                             <div class="file-upload-info">JPG or PNG, max 10MB</div>
-                            <input type="file" id="photo-1" class="photo-file" name="photo_1" accept="image/jpeg, image/png" required>
+                            <input type="file" id="photo-5" class="photo-file" name="photo_5" accept="image/jpeg, image/png">
+                        </div>
+                        <div class="upload-status">No file selected</div>
+                        <div class="preview-container"></div>
+                    </div>
+
+                    <div class="form-section-title">Photo Names and Descriptions</div>
+                    <div class="form-group">
+                        <label for="photo-1-name" id="photo-1-name-label">Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *</label>
+                        <textarea id="photo-1-name" name="photo_1_name_description" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo-2-name">Photo 2 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                        <textarea id="photo-2-name" name="photo_2_name_description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo-3-name">Photo 3 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                        <textarea id="photo-3-name" name="photo_3_name_description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo-4-name">Photo 4 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                        <textarea id="photo-4-name" name="photo_4_name_description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo-5-name">Photo 5 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
+                        <textarea id="photo-5-name" name="photo_5_name_description" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div id="series-submission-fields">
+                    <div class="form-section-title">Series Submission</div>
+                    <div class="form-group">
+                        <label id="series-upload-label">Submitting your works as a series</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="file-upload-text">Add file</div>
+                            <div class="file-upload-info">Upload your series files here if you are submitting a series.</div>
+                            <input type="file" id="series-upload" class="photo-file" name="series_work" accept="image/jpeg, image/png, application/zip" multiple>
                         </div>
                         <div class="upload-status">No file selected</div>
                         <div class="preview-container"></div>
                     </div>
 
                     <div class="form-group">
-                        <label>Photo 2</label>
-                        <div class="file-upload">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
-                            <input type="file" id="photo-2" class="photo-file" name="photo_2" accept="image/jpeg, image/png">
-                        </div>
-                        <div class="upload-status">No file selected</div>
-                        <div class="preview-container"></div>
+                        <label for="series-description" id="series-description-label">Series work description and name</label>
+                        <textarea id="series-description" name="series_description" class="form-control"></textarea>
                     </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Photo 3</label>
-                        <div class="file-upload">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
-                            <input type="file" id="photo-3" class="photo-file" name="photo_3" accept="image/jpeg, image/png">
-                        </div>
-                        <div class="upload-status">No file selected</div>
-                        <div class="preview-container"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Photo 4</label>
-                        <div class="file-upload">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
-                            <input type="file" id="photo-4" class="photo-file" name="photo_4" accept="image/jpeg, image/png">
-                        </div>
-                        <div class="upload-status">No file selected</div>
-                        <div class="preview-container"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Photo 5</label>
-                    <div class="file-upload">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="file-upload-text">Add file</div>
-                        <div class="file-upload-info">JPG or PNG, max 10MB</div>
-                        <input type="file" id="photo-5" class="photo-file" name="photo_5" accept="image/jpeg, image/png">
-                    </div>
-                    <div class="upload-status">No file selected</div>
-                    <div class="preview-container"></div>
-                </div>
-
-                <div class="form-section-title">Photo Names and Descriptions</div>
-                <div class="form-group">
-                    <label for="photo-1-name" id="photo-1-name-label">Photo 1 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo) *</label>
-                    <textarea id="photo-1-name" name="photo_1_name_description" class="form-control" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="photo-2-name">Photo 2 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
-                    <textarea id="photo-2-name" name="photo_2_name_description" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="photo-3-name">Photo 3 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
-                    <textarea id="photo-3-name" name="photo_3_name_description" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="photo-4-name">Photo 4 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
-                    <textarea id="photo-4-name" name="photo_4_name_description" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="photo-5-name">Photo 5 Name (if this photo does not have a name, we will use default file name for it) + Optional Description (e.g. where is this photo taken; what is the story you want to tell us about this photo)</label>
-                    <textarea id="photo-5-name" name="photo_5_name_description" class="form-control"></textarea>
-                </div>
-
-                <div class="form-section-title">Series Submission</div>
-                <div class="form-group">
-                    <label id="series-upload-label">Submitting your works as a series</label>
-                    <div class="file-upload">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="file-upload-text">Add file</div>
-                        <div class="file-upload-info">Upload your series files here if you are submitting a series.</div>
-                        <input type="file" id="series-upload" class="photo-file" name="series_work" accept="image/jpeg, image/png, application/zip" multiple>
-                    </div>
-                    <div class="upload-status">No file selected</div>
-                    <div class="preview-container"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="series-description" id="series-description-label">Series work description and name</label>
-                    <textarea id="series-description" name="series_description" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -583,15 +587,31 @@
 
         function updateSubmissionRequirements() {
             const isSeries = getSubmissionType() === 'series';
+            const individualFields = document.getElementById('individual-submission-fields');
+            const seriesFields = document.getElementById('series-submission-fields');
             const photoOneInput = document.getElementById('photo-1');
             const photoOneDescription = document.getElementById('photo-1-name');
             const seriesInput = document.getElementById('series-upload');
             const seriesDescription = document.getElementById('series-description');
 
+            individualFields.style.display = isSeries ? 'none' : 'block';
+            seriesFields.style.display = isSeries ? 'block' : 'none';
             photoOneInput.required = !isSeries;
             photoOneDescription.required = !isSeries;
             seriesInput.required = isSeries;
             seriesDescription.required = isSeries;
+
+            if (isSeries) {
+                ['photo-1', 'photo-2', 'photo-3', 'photo-4', 'photo-5'].forEach(function(inputId) {
+                    resetUpload(document.getElementById(inputId));
+                });
+                ['photo-1-name', 'photo-2-name', 'photo-3-name', 'photo-4-name', 'photo-5-name'].forEach(function(inputId) {
+                    document.getElementById(inputId).value = '';
+                });
+            } else {
+                resetUpload(seriesInput);
+                seriesDescription.value = '';
+            }
 
             document.getElementById('photo-1-label').textContent = isSeries ? 'Photo 1' : 'Photo 1 (minimum) *';
             document.getElementById('photo-1-name-label').textContent = isSeries
