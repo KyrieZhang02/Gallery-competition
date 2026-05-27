@@ -383,6 +383,18 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="phone">Your Phone Number *</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        class="form-control" 
+                        placeholder="+1 123 456 7890"
+                        required
+                    >
+                </div>
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="country">Residence Country/Region (You can list the one where you practice your photography or your origin) *</label>
@@ -854,6 +866,7 @@
                     submission_type: submissionType,
                     name: document.getElementById('name').value.trim(),
                     email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
                     residence_country_region: document.getElementById('country').value.trim(),
                     school: document.getElementById('school').value.trim(),
                     photo_1_name_description: document.getElementById('photo-1-name').value.trim(),
