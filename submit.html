@@ -430,7 +430,7 @@
                             <div class="file-upload">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <div class="file-upload-text">Add file</div>
-                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <div class="file-upload-info">JPG or PNG, max 200MB</div>
                                 <input type="file" id="photo-1" class="photo-file" name="photo_1" accept="image/jpeg, image/png" required>
                             </div>
                             <div class="upload-status">No file selected</div>
@@ -442,7 +442,7 @@
                             <div class="file-upload">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <div class="file-upload-text">Add file</div>
-                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <div class="file-upload-info">JPG or PNG, max 200MB</div>
                                 <input type="file" id="photo-2" class="photo-file" name="photo_2" accept="image/jpeg, image/png">
                             </div>
                             <div class="upload-status">No file selected</div>
@@ -456,7 +456,7 @@
                             <div class="file-upload">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <div class="file-upload-text">Add file</div>
-                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <div class="file-upload-info">JPG or PNG, max 200MB</div>
                                 <input type="file" id="photo-3" class="photo-file" name="photo_3" accept="image/jpeg, image/png">
                             </div>
                             <div class="upload-status">No file selected</div>
@@ -468,7 +468,7 @@
                             <div class="file-upload">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <div class="file-upload-text">Add file</div>
-                                <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                                <div class="file-upload-info">JPG or PNG, max 200MB</div>
                                 <input type="file" id="photo-4" class="photo-file" name="photo_4" accept="image/jpeg, image/png">
                             </div>
                             <div class="upload-status">No file selected</div>
@@ -481,7 +481,7 @@
                         <div class="file-upload">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">JPG or PNG, max 10MB</div>
+                            <div class="file-upload-info">JPG or PNG, max 200MB</div>
                             <input type="file" id="photo-5" class="photo-file" name="photo_5" accept="image/jpeg, image/png">
                         </div>
                         <div class="upload-status">No file selected</div>
@@ -522,7 +522,7 @@
                         <div class="file-upload">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div class="file-upload-text">Add file</div>
-                            <div class="file-upload-info">JPG or PNG, max 10MB each. Up to 10 images, or 1 ZIP file. You can add files more than once.</div>
+                            <div class="file-upload-info">JPG or PNG, max 200MB each. Up to 10 images, or 1 ZIP file. You can add files more than once.</div>
                             <input type="file" id="series-upload" class="photo-file" name="series_work" accept="image/jpeg, image/png, application/zip" multiple>
                         </div>
                         <div class="upload-status">No file selected</div>
@@ -581,7 +581,7 @@
         const SUPABASE_TABLE = 'photo_submissions';
         const formMessage = document.getElementById('form-message');
         const submitButton = document.querySelector('.submit-btn');
-        const maxFileSize = 10 * 1024 * 1024;
+        const maxFileSize = 200 * 1024 * 1024;
         const maxSeriesFiles = 10;
 
         function showMessage(message, type) {
@@ -739,7 +739,7 @@
                 });
 
                 if (invalidFile) {
-                    alert('Please upload JPG or PNG files only. Each file must be under 10MB. Series submissions may also use ZIP files.');
+                    alert('Please upload JPG or PNG files only. Each file must be under 200MB. Series submissions may also use ZIP files.');
                     resetUpload(input);
                     return;
                 }

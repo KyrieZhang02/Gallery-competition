@@ -53,7 +53,7 @@ values (
     'submissions',
     'submissions',
     true,
-    10485760,
+    209715200,
     array['image/jpeg', 'image/png', 'application/zip']
 )
 on conflict (id) do update
