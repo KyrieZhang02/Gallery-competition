@@ -217,6 +217,64 @@
             background-color: rgba(231, 76, 60, 0.18);
             border-color: rgba(231, 76, 60, 0.45);
         }
+
+        .success-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.78);
+        }
+
+        .success-modal.active {
+            display: flex;
+        }
+
+        .success-dialog {
+            width: min(460px, 100%);
+            padding: 32px 28px;
+            border-radius: 8px;
+            background: #111;
+            border: 1px solid rgba(46, 204, 113, 0.45);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            text-align: center;
+        }
+
+        .success-dialog i {
+            color: #2ecc71;
+            font-size: 3rem;
+            margin-bottom: 18px;
+        }
+
+        .success-dialog h3 {
+            color: #fff;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+
+        .success-dialog p {
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .success-modal-button {
+            background-color: #FF4D00;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .success-modal-button:hover {
+            background-color: #ff6a33;
+        }
         
         .preview-container {
             display: flex;
@@ -563,6 +621,15 @@
         </div>
     </section>
 
+    <div class="success-modal" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+        <div class="success-dialog">
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
+            <h3 id="success-modal-title">Submission received</h3>
+            <p>Your work has been uploaded successfully. If your submission enters the finalists, we will contact you by email.</p>
+            <button type="button" class="success-modal-button" id="success-modal-close">OK</button>
+        </div>
+    </div>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js%2bbootstrap.min.js.pagespeed.jc.9S4FA15Zn6.js"></script>
     <script>
@@ -583,6 +650,8 @@
         const SUPABASE_TABLE = 'photo_submissions';
         const formMessage = document.getElementById('form-message');
         const submitButton = document.querySelector('.submit-btn');
+        const successModal = document.getElementById('success-modal');
+        const successModalClose = document.getElementById('success-modal-close');
         const maxFileSize = 200 * 1024 * 1024;
         const maxSeriesFiles = 10;
 
@@ -591,6 +660,27 @@
             formMessage.className = `form-message ${type || ''}`.trim();
             formMessage.style.display = 'block';
         }
+
+        function showSuccessModal() {
+            successModal.classList.add('active');
+            successModalClose.focus();
+        }
+
+        function closeSuccessModal() {
+            successModal.classList.remove('active');
+        }
+
+        successModalClose.addEventListener('click', closeSuccessModal);
+        successModal.addEventListener('click', function(event) {
+            if (event.target === successModal) {
+                closeSuccessModal();
+            }
+        });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && successModal.classList.contains('active')) {
+                closeSuccessModal();
+            }
+        });
 
         function isSupabaseConfigured() {
             return !SUPABASE_URL.includes('YOUR_') && !SUPABASE_ANON_KEY.includes('YOUR_');
@@ -900,6 +990,7 @@
                 }
 
                 showMessage('Thank you for your submission. Your work has been uploaded successfully.', 'success');
+                showSuccessModal();
                 this.reset();
                 document.querySelectorAll('.photo-file').forEach(resetUpload);
             } catch (error) {
