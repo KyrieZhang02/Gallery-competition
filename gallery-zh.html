@@ -76,6 +76,55 @@
             color: #fff;
         }
 
+        .gallery-search {
+            max-width: 520px;
+            margin: 0 auto 40px;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .gallery-search i {
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+        }
+
+        .gallery-search-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 18px 0 46px;
+            border: 1px solid rgba(255, 77, 0, 0.55);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .gallery-search-input:focus {
+            border-color: #FF4D00;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.12);
+        }
+
+        .gallery-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .gallery-empty {
+            display: none;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.72);
+            font-family: 'Futura Bk', sans-serif;
+            font-size: 1.05rem;
+            padding: 40px 15px;
+        }
+
         /* 改进的瀑布流布局 - 实现三小一大的节奏 */
         .gallery-grid {
             width: 100%;
@@ -399,10 +448,15 @@
             <h2>作品画廊</h2>
         </div>
 
+        <div class="gallery-search" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input type="search" id="gallery-search-input" class="gallery-search-input" placeholder="按作者或作品名称搜索" aria-label="按作者或作品名称搜索">
+        </div>
 
         <div class="gallery-grid" id="gallery-grid" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400">
             <!-- 图片将由JavaScript动态加载 -->
         </div>
+        <div class="gallery-empty" id="gallery-empty">没有找到匹配的作品。</div>
     </div>
 </section>
 
@@ -2006,6 +2060,7 @@
         const PAGE_SIZE = 15; // 每页显示的图片数量
         let currentPage = 0;
         let isLoading = false;
+        let allGalleryPhotos = [];
         let displayPhotos = [];
 
         let currentSeriesIndex = 0;
@@ -2058,6 +2113,8 @@
 
         // 获取gallery-grid元素
         const galleryGrid = document.getElementById('gallery-grid');
+        const gallerySearchInput = document.getElementById('gallery-search-input');
+        const galleryEmpty = document.getElementById('gallery-empty');
         galleryGrid.innerHTML = ''; // 清空现有内容
 
         // 创建gallery-item元素
@@ -2123,16 +2180,20 @@
 
             galleryGrid.appendChild(fragment);
             currentPage = page;
+            galleryEmpty.style.display = displayPhotos.length ? 'none' : 'block';
         }
 
-        async function initializeGallery() {
-            const submittedPhotos = await fetchSubmittedPhotos();
-            const shuffledStaticPhotos = shuffleArray([...availablePhotos]);
-            const allPhotos = [...submittedPhotos, ...shuffledStaticPhotos].filter(function(photo) {
-                return Boolean(photo.url);
-            });
+        function matchesSearch(photo, query) {
+            if (!query) return true;
+            const haystack = [
+                photo.title || '',
+                photo.artist || ''
+            ].join(' ').toLowerCase();
+            return haystack.includes(query);
+        }
 
-            displayPhotos = allPhotos.map(function(photo, index) {
+        function renderGallery(photos) {
+            displayPhotos = photos.map(function(photo, index) {
                 return {
                     ...photo,
                     uniqueId: `photo_${index}`
@@ -2143,6 +2204,24 @@
             currentPage = 0;
             loadPage(0);
         }
+
+        function applyGallerySearch() {
+            const query = gallerySearchInput.value.trim().toLowerCase();
+            renderGallery(allGalleryPhotos.filter(function(photo) {
+                return matchesSearch(photo, query);
+            }));
+        }
+
+        async function initializeGallery() {
+            const submittedPhotos = await fetchSubmittedPhotos();
+            allGalleryPhotos = shuffleArray([...submittedPhotos, ...availablePhotos].filter(function(photo) {
+                return Boolean(photo.url);
+            }));
+
+            applyGallerySearch();
+        }
+
+        gallerySearchInput.addEventListener('input', applyGallerySearch);
 
         initializeGallery();
 
