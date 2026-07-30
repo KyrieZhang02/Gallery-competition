@@ -2081,14 +2081,18 @@
                 return { title: '' };
             }
 
-            const labeledMatch = rawValue.match(/^\s*(?:name|title|photo\s*name|作品名|作品名称|名称)\s*[:：]\s*([\s\S]*?)(?:\s+(?:description|desc|描述|说明)\s*[:：]\s*([\s\S]*))?\s*$/i);
-            if (!labeledMatch) {
-                return { title: rawValue };
+            const trailingLabelPattern = '(?:description|desc|statement|artist\\s*statement|photo\\s*statement|描述|说明|陈述|创作说明|作品说明)';
+            const labeledMatch = rawValue.match(new RegExp(`^\\s*(?:name|title|photo\\s*name|作品名|作品名称|名称)\\s*[:：]\\s*([\\s\\S]*?)(?:\\s+${trailingLabelPattern}\\s*[:：]\\s*[\\s\\S]*)?\\s*$`, 'i'));
+            if (labeledMatch) {
+                return { title: (labeledMatch[1] || '').trim() };
             }
 
-            return {
-                title: (labeledMatch[1] || '').trim()
-            };
+            const inlineLabelMatch = rawValue.match(new RegExp(`^([\\s\\S]*?)\\s+${trailingLabelPattern}\\s*[:：]\\s*[\\s\\S]*$`, 'i'));
+            if (inlineLabelMatch) {
+                return { title: (inlineLabelMatch[1] || '').trim() };
+            }
+
+            return { title: rawValue };
         }
 
         function normalizeSubmittedPhoto(row) {
