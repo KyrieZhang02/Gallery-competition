@@ -723,39 +723,59 @@
             const individualFields = document.getElementById('individual-submission-fields');
             const seriesFields = document.getElementById('series-submission-fields');
             const photoOneInput = document.getElementById('photo-1');
-            const photoOneDescription = document.getElementById('photo-1-name');
+            const photoOneName = document.getElementById('photo-1-name');
             const seriesInput = document.getElementById('series-upload');
+            const seriesName = document.getElementById('series-name');
             const seriesDescription = document.getElementById('series-description');
 
             individualFields.style.display = isSeries ? 'none' : 'block';
             seriesFields.style.display = isSeries ? 'block' : 'none';
             photoOneInput.required = !isSeries;
-            photoOneDescription.required = !isSeries;
+            photoOneName.required = !isSeries;
             seriesInput.required = isSeries;
-            seriesDescription.required = isSeries;
+            seriesName.required = isSeries;
+            seriesDescription.required = false;
 
             if (isSeries) {
                 ['photo-1', 'photo-2', 'photo-3', 'photo-4', 'photo-5'].forEach(function(inputId) {
                     resetUpload(document.getElementById(inputId));
                 });
-                ['photo-1-name', 'photo-2-name', 'photo-3-name', 'photo-4-name', 'photo-5-name'].forEach(function(inputId) {
+                [
+                    'photo-1-name', 'photo-1-description',
+                    'photo-2-name', 'photo-2-description',
+                    'photo-3-name', 'photo-3-description',
+                    'photo-4-name', 'photo-4-description',
+                    'photo-5-name', 'photo-5-description'
+                ].forEach(function(inputId) {
                     document.getElementById(inputId).value = '';
                 });
             } else {
                 resetUpload(seriesInput);
+                seriesName.value = '';
                 seriesDescription.value = '';
             }
 
             document.getElementById('photo-1-label').textContent = isSeries ? '照片 1' : '照片 1（至少提交）*';
             document.getElementById('photo-1-name-label').textContent = isSeries
-                ? '照片 1 名称（如未命名，我们将使用文件名）+ 可选描述（例如拍摄地点、作品故事等）'
-                : '照片 1 名称（如未命名，我们将使用文件名）+ 可选描述（例如拍摄地点、作品故事等）*';
+                ? '照片 1 名称'
+                : '照片 1 名称 *';
             document.getElementById('series-upload-label').textContent = isSeries
                 ? '以系列/组照形式提交作品 *'
                 : '以系列/组照形式提交作品';
-            document.getElementById('series-description-label').textContent = isSeries
-                ? '系列/组照名称与描述 *'
-                : '系列/组照名称与描述';
+            document.getElementById('series-name-label').textContent = isSeries
+                ? '系列/组照名称 *'
+                : '系列/组照名称';
+        }
+
+        function combineNameDescription(nameId, descriptionId) {
+            const title = document.getElementById(nameId).value.trim();
+            const description = document.getElementById(descriptionId).value.trim();
+
+            if (!title) {
+                return '';
+            }
+
+            return description ? `Name: ${title} Description: ${description}` : title;
         }
 
         function getUploadParts(input) {
@@ -989,12 +1009,12 @@
                     phone: document.getElementById('phone').value.trim(),
                     residence_country_region: document.getElementById('country').value.trim(),
                     school: document.getElementById('school').value.trim(),
-                    photo_1_name_description: document.getElementById('photo-1-name').value.trim(),
-                    photo_2_name_description: document.getElementById('photo-2-name').value.trim(),
-                    photo_3_name_description: document.getElementById('photo-3-name').value.trim(),
-                    photo_4_name_description: document.getElementById('photo-4-name').value.trim(),
-                    photo_5_name_description: document.getElementById('photo-5-name').value.trim(),
-                    series_description: document.getElementById('series-description').value.trim(),
+                    photo_1_name_description: combineNameDescription('photo-1-name', 'photo-1-description'),
+                    photo_2_name_description: combineNameDescription('photo-2-name', 'photo-2-description'),
+                    photo_3_name_description: combineNameDescription('photo-3-name', 'photo-3-description'),
+                    photo_4_name_description: combineNameDescription('photo-4-name', 'photo-4-description'),
+                    photo_5_name_description: combineNameDescription('photo-5-name', 'photo-5-description'),
+                    series_description: combineNameDescription('series-name', 'series-description'),
                     camera: document.getElementById('camera').value.trim(),
                     rules_confirmation: document.getElementById('rules-yes').checked,
                     message: document.getElementById('message').value.trim(),
