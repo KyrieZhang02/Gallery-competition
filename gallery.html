@@ -2075,13 +2075,30 @@
             return array;
         }
 
+        function parseNameDescription(value) {
+            const rawValue = (value || '').trim();
+            if (!rawValue) {
+                return { title: '' };
+            }
+
+            const labeledMatch = rawValue.match(/^\s*(?:name|title|photo\s*name|作品名|作品名称|名称)\s*[:：]\s*([\s\S]*?)(?:\s+(?:description|desc|描述|说明)\s*[:：]\s*([\s\S]*))?\s*$/i);
+            if (!labeledMatch) {
+                return { title: rawValue };
+            }
+
+            return {
+                title: (labeledMatch[1] || '').trim()
+            };
+        }
+
         function normalizeSubmittedPhoto(row) {
             const seriesPhotos = Array.isArray(row.series_photos)
                 ? row.series_photos.filter(function(photo) { return photo && photo.url; })
                 : [];
+            const parsedText = parseNameDescription(row.title);
 
             return {
-                title: row.title || '',
+                title: parsedText.title || row.title || '',
                 artist: row.artist || 'FRAME! Participant',
                 series: seriesPhotos.length > 1 ? { photos: seriesPhotos } : null,
                 url: row.url
@@ -2130,9 +2147,12 @@
 
             // 创建图片元素
             const img = new Image();
+            img.alt = [photo.title, photo.artist].filter(Boolean).join(' by ') || 'FRAME! gallery photo';
+            img.loading = index < 6 ? 'eager' : 'lazy';
+            img.decoding = 'async';
+            img.fetchPriority = index < 6 ? 'high' : 'low';
 
-            // 使用OSS地址加载图片，并设置多源回退
-            loadImageWithFallback(photo.url, img);
+            loadImageWithFallback(getOptimizedImageUrl(photo.url, isLarge ? 1200 : 700), img, photo.url);
 
             const overlay = document.createElement('div');
             overlay.className = 'gallery-item-overlay';
@@ -2212,6 +2232,12 @@
             }));
         }
 
+        let searchTimer = null;
+        function scheduleGallerySearch() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(applyGallerySearch, 120);
+        }
+
         async function initializeGallery() {
             const submittedPhotos = await fetchSubmittedPhotos();
             allGalleryPhotos = shuffleArray([...submittedPhotos, ...availablePhotos].filter(function(photo) {
@@ -2221,7 +2247,7 @@
             applyGallerySearch();
         }
 
-        gallerySearchInput.addEventListener('input', applyGallerySearch);
+        gallerySearchInput.addEventListener('input', scheduleGallerySearch);
 
         initializeGallery();
 
@@ -2247,7 +2273,7 @@
                     }, 500);
                 }
             }
-        });
+        }, { passive: true });
 
         // 修改打开系列照片模态框函数
         function openSeriesModal(photo) {
@@ -2261,7 +2287,6 @@
             const seriesNav = document.getElementById('seriesNav');
             const seriesThumbnails = document.getElementById('seriesThumbnails');
 
-            // 使用多源加载策略加载图片
             loadImageWithFallback(currentSeries.photos[0].url, modalImg);
 
             modalTitle.textContent = photo.title;
@@ -2273,8 +2298,12 @@
             seriesThumbnails.innerHTML = '';
             currentSeries.photos.forEach((photoObj, index) => {
                 const thumb = document.createElement('img');
-                loadImageWithFallback(photoObj.url, thumb);
                 thumb.className = `series-thumbnail ${index === 0 ? 'active' : ''}`;
+                thumb.alt = `${photo.title || 'Series'} photo ${index + 1}`;
+                thumb.loading = index < 6 ? 'eager' : 'lazy';
+                thumb.decoding = 'async';
+                thumb.fetchPriority = 'low';
+                loadImageWithFallback(getOptimizedImageUrl(photoObj.url, 180), thumb, photoObj.url);
                 thumb.addEventListener('click', () => {
                     currentSeriesIndex = index;
                     updateSeriesView();
@@ -2300,7 +2329,6 @@
             const seriesNav = document.getElementById('seriesNav');
             const seriesThumbnails = document.getElementById('seriesThumbnails');
 
-            // 使用多源加载策略加载图片
             loadImageWithFallback(photo.url, modalImg);
 
             modalTitle.textContent = photo.title;
@@ -2322,7 +2350,6 @@
             const modalImg = document.getElementById('modalImage');
             const thumbnails = document.querySelectorAll('.series-thumbnail');
 
-            // 使用多源加载策略加载图片
             loadImageWithFallback(currentSeries.photos[currentSeriesIndex].url, modalImg);
 
             thumbnails.forEach((thumb, index) => {
@@ -2330,42 +2357,48 @@
             });
         }
 
-        // 图片加载函数，支持OSS地址和多源回退
-        function loadImageWithFallback(primaryUrl, imgElement) {
-            // 这里设置OSS图片的多源回退地址，实际使用时请替换为你自己的OSS地址和备用地址
-            const fallbackUrls = [
-                primaryUrl, // OSS主地址
-                `https://img.example.com/fallback/${getImageFileName(primaryUrl)}`, // 备用CDN地址
-                `https://backup.example.com/images/${getImageFileName(primaryUrl)}` // 备用服务器地址
-            ];
+        function getOptimizedImageUrl(url, width) {
+            if (!url || !url.includes('photo-234.oss-cn-beijing.aliyuncs.com')) {
+                return url;
+            }
 
+            const separator = url.includes('?') ? '&' : '?';
+            return `${url}${separator}x-oss-process=image/resize,w_${width}/quality,q_82/format,webp`;
+        }
+
+        // 图片加载函数：先尝试优化后的小图，失败时回到原图
+        function loadImageWithFallback(primaryUrl, imgElement, fallbackUrl) {
+            if (!primaryUrl) {
+                return;
+            }
+
+            const urls = [primaryUrl, fallbackUrl].filter(function(url, index, list) {
+                return Boolean(url) && list.indexOf(url) === index;
+            });
             let currentUrlIndex = 0;
 
             function tryNextUrl() {
-                if (currentUrlIndex < fallbackUrls.length) {
-                    console.log(`Trying to load image from ${fallbackUrls[currentUrlIndex]}`);
-                    imgElement.src = fallbackUrls[currentUrlIndex];
-                    currentUrlIndex++;
+                if (currentUrlIndex >= urls.length) {
+                    imgElement.classList.add('image-load-error');
+                    return;
+                }
+
+                const nextUrl = urls[currentUrlIndex];
+                currentUrlIndex++;
+                if (imgElement.src !== nextUrl) {
+                    imgElement.src = nextUrl;
                 }
             }
 
             imgElement.onerror = function() {
-                console.log(`Failed to load image from ${imgElement.src}, trying next source...`);
                 tryNextUrl();
             };
 
             imgElement.onload = function() {
-                console.log(`Successfully loaded image from ${imgElement.src}`);
+                imgElement.classList.remove('image-load-error');
             };
 
-            // 开始尝试加载第一个源
             tryNextUrl();
-        }
-
-        // 从URL中提取文件名的辅助函数
-        function getImageFileName(url) {
-            const parts = url.split('/');
-            return parts[parts.length - 1];
         }
 
         // 添加导航按钮事件监听
