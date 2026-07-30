@@ -2000,11 +2000,13 @@
             
         ];
 
-        // 设置要展示的照片总数
-        const totalDisplayCount = 100; // 可以根据需要更改这个数字
+        const SUPABASE_URL = 'https://yrgotbwawxuieldtcpbx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZ290Yndhd3h1aWVsZHRjcGJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MDkyNDcsImV4cCI6MjA5NTA4NTI0N30.8_hsFkocl2oeNM9u38aZGEi8_8HhGkZBPuitEucSmu8';
+        const GALLERY_TABLE = 'gallery_photos';
         const PAGE_SIZE = 15; // 每页显示的图片数量
         let currentPage = 0;
         let isLoading = false;
+        let displayPhotos = [];
 
         let currentSeriesIndex = 0;
         let currentSeries = null;
@@ -2018,17 +2020,40 @@
             return array;
         }
 
-        // 随机排序照片
-        const shuffledPhotos = shuffleArray([...availablePhotos]);
+        function normalizeSubmittedPhoto(row) {
+            const seriesPhotos = Array.isArray(row.series_photos)
+                ? row.series_photos.filter(function(photo) { return photo && photo.url; })
+                : [];
 
-        // 创建要展示的照片数组
-        const displayPhotos = [];
-        for (let i = 0; i < totalDisplayCount; i++) {
-            const photo = shuffledPhotos[i % shuffledPhotos.length];
-            displayPhotos.push({
-                ...photo,
-                uniqueId: `${Math.floor(i / shuffledPhotos.length)}_${i}`
-            });
+            return {
+                title: row.title || '',
+                artist: row.artist || 'FRAME! Participant',
+                series: seriesPhotos.length > 1 ? { photos: seriesPhotos } : null,
+                url: row.url
+            };
+        }
+
+        async function fetchSubmittedPhotos() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${GALLERY_TABLE}?select=title,artist,url,series_photos,created_at&order=created_at.desc`, {
+                    headers: {
+                        apikey: SUPABASE_ANON_KEY,
+                        Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+
+                const rows = await response.json();
+                return rows.map(normalizeSubmittedPhoto).filter(function(photo) {
+                    return Boolean(photo.url);
+                });
+            } catch (error) {
+                console.warn('Could not load submitted gallery photos:', error);
+                return [];
+            }
         }
 
         // 获取gallery-grid元素
@@ -2052,13 +2077,17 @@
             // 使用OSS地址加载图片，并设置多源回退
             loadImageWithFallback(photo.url, img);
 
-            // 设置HTML内容
-            item.innerHTML = `
-                    <div class="gallery-item-overlay">
-                        <div class="gallery-item-title">${photo.title}</div>
-                        <div class="gallery-item-artist">${photo.artist}</div>
-                    </div>
-                `;
+            const overlay = document.createElement('div');
+            overlay.className = 'gallery-item-overlay';
+            const title = document.createElement('div');
+            title.className = 'gallery-item-title';
+            title.textContent = photo.title || '';
+            const artist = document.createElement('div');
+            artist.className = 'gallery-item-artist';
+            artist.textContent = photo.artist || '';
+            overlay.appendChild(title);
+            overlay.appendChild(artist);
+            item.appendChild(overlay);
 
             if (photo.series) {
                 const indicator = document.createElement('div');
@@ -2096,8 +2125,26 @@
             currentPage = page;
         }
 
-        // 初始加载
-        loadPage(0);
+        async function initializeGallery() {
+            const submittedPhotos = await fetchSubmittedPhotos();
+            const shuffledStaticPhotos = shuffleArray([...availablePhotos]);
+            const allPhotos = [...submittedPhotos, ...shuffledStaticPhotos].filter(function(photo) {
+                return Boolean(photo.url);
+            });
+
+            displayPhotos = allPhotos.map(function(photo, index) {
+                return {
+                    ...photo,
+                    uniqueId: `photo_${index}`
+                };
+            });
+
+            galleryGrid.innerHTML = '';
+            currentPage = 0;
+            loadPage(0);
+        }
+
+        initializeGallery();
 
         // 添加滚动监听
         const loadMoreThreshold = 100; // 距离底部多少像素时加载更多
